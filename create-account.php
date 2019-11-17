@@ -35,8 +35,15 @@ if(isset($_POST['createaccount']))
             {
                 if (filter_var($email, FILTER_VALIDATE_EMAIL))
                 {
-                    DB::query('INSERT INTO users (username, password, email) VALUES (:username, :password, :email)', array(':username'=>$username, ':password'=>password_hash($password, PASSWORD_BCRYPT), ':email'=>$email));
-                    echo "User succesfully registered!";
+                    if (!DB::query('SELECT email FROM users WHERE email=:email', array(':email'=>$email)))
+                    {
+                        DB::query('INSERT INTO users (username, password, email) VALUES (:username, :password, :email)', array(':username'=>$username, ':password'=>password_hash($password, PASSWORD_BCRYPT), ':email'=>$email));
+                        echo "User succesfully registered!";
+                    }
+                    else
+                    {
+                        echo "Email in use!";
+                    }
                 }    
                 else
                 {

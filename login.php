@@ -1,5 +1,6 @@
 <?php
-    include("classes/DB.php");
+    include_once("./classes/DB.php");
+    include_once("./classes/Login.php");
 
     try
     {
@@ -36,7 +37,8 @@
                 $token = sha1($toke);
                 DB::query('INSERT INTO tokens (token, user_id) VALUES (:token, :user_id)', array(':token'=>$token, ':user_id'=>$user_id));
             
-                setcookie("CID", $toke, time() + 60 * 60 * 24 * 7, '/', NULL, NULL, TRUE );
+                setcookie("CID", $toke, time() + 60 * 60 * 24 * 7, '/', NULL, NULL, TRUE);
+                setcookie("CID_REFRESH", 'irrelevant', time() + 60 * 60 * 24 * 3, '/', NULL, NULL, TRUE);
             }
             else
             {

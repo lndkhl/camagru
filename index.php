@@ -1,4 +1,7 @@
 <?php
+    include_once("./classes/DB.php");
+    include_once("./classes/Login.php");
+
     $hostname = '127.0.0.1';
     $username = 'root';
     $password = 'root';
@@ -15,28 +18,14 @@
     {
         echo $sql . "<br>" . $e->getMessage();
     }
-    
-    function isLoggedIn()
-    {
-        if(isset($_COOKIE["CID"]))
-        {
-            $hashcookie = sha1($_COOKIE["CID"]);
-            if (DB::query('SELECT user_id FROM tokens WHERE token= :token', array(':token'=>$hashcookie)))
-            {
-                echo "testing...";
-                return true;;
-            }
-        }
-        return false;
-    }
 
-    if (isLoggedIn())
+    if (Login::isLoggedIn())
     {
-        echo "You are logged in!";
+        echo Login::isLoggedIn();
+        echo " is logged in!";
     }
     else
     {
         echo "You are not logged in!";
     }
-
 ?>
