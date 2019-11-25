@@ -15,7 +15,7 @@
             FOREIGN KEY (user_id) REFERENCES users(id)
             )";
         $pdo->exec($sql);
-        echo "Table password_tokens created successfully";
+        echo "Table password_tokens created successfully<br>";
     }
     catch(PDOException $e)
     {
@@ -28,10 +28,6 @@
         $bother = True;
         $toke = bin2hex(openssl_random_pseudo_bytes(64, $bother));
         $user_id = DB::query('SELECT id FROM users WHERE email=:email', array(':email'=>$email))[0]['id'];
-        echo $user_id;
-        echo "<br>";
-        echo $email;
-        echo "<br>";
         $token = sha1($toke);
         DB::query('INSERT INTO password_tokens (token, user_id) VALUES (:token, :user_id)', array(':token'=>$token, ':user_id'=>$user_id));
         mail($email, "Password Reset", $token);
