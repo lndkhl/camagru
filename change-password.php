@@ -3,7 +3,7 @@
     include_once("./classes/DB.php");
     include_once("./classes/Login.php");
 
-
+    $tokenIsValid = False;
     if (Login::isLoggedIn())
     {
         echo Login::isLoggedIn();
@@ -42,17 +42,18 @@
     }
     else
     {
-        $tokenIsValid = False;
         if (isset($_GET['token']))
         {
             $token = $_GET['token'];
-            //$token = sha1($toke);
             if (DB::query('SELECT user_id FROM password_tokens WHERE token=:token', array(':token'=>$token)))
             {
                 $tokenIsValid = True;
                 $user_id = DB::query('SELECT user_id FROM password_tokens WHERE token=:token', array(':token'=>$token))[0]['user_id'];
                 if (isset($_POST['changepassword']))
                 {
+                    $newpassword = $_POST['newpassword'];
+                    $newpassword_ = $_POST['newpassword_'];
+
                     if ($newpassword == $newpassword_)
                     {
                         if (strlen($newpassword) >= 8 && strlen($newpassword) <= 30)
@@ -60,6 +61,7 @@
                             $hashpassword = password_hash($newpassword, PASSWORD_BCRYPT);
                             DB::query('UPDATE users SET password=:newpassword WHERE id=:userid', array(":newpassword"=>$hashpassword, ":userid"=>$user_id));
                             echo "Password changed successfully!";
+                            DB::query('DELETE FROM password_tokens WHERE user_id=:user_id', array(':user_id'=>$user_id));
                         }
                         else
                         {
@@ -70,7 +72,7 @@
             }
             else
             {
-                die("Token invalid!");
+                die("Invalid token!");
             }
         }
         else
@@ -81,7 +83,7 @@
 }
 ?>
 <h1>Change your Password</h1>
-<form method="post" action="<?php if (!$tokenIsValid) {echo "change-password.php";} else {echo "change-password.php?token='.$toke.'";} ?>" method ='post'>
+<form action="<?php if (!$tokenIsValid) {echo "change-password.php";} else {echo "change-password.php?token=$token";} ?>" method ='post'>
     <?php if (!$tokenIsValid) {echo "<input type='password' name='oldpassword' value='' placeholder='Current Password...'></p>";} ?>
     <input type='password' name='newpassword' value='' placeholder='New Password...'></p>
     <input type='password' name='newpassword_' value='' placeholder='New Password Again...'></p>

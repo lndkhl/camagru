@@ -39,6 +39,9 @@
             
                 setcookie("CID", $toke, time() + 60 * 60 * 24 * 7, '/', NULL, NULL, TRUE);
                 setcookie("CID_REFRESH", 'irrelevant', time() + 60 * 60 * 24 * 3, '/', NULL, NULL, TRUE);
+                echo "Welcome ";
+                echo $username;
+                echo "!<br>";
             }
             else
             {

@@ -1,6 +1,5 @@
 <?php
     include_once("./classes/DB.php");
-    include_once("./classes/Login.php");
 
     try
     {
@@ -30,7 +29,7 @@
         $user_id = DB::query('SELECT id FROM users WHERE email=:email', array(':email'=>$email))[0]['id'];
         $token = sha1($toke);
         DB::query('INSERT INTO password_tokens (token, user_id) VALUES (:token, :user_id)', array(':token'=>$token, ':user_id'=>$user_id));
-        mail($email, "Password Reset", $token);
+        mail($email, "Password Reset", "http://localhost:8888/Camagru/change-password.php?token=$token");
         echo 'Email sent!';
     }
 ?>
