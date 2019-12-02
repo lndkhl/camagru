@@ -54,9 +54,29 @@
             } 
         }
 
-        public static function test()
+        public static function create_table_tokens()
         {
-            print_r(self::query("SELECT * FROM camagru.users"));
+            try
+            {
+                $sql = $sql = "CREATE TABLE IF NOT EXISTS camagru.tokens(
+                    id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                    token CHAR(64) UNIQUE NOT NULL,
+                    user_id INT(12) UNSIGNED NOT NULL,
+                    
+                    FOREIGN KEY (user_id) REFERENCES users(id)
+                    )";
+                self::connect()->exec($sql);
+                //echo "<br>Table tokens created successfully<br>";
+            }
+            catch(PDOException $e)
+            {
+                echo "tokens table error: " . $e->getMessage();
+            } 
+        }
+
+        public static function test($table)
+        {
+            print_r(self::query("SELECT * FROM camagru.$table"));
         }
 
         public static function query($query, $params = array())

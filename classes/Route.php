@@ -10,7 +10,6 @@ class Route
         {
             $function->__invoke();
         }
-        print_r($validRoutes);
     }
 }
 ?>
