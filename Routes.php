@@ -1,7 +1,7 @@
 <?php
 Route::set('change-password', function () { ChangePassword::create_view("change-password");});
 
-Route::set('password-reset', function() { echo "password-reset";});
+Route::set('reset-password', function() { ResetPassword::create_view("reset-password");});
 
 Route::set('create-account', function() { CreateAccount::create_view("create-account");});
 

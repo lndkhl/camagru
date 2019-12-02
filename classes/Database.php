@@ -74,6 +74,26 @@
             } 
         }
 
+        public static function create_table_password_tokens()
+        {
+            try
+            {
+                $sql = "CREATE TABLE IF NOT EXISTS camagru.password_tokens(
+                    id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                    token CHAR(64) UNIQUE NOT NULL,
+                    user_id INT(12) UNSIGNED NOT NULL,
+                
+                    FOREIGN KEY (user_id) REFERENCES users(id)
+                    )";
+                self::conect()->exec($sql);
+                //echo "Table password_tokens created successfully<br>";
+            }
+            catch(PDOException $e)
+            {
+                echo $sql . "<br>" . $e->getMessage();
+            }
+        }
+
         public static function test($table)
         {
             print_r(self::query("SELECT * FROM camagru.$table"));
