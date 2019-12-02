@@ -6,9 +6,6 @@ class ChangePassword extends Controller
         $tokenIsValid = False;
         if (Login::isLoggedIn())
         {
-            echo Login::isLoggedIn();
-            echo " is logged in!";
-
             $oldpassword = $_POST["oldpassword"];
             $newpassword = $_POST["newpassword"];
             $newpassword_ = $_POST["newpassword_"];
