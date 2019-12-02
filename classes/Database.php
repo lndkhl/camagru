@@ -94,6 +94,26 @@
             }
         }
 
+        public static function create_table_profile()
+        {
+            try
+            {        
+                $sql = "CREATE TABLE IF NOT EXISTS camagru.profile(
+                    id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                    post CHAR(64) UNIQUE NOT NULL,
+                    user_id INT(12) UNSIGNED NOT NULL,
+            
+                    FOREIGN KEY (user_id) REFERENCES users(id)
+                    )";
+                self::connect()->exec($sql);
+                //echo "Table followers created successfully<br>";
+            }
+            catch(PDOException $e)
+            {
+                echo $sql . "<br>" . $e->getMessage();
+            }
+        }
+
         public static function test($table)
         {
             print_r(self::query("SELECT * FROM camagru.$table"));

@@ -10,4 +10,6 @@ Route::set('login', function() { Log_in::create_view("login");});
 Route::set('index', function() { CreateDatabase::reset();});
 
 Route::set('logout', function() { Logout::create_view("logout");});
+
+Route::set('profile', function() { Profile::create_view("profile");});
 ?>
