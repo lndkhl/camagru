@@ -30,7 +30,7 @@
             }
             catch(PDOException $e)
             {
-                echo $sql . "<br>" . $e->getMessage();
+                echo "create database error: " . "<br>" . $e->getMessage();
             }
         }
 
@@ -63,7 +63,7 @@
                     token CHAR(64) UNIQUE NOT NULL,
                     user_id INT(12) UNSIGNED NOT NULL,
                     
-                    FOREIGN KEY (user_id) REFERENCES users(id)
+                    FOREIGN KEY (user_id) REFERENCES camagru.users(id)
                     )";
                 self::connect()->exec($sql);
                 //echo "<br>Table tokens created successfully<br>";
@@ -83,14 +83,14 @@
                     token CHAR(64) UNIQUE NOT NULL,
                     user_id INT(12) UNSIGNED NOT NULL,
                 
-                    FOREIGN KEY (user_id) REFERENCES users(id)
+                    FOREIGN KEY (user_id) REFERENCES camagru.users(id)
                     )";
                 self::conect()->exec($sql);
                 //echo "Table password_tokens created successfully<br>";
             }
             catch(PDOException $e)
             {
-                echo $sql . "<br>" . $e->getMessage();
+                echo "password tokens table error: " . "<br>" . $e->getMessage();
             }
         }
 
@@ -100,17 +100,17 @@
             {        
                 $sql = "CREATE TABLE IF NOT EXISTS camagru.profile(
                     id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                    post CHAR(64) UNIQUE NOT NULL,
+                    post CHAR(64), likes INT(12) UNSIGNED, comments CHAR(140),
                     user_id INT(12) UNSIGNED NOT NULL,
             
-                    FOREIGN KEY (user_id) REFERENCES users(id)
+                    FOREIGN KEY (user_id) REFERENCES camagru.users(id)
                     )";
                 self::connect()->exec($sql);
                 //echo "Table followers created successfully<br>";
             }
             catch(PDOException $e)
             {
-                echo $sql . "<br>" . $e->getMessage();
+                echo "profile table error: " . "<br>" . $e->getMessage();
             }
         }
 
