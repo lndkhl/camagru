@@ -13,7 +13,7 @@ class ResetPassword extends Controller
                 $user_id = DB::query('SELECT id FROM camagru.users WHERE email=:email', array(':email'=>$email))[0]['id'];
                 $token = sha1($toke);
                 DB::query('INSERT INTO password_tokens (token, user_id) VALUES (:token, :user_id)', array(':token'=>$token, ':user_id'=>$user_id));
-                mail($email, "Password Reset", "http://localhost:8888/Camagru/change-password/?token=$token");
+                mail($email, "Password Reset", "http://localhost:8888/Camagru/change-password_tokenized/?token=$token");
                 echo 'Email sent!';
             }
             else
@@ -23,3 +23,4 @@ class ResetPassword extends Controller
         }
     }
 }
+?>

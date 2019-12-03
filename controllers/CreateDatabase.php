@@ -5,7 +5,7 @@ class CreateDatabase extends Controller
     {
         if (isset($_POST['recreate']))
         {
-            require_once('./setup.php');
+            require_once('./resources/setup.php');
         }
     }
 }

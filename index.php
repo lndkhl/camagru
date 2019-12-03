@@ -1,5 +1,5 @@
 <?php
-     require_once('./Routes.php');
+     require_once('./resources/routes.php');
 
     function __autoload($class_name)
     {
