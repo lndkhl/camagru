@@ -1,0 +1,40 @@
+<h1>Save Image</h1>
+
+<video id="video" width="640" height="480" autoplay></video>
+<button id="snap">Snap Photo</button>
+<canvas id="canvas" width="640" height="480"></canvas>
+
+<img id="img" width="640" height="480"/>
+
+<button type="button" onclick="saveImage()">save image</button>
+        
+        <script type="text/javascript">
+			window.onload = function() {
+				var canvas = document.getElementById("canvas");
+				var ctx = canvas.getContext("2d");
+				var img = document.getElementById("img");
+				ctx.drawImage(img, 0, 0);
+			}
+		</script>
+
+		<button type="button" onclick="saveImage()">save image</button>
+		<script type="text/javascript">
+			function saveImage() {
+				var ua = window.navigator.userAgent;
+
+				if (ua.indexOf("Chrome") > 0) {
+					// save image without file type
+					var canvas = document.getElementById("canvas");
+					document.location.href = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+
+					// save image as png
+					var link = document.createElement('a');
+    				link.download = "test.png";
+    				link.href = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");;
+    				link.click();
+				}
+				else {
+					alert("Please use Chrome");
+				}
+			}
+		</script>
