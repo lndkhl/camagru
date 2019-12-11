@@ -16,6 +16,10 @@ try
     Route::set('profile', function () { Profile::create_view("profile");});
 
     Route::set('change-password_tokenized', function () { ChangePassword::create_view("change-password_tokenized");});
+
+    Route::set('change-username', function () { ChangeUsername::create_view("change_username");});
+
+    Route::set('pics', function () { Pics::upload();});
 }
 catch (Exception $e)
 {

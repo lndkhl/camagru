@@ -1,10 +1,10 @@
-<h1>Gallery</h1>
+<h1 id="title">Profile</h1>
 
 <video id="video" width="480" height="360" autoplay></video>
 <button id="snap">Snap Photo</button>
 
 <canvas id="canvas" width="480" height="360"></canvas>
-<button id="save">save image</button>
+<button id="save">Save Image</button>
 
 <script>
     var video = document.getElementById('video');
@@ -26,7 +26,17 @@
         });
 
     document.getElementById("save").addEventListener("click", function() {
-        var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-        window.location.href = image;
+        var image = canvas.toDataURL("image/png");
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('POST', 'pics');
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function (res) {
+            if (xhr.status === 200 && xhr.readyState === xhr.DONE) {
+                console.log('Response Text: ' + res.target.response);
+                console.log('Response:', res);
+            }
+        }
+        xhr.send("image=" + image);
         })
 </script>

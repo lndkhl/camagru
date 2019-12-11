@@ -13,6 +13,3 @@
         }
     }
 ?>
-<form action="index" method="post">
-    <input type="submit" name="recreate" value="Reset">
-</form>

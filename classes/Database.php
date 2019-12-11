@@ -10,7 +10,7 @@
         {
             try
             {
-                $pdo = new PDO("mysql:".self::$host."=127.0.0.1; dbname=".$dbname."; charset=utf8", self::$username, self::$password);
+                $pdo = new PDO("mysql:hostname=".self::$host."; dbname=".$dbname."; charset=utf8", self::$username, self::$password);
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 return $pdo;
             }
@@ -19,6 +19,40 @@
                 echo "Error: " . $e->getMessage();
             }
         }
+
+        
+        public static function isLoggedIn()
+        {
+            if(isset($_COOKIE["CID"]))
+            {
+                $hashcookie = sha1($_COOKIE["CID"]);
+                if (Dquery('SELECT user_id FROM camagru.tokens WHERE token= :token', array(':token'=>$hashcookie)))
+                {
+                    $idnum = query('SELECT user_id FROM camagru.tokens WHERE token= :token', array(':token'=>$hashcookie))[0]['user_id'];
+                    $uid = query('SELECT username FROM camagru.users WHERE id= :user_id', array(':user_id'=>$idnum))[0]['username'];
+                        
+                    if (isset($_COOKIE["CID_REFRESH"]))
+                    {
+                        return $idnum;
+                    }
+                    else
+                    {
+                        $bother = True;
+                        $toke = bin2hex(openssl_random_pseudo_bytes(64, $bother));
+                        $token = sha1($toke);
+                        query('INSERT INTO camagru.tokens (token, user_id) VALUES (:token, :user_id)', array(':token'=>$token, ':user_id'=>$idnum));
+                        query('DELETE FROM camagru.tokens WHERE token=:token', array(':token'=>$hashcookie));
+                        
+                        setcookie("CID", $toke, time() + 60 * 60 * 24 * 7, '/', NULL, NULL, TRUE);
+                        setcookie("CID_REFRESH", 'irrelevant', time() + 60 * 60 * 24 * 3, '/', NULL, NULL, TRUE);
+                        
+                         return $idnum;
+                    }
+                }
+            }
+            return false;
+        }
+        
 
         public static function create_db()
         {
@@ -94,13 +128,13 @@
             }
         }
 
-        public static function create_table_profile()
+        public static function create_table_posts()
         {
             try
             {        
-                $sql = "CREATE TABLE IF NOT EXISTS camagru.profile(
+                $sql = "CREATE TABLE IF NOT EXISTS camagru.posts(
                     id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                    post CHAR(64), likes INT(12) UNSIGNED, comments CHAR(140),
+                    post CHAR(64), likes INT(12) UNSIGNED,
                     user_id INT(12) UNSIGNED NOT NULL,
             
                     FOREIGN KEY (user_id) REFERENCES camagru.users(id)

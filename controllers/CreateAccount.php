@@ -3,15 +3,13 @@ class CreateAccount extends Controller
 {
     public static function main_()
     {
-        self::create_table_users();
-
         if (isset($_POST['createaccount']))
         {
             $username = $_POST['username'];
             $password = $_POST['password'];
             $email = $_POST['email'];
 
-            if (!DB::query('SELECT username FROM camagru.users WHERE username= :username', array(':username'=>$username)))
+            if (!query('SELECT username FROM camagru.users WHERE username= :username', array(':username'=>$username)))
             {
                 if (strlen($username) >= 3 && strlen($username) <=30 && preg_match('/[a-zA-Z_]+/', $username))
                 {
@@ -19,9 +17,9 @@ class CreateAccount extends Controller
                     {
                         if (filter_var($email, FILTER_VALIDATE_EMAIL))
                         {
-                            if (!DB::query('SELECT email FROM camagru.users WHERE email=:email', array(':email'=>$email)))
+                            if (!query('SELECT email FROM camagru.users WHERE email=:email', array(':email'=>$email)))
                             {
-                                DB::query('INSERT INTO camagru.users (username, password, email) VALUES (:username, :password, :email)', array(':username'=>$username, ':password'=>password_hash($password, PASSWORD_BCRYPT), ':email'=>$email));
+                                query('INSERT INTO camagru.users (username, password, email) VALUES (:username, :password, :email)', array(':username'=>$username, ':password'=>password_hash($password, PASSWORD_BCRYPT), ':email'=>$email));
                                 echo "User succesfully registered!<br>";
                             }
                             else
