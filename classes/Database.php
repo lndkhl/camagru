@@ -26,11 +26,11 @@
             if(isset($_COOKIE["CID"]))
             {
                 $hashcookie = sha1($_COOKIE["CID"]);
-                if (Dquery('SELECT user_id FROM camagru.tokens WHERE token= :token', array(':token'=>$hashcookie)))
+                if (static::query('SELECT user_id FROM camagru.tokens WHERE token= :token', array(':token'=>$hashcookie)))
                 {
-                    $idnum = query('SELECT user_id FROM camagru.tokens WHERE token= :token', array(':token'=>$hashcookie))[0]['user_id'];
-                    $uid = query('SELECT username FROM camagru.users WHERE id= :user_id', array(':user_id'=>$idnum))[0]['username'];
-                        
+                    $idnum = static::query('SELECT user_id FROM camagru.tokens WHERE token= :token', array(':token'=>$hashcookie))[0]['user_id'];
+                    $uid = static::query('SELECT username FROM camagru.users WHERE id= :user_id', array(':user_id'=>$idnum))[0]['username'];
+                    
                     if (isset($_COOKIE["CID_REFRESH"]))
                     {
                         return $idnum;
@@ -40,8 +40,8 @@
                         $bother = True;
                         $toke = bin2hex(openssl_random_pseudo_bytes(64, $bother));
                         $token = sha1($toke);
-                        query('INSERT INTO camagru.tokens (token, user_id) VALUES (:token, :user_id)', array(':token'=>$token, ':user_id'=>$idnum));
-                        query('DELETE FROM camagru.tokens WHERE token=:token', array(':token'=>$hashcookie));
+                        static::query('INSERT INTO camagru.tokens (token, user_id) VALUES (:token, :user_id)', array(':token'=>$token, ':user_id'=>$idnum));
+                        static::query('DELETE FROM camagru.tokens WHERE token=:token', array(':token'=>$hashcookie));
                         
                         setcookie("CID", $toke, time() + 60 * 60 * 24 * 7, '/', NULL, NULL, TRUE);
                         setcookie("CID_REFRESH", 'irrelevant', time() + 60 * 60 * 24 * 3, '/', NULL, NULL, TRUE);
@@ -60,7 +60,7 @@
             {
                 self::connect()->exec("DROP DATABASE IF EXISTS camagru");
                 self::connect()->exec("CREATE DATABASE IF NOT EXISTS camagru");
-                //echo "Database created successfully<br>";
+                echo "Database created successfully<br>";
             }
             catch(PDOException $e)
             {
@@ -80,7 +80,7 @@
                     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
                     )";
                 self::connect()->exec($sql);
-                //echo "<br>Table users created successfully<br>";
+                echo "<br>Table users created successfully<br>";
             }
             catch(PDOException $e)
             {
@@ -100,7 +100,7 @@
                     FOREIGN KEY (user_id) REFERENCES camagru.users(id)
                     )";
                 self::connect()->exec($sql);
-                //echo "<br>Table tokens created successfully<br>";
+                echo "<br>Table tokens created successfully<br>";
             }
             catch(PDOException $e)
             {
@@ -120,7 +120,7 @@
                     FOREIGN KEY (user_id) REFERENCES camagru.users(id)
                     )";
                 self::conect()->exec($sql);
-                //echo "Table password_tokens created successfully<br>";
+                echo "Table password_tokens created successfully<br>";
             }
             catch(PDOException $e)
             {
@@ -140,7 +140,7 @@
                     FOREIGN KEY (user_id) REFERENCES camagru.users(id)
                     )";
                 self::connect()->exec($sql);
-                //echo "Table followers created successfully<br>";
+                echo "Table followers created successfully<br>";
             }
             catch(PDOException $e)
             {
@@ -167,7 +167,7 @@
             }
             catch (PDOException $e)
             {
-                echo "Error: " . $e->getMessage();
+                "Error: " . $e->getMessage();
             }
         }
     }

@@ -7,10 +7,10 @@ class ChangePassword extends Controller
         if (isset($_GET['token']))
         {
             $token = $_GET['token'];
-            if (query('SELECT user_id FROM camagru.password_tokens WHERE token=:token', array(':token'=>$token)))
+            if (static::query('SELECT user_id FROM camagru.password_tokens WHERE token=:token', array(':token'=>$token)))
             {
                 $tokenIsValid = True;
-                $user_id = query('SELECT user_id FROM camagru.password_tokens WHERE token=:token', array(':token'=>$token))[0]['user_id'];
+                $user_id = static::query('SELECT user_id FROM camagru.password_tokens WHERE token=:token', array(':token'=>$token))[0]['user_id'];
                 if (isset($_POST['changepassword']))
                 {
                     $newpassword = $_POST['newpassword'];
@@ -21,9 +21,9 @@ class ChangePassword extends Controller
                         if (strlen($newpassword) >= 8 && strlen($newpassword) <= 30)
                         {
                             $hashpassword = password_hash($newpassword, PASSWORD_BCRYPT);
-                            query('UPDATE camagru.users SET password=:newpassword WHERE id=:userid', array(":newpassword"=>$hashpassword, ":userid"=>$user_id));
+                            static::query('UPDATE camagru.users SET password=:newpassword WHERE id=:userid', array(":newpassword"=>$hashpassword, ":userid"=>$user_id));
                             echo "Password changed successfully!";
-                            query('DELETE FROM camagru.password_tokens WHERE user_id=:user_id', array(':user_id'=>$user_id));
+                            static::query('DELETE FROM camagru.password_tokens WHERE user_id=:user_id', array(':user_id'=>$user_id));
                         }
                         else
                         {
@@ -37,24 +37,24 @@ class ChangePassword extends Controller
                 die("Invalid token!");
             }
         }
-        else if (isLoggedIn())
+        else if (Database::isLoggedIn())
         {
             if (isset($_POST["oldpassword"]))
             {
                 $oldpassword = $_POST["oldpassword"];
                 $newpassword = $_POST["newpassword"];
                 $newpassword_ = $_POST["newpassword_"];
-                $user_id = isLoggedIn();
+                $user_id = Database::isLoggedIn();
 
-                if (password_verify($oldpassword, query('SELECT password FROM camagru.users WHERE id=:user_id', array(":user_id"=>$user_id))[0]['password']))
+                if (password_verify($oldpassword, static::query('SELECT password FROM camagru.users WHERE id=:user_id', array(":user_id"=>$user_id))[0]['password']))
                 {
-                    echo "Old password verified <br>";
+                    echo "<br>Old password verified <br>";
                     if ($newpassword == $newpassword_)
                     {
                         if (strlen($newpassword) >= 8 && strlen($newpassword) <= 30)
                         {
                             $hashpassword = password_hash($newpassword, PASSWORD_BCRYPT);
-                            query('UPDATE camagru.users SET password=:newpassword WHERE id=:userid', array(":newpassword"=>$hashpassword, ":userid"=>$user_id));
+                            static::query('UPDATE camagru.users SET password=:newpassword WHERE id=:userid', array(":newpassword"=>$hashpassword, ":userid"=>$user_id));
                             echo "Password changed successfully!";
                         }
                         else
@@ -64,13 +64,24 @@ class ChangePassword extends Controller
                     }
                     else
                     {
-                        echo "Passwords don't match!";
+                        if (!isset($_POST['newpassword']))
+                        {
+                            echo "Please enter a new password!";
+                        }
+                        else 
+                        {
+                            echo "Passwords don't match!";
+                        }     
                     }
                 }
                 else
                 {
                     echo "Incorrect password entered!";
                 }
+            }
+            else
+            {
+                echo "Please enter your current password";
             }
         }
         else

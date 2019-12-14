@@ -12,4 +12,5 @@
             require_once './controllers/'.$class_name.'.php';
         }
     }
+    spl_autoload_register('__autoload');
 ?>

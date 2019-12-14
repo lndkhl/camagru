@@ -4,6 +4,7 @@
         Database::create_db();  
         Database::create_table_users();
         Database::create_table_tokens();
+        Database::create_table_password_tokens();
         Database::create_table_posts();        
     }
     catch(PDOException $e)

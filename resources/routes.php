@@ -7,7 +7,7 @@ try
 
     Route::set('create-account', function() { CreateAccount::create_view("create-account");});
 
-    Route::set('login', function () { Log_in::create_view("login");});
+    Route::set('login', function () { Login::create_view("login");});
 
     Route::set('index', function () { CreateDatabase::reset();});
 
@@ -20,6 +20,10 @@ try
     Route::set('change-username', function () { ChangeUsername::create_view("change_username");});
 
     Route::set('pics', function () { Pics::upload();});
+
+    Route::set('home', function () { Home::create_view("home");});
+
+    Route::set('reset', function () { Home::reset_db();});
 }
 catch (Exception $e)
 {

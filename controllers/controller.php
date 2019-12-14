@@ -8,7 +8,6 @@ class Controller extends Database
              require_once("./views/$viewName.html");
         }
         static::main_();
-        //static::test();
     }
 }
 ?>

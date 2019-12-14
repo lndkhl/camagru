@@ -4,7 +4,7 @@
     {
         function upload ()
         {
-            if (isLoggedIn())
+            if (Database::isLoggedIn())
             {
                 if (isset($_POST['image']))
                 {
@@ -17,6 +17,8 @@
                 
                     $path = './images/' . time().'.png';
                     imagepng($image, $path);
+                    static::query("INSERT INTO camagru.posts(post, user_id) VALUES (:path, :user_id)", array(":path"=>$path, ":user_id"=>static::isLoggedIn()));
+                    echo "<br>Image succsessfully saved!<br>";
                 }
                 else
                 {

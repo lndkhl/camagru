@@ -1,15 +1,44 @@
-<h1 id="title">Profile</h1>
-
-<video id="video" width="480" height="360" autoplay></video>
-<button id="snap">Snap Photo</button>
-
-<canvas id="canvas" width="480" height="360"></canvas>
-<button id="save">Save Image</button>
-
+<!DOCTYPE html>
+<html>
+<head>
+    <h1 id="title">Profile</h1>
+</head>
+<body>
+    <p1>
+    <div>
+        <span style="float:left">
+        <video id="video" width="320" height="240" autoplay></video>
+        <br>
+        <button id="snap">Snap Photo</button>
+        <br>
+        </span>
+        <span style="float:right">
+        <canvas id="canvas" width="320" height="240"></canvas>
+        <br>
+        <button id="save">Save Image</button>
+        <br>
+        </span>
+    </div>
+    <form >
+    <span style="float:right">
+    <img src="http://localhost:8888/camagru/stickers/pepe.png" id="pepe" width="50" height="50">
+    </span>
+    <span style="float:right">
+    <img src="http://localhost:8888/camagru/stickers/gayaf.png" id="gayaf" width="50" height="50">
+    </span>
+    <span style="float:right">
+    <img src="http://localhost:8888/camagru/stickers/iheartanal.png" id="iheartanal" width="50" height="50">
+    </span>
+    <span style="float:right">
+    <img src="http://localhost:8888/camagru/stickers/imgay.png" id="imgay" width="50" height="50">
+    </span>
+    </form>
+    </p1>
 <script>
+
     var video = document.getElementById('video');
 
-    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) 
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) 
     {
         navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) 
         {
@@ -22,7 +51,7 @@
     var context = canvas.getContext('2d');
     
     document.getElementById("snap").addEventListener("click", function() {
-        context.drawImage(video, 0, 0, 480, 360);
+        context.drawImage(video, 0, 0, 320, 240);
         });
 
     document.getElementById("save").addEventListener("click", function() {
@@ -40,3 +69,5 @@
         xhr.send("image=" + image);
         })
 </script>
+    </body>    
+    </html>
