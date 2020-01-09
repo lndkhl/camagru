@@ -148,6 +148,26 @@
             }
         }
 
+        public static function create_table_comments()
+        {
+            try
+            {        
+                $sql = "CREATE TABLE IF NOT EXISTS camagru.comments(
+                    id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                    comment VARCHAR, likes INT(12) UNSIGNED,
+                    user_id INT(12) UNSIGNED NOT NULL,
+            
+                    FOREIGN KEY (user_id) REFERENCES camagru.users(id)
+                    )";
+                self::connect()->exec($sql);
+                echo "Table followers created successfully<br>";
+            }
+            catch(PDOException $e)
+            {
+                echo "profile table error: " . "<br>" . $e->getMessage();
+            }
+        }
+
         public static function test($table)
         {
             print_r(self::query("SELECT * FROM camagru.$table"));
