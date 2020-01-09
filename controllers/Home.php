@@ -10,7 +10,7 @@ class Home extends Controller
 
     public static function main_()
     {
-
+        
     }
 }
 ?>
