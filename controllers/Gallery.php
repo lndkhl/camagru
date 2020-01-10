@@ -16,7 +16,6 @@ class Gallery extends Controller
             }
             $i += 1;
         }
-        //echo'<img src="data:image;base64,'.$sth['image'].'">';       
     }
 }
 ?>

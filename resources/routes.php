@@ -9,7 +9,7 @@ try
 
     Route::set('login', function () { Login::create_view("login");});
 
-    Route::set('index', function () { CreateDatabase::reset();});
+    Route::set('index', function () { Home::create_view("home");});
 
     Route::set('logout', function () { Logout::create_view("logout");});
 
