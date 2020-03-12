@@ -92,7 +92,7 @@
         {
             try
             {
-                $sql = $sql = "CREATE TABLE IF NOT EXISTS camagru.tokens(
+                $sql = "CREATE TABLE IF NOT EXISTS camagru.tokens(
                     id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                     token CHAR(64) UNIQUE NOT NULL,
                     user_id INT(12) UNSIGNED NOT NULL,
@@ -114,13 +114,14 @@
             {
                 $sql = "CREATE TABLE IF NOT EXISTS camagru.password_tokens(
                     id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                    token CHAR(64) UNIQUE NOT NULL,
+                    password_token CHAR(64) UNIQUE NOT NULL,
                     user_id INT(12) UNSIGNED NOT NULL,
-                
+                    
                     FOREIGN KEY (user_id) REFERENCES camagru.users(id)
-                    )";
+                    )"; 
                 self::conect()->exec($sql);
-                echo "Table password_tokens created successfully<br>";
+                echo "<br>creating password tokens table<br>";
+                echo "<br>Table password_tokens created successfully<br>";
             }
             catch(PDOException $e)
             {
@@ -140,7 +141,7 @@
                     FOREIGN KEY (user_id) REFERENCES camagru.users(id)
                     )";
                 self::connect()->exec($sql);
-                echo "Table followers created successfully<br>";
+                echo "<br>Table posts created successfully<br>";
             }
             catch(PDOException $e)
             {
@@ -150,6 +151,7 @@
 
         public static function create_table_comments()
         {
+            echo "trying to create comments table";
             try
             {        
                 $sql = "CREATE TABLE IF NOT EXISTS camagru.comments(
@@ -160,7 +162,7 @@
                     FOREIGN KEY (user_id) REFERENCES camagru.users(id)
                     )";
                 self::connect()->exec($sql);
-                echo "Table followers created successfully<br>";
+                echo "Table comments created successfully<br>";
             }
             catch(PDOException $e)
             {

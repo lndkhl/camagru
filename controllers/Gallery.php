@@ -3,6 +3,8 @@ class Gallery extends Controller
 {
     public static function main_()
     {
+        require_once (resources/cleanup.php);
+        /*
         $sth = static::query("SELECT post FROM camagru.posts");
         $i = 0;
         $j = 0;
@@ -15,7 +17,9 @@ class Gallery extends Controller
                 $j += 1;
             }
             $i += 1;
+        
         }
+        */
     }
 }
 ?>

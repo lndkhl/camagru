@@ -26,6 +26,8 @@ try
     Route::set('reset', function () { Home::reset_db();});
 
     Route::set('gallery', function () {Gallery::create_view("gallery");});
+
+    Route::set('', function () {Home::create_view("home");});
 }
 catch (Exception $e)
 {
