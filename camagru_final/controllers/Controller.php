@@ -1,5 +1,5 @@
 <?php
-class Controller extends Database
+class Controller extends Users
 {
     public static function create_view($viewName)
     {

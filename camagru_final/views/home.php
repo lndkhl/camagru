@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>
-            practice
+            camagru
         </title>
         <link href="./CSS/fonts.css" type="text/css" rel="stylesheet" />
     </head>
