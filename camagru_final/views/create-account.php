@@ -24,23 +24,15 @@
             </p>
         </nav><!-- end of links -->
 
-        <p id="p_1">
+        <p>
             <form action="./profile.html" method="post">    
             <fieldset id="field_1">
             <legend>login</legend>
             <p><input type="text" name="username" placeholder="username" maxlength="20" required="required"></p>
+            <p><input tpye="email" name="email" placeholder="e-mail" maxlength="30" required="required"></p>
             <p><input type="password" name="password" placeholder="password" maxlength="30" required="required"></p>
-            <p><input type="submit" name="login" value="login" id="submit_login"></p>
-            </fieldset>
-            </form>
-        </p>
-        <hr id="form_split"/>
-        <p id="p_2">
-            <form action="./reset-password.html" method="post">
-            <fieldset id="field_2">
-            <legend>reset password</legend>
-            <p><input type="email" name="email" placeholder="e-mail" maxlength="50" required="required"></p>
-            <p><input type="submit" name="reset-password" value="reset password" id="submit_reset"></p>
+            <p><input type="password" name="reenterpassword" placeholder="reenter password" maxlength= "30" required="required"></p>
+            <p><input type="submit" name="create-account" value="create-account" id="create-account"></p>
             </fieldset>
             </form>
         </p>
