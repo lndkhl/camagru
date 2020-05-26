@@ -1,9 +1,9 @@
 <?php
-class Home extends Controller
+class Gallery extends Users
 {
     function main_()
     {
-        
+
     }
 }
 ?>

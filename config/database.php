@@ -1,6 +1,62 @@
 <?php
-class Users extends Database
+class database
 {
+    private static $host = "127.0.0.1";
+    private static $dbname = "camagru";
+    private static $username = "root";
+    private static $password = "root";
+
+    private static function connect() 
+    {
+        try
+        {
+            $pdo = new PDO("mysql:hostname=".self::$host."; dbname=".$dbname."; charset=utf8", self::$username, self::$password);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $pdo;
+        }
+        catch (PDOException $e)
+        {
+            echo "PDO error: " . $e->getMessage();
+        }
+    }
+
+    public static function create_db()
+    {
+        try
+        {
+            self::connect()->exec("CREATE DATABASE IF NOT EXISTS camagru");
+            //echo "Database created successfully<br>";
+        }
+        catch(PDOException $e)
+        {
+            echo "create database error: " . "<br>" . $e->getMessage();
+        }
+    }
+
+    public static function recreate_db()
+    {
+        try
+        {
+            self::connect()->exec("DROP DATABASE IF EXISTS camagru");
+        }
+        catch(PDOException $e)
+        {
+            echo "recreate database error: " . "<br>" . $e->getMessage();
+        }
+        static::create_db();
+    }
+
+    public static function query($query, $params)
+    {
+        $statement= self::connect()->prepare($query);
+        $statement->execute($params);
+        if (explode(' ', $query)[0] == 'SELECT')
+        {
+            $data = $statement->fetchAll();
+            return $data;
+        }
+    }
+    
     public static function create_table_users()
     {
         try
@@ -13,7 +69,7 @@ class Users extends Database
                 registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
                 )";
             self::connect()->exec($sql);
-            echo "<br>Table users created successfully<br>";
+            //echo "<br>Table users created successfully<br>";
         }
         catch(PDOException $e)
         {
@@ -33,35 +89,34 @@ class Users extends Database
                 FOREIGN KEY (user_id) REFERENCES camagru.users(id)
                 )";
             self::connect()->exec($sql);
-            echo "<br>Table tokens created successfully<br>";
+            //echo "<br>Table tokens created successfully<br>";
         }
         catch(PDOException $e)
         {
             echo "tokens table error: " . $e->getMessage();
         } 
     }
-
+    
     public static function create_table_password_tokens()
     {
         try
         {
-            $sql = "CREATE TABLE IF NOT EXISTS camagru.password_tokens(
+            $sql = "CREATE TABLE IF NOT EXISTS camagru.pokens(
                 id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                password_token CHAR(64) UNIQUE NOT NULL,
+                poken CHAR(64) UNIQUE NOT NULL,
                 user_id INT(12) UNSIGNED NOT NULL,
                 
                 FOREIGN KEY (user_id) REFERENCES camagru.users(id)
-                )"; 
-            self::conect()->exec($sql);
-            echo "<br>creating password tokens table<br>";
-            echo "<br>Table password_tokens created successfully<br>";
+                )";
+            self::connect()->exec($sql);
+            //echo "<br>Table pokens created successfully<br>";
         }
         catch(PDOException $e)
         {
-            echo "password tokens table error: " . "<br>" . $e->getMessage();
-        }
+            echo "ptokens table error: " . $e->getMessage();
+        } 
     }
-
+    
     public static function create_table_posts()
     {
         try
@@ -74,7 +129,7 @@ class Users extends Database
                 FOREIGN KEY (user_id) REFERENCES camagru.users(id)
                 )";
             self::connect()->exec($sql);
-            echo "<br>Table posts created successfully<br>";
+            //echo "<br>Table posts created successfully<br>";
         }
         catch(PDOException $e)
         {
@@ -84,22 +139,21 @@ class Users extends Database
 
     public static function create_table_comments()
     {
-        echo "trying to create comments table";
         try
         {        
             $sql = "CREATE TABLE IF NOT EXISTS camagru.comments(
                 id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                comment VARCHAR, likes INT(12) UNSIGNED,
+                comment VARCHAR(240), likes INT(12) UNSIGNED,
                 user_id INT(12) UNSIGNED NOT NULL,
         
                 FOREIGN KEY (user_id) REFERENCES camagru.users(id)
                 )";
             self::connect()->exec($sql);
-            echo "Table comments created successfully<br>";
+            //echo "<br>Table comments created successfully<br>";
         }
         catch(PDOException $e)
         {
-            echo "profile table error: " . "<br>" . $e->getMessage();
+            echo "<br>comments table error: " . "<br>" . $e->getMessage();
         }
     }
 }

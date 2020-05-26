@@ -13,10 +13,10 @@ class Route
 }
 try
 {
-    Route::set("", function () {Home::create_view("home");});
+    //Route::set("", function () {Controller::create_view("home");});
     Route::set("home", function () {Home::create_view("home");});
-    Route::set("index", function () {Home::create_view("home");});
-    Route::set("create-account", function () {CreateAccount::create_view("create-account");});
+    Route::set("gallery", function () {Gallery::create_view("gallery");});
+    Route::set("profile", function () {Profile::create_view("profile");});
 }
 catch (Exception $e)
 {
