@@ -15,6 +15,8 @@ class ResetPassword extends Users
                     $poken = bin2hex(openssl_random_pseudo_bytes(64, $cryptographically_strong));
                     if (mail($email, $subject, $poken))
                     {
+                        static::query('INSERT INTO camagru.pokens (poken, user_id) VALUES (:poken, :user_id)',
+                                    array(':poken'=>sha1($poken), ':user_id'=>static::query('SELECT id FROM camagru.users WHERE email=:email', array(':email'=>$email))[0]['id']));
                         echo "Email sent";
                     }
                     else
