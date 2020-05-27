@@ -10,12 +10,12 @@ class Home extends Controller
             $password = $_POST['password'];
             $email = $_POST['email'];
 
-            //if (!database::query('SELECT username FROM camagru.users WHERE username==:username', array(':username'=>$username)))
-            //{
-            //    if (strlen($username) >= 3 && strlen($username) <=30 && preg_match('/[a-zA-Z_]+/', $username))
-            //    {
-            //        if(strlen($password) >= 8 && strlen($password) <= 30)
-            //        {
+            if (!static::query('SELECT username FROM camagru.users WHERE username=:username', array(':username'=>$username)))
+            {
+                if (strlen($username) >= 3 && strlen($username) <=30 && preg_match('/[a-zA-Z_]+/', $username))
+                {
+                    if(strlen($password) >= 8 && strlen($password) <= 30)
+                    {
                         if (filter_var($email, FILTER_VALIDATE_EMAIL))
                         {
                             if (!static::query('SELECT email FROM camagru.users WHERE email=:email', array(':email'=>$email)))
@@ -32,21 +32,21 @@ class Home extends Controller
                         {
                             echo "Invalid Email Address";
                        }
-            //        }
-            //        else
-            //        {
-            //            echo "Invalid Password (minimum 8 characters)";
-            //        }
-            //    }
-            //    else
-            //    {
-            //        echo "Invalid Username";
-            //    }
-            //}
-            //else
-            //{
-            //    echo "User already exists!";
-            //}
+                    }
+                    else
+                    {
+                        echo "Invalid Password (minimum 8 characters)";
+                    }
+                }
+                else
+                {
+                    echo "Invalid Username";
+                }
+            }
+            else
+            {
+                echo "User already exists!";
+            }
         }
     }
 }
