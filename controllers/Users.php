@@ -1,7 +1,7 @@
 <?php
 class Users extends Controller
 {
-    function isLoggedIn()
+    public static function isLoggedIn()
     {
         if (isset($_COOKIE['CamagruID']))
         {
@@ -25,6 +25,11 @@ class Users extends Controller
             }
             return FALSE;
         }
-    }
+   }
+
+   function logout()
+   {
+       
+   }
 }
 ?>

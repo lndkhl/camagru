@@ -2,10 +2,10 @@
 require_once('./controllers/Route.php');
 
 require_once('./controllers/Users.php');
-if (Users::isLoggedIn())
-{
-    echo Users::isLoggedIn();
-}
+//if (Users::isLoggedIn())
+//{
+//    echo Users::isLoggedIn();
+//}
 
 function __autoload($class_name)
 {

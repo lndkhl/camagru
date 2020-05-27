@@ -23,7 +23,7 @@
         </nav><!-- end of links -->
 
         <p>
-            <form action="login" method="post">    
+            <form action="login" method="post">
             <fieldset id="field_1">
             <legend>login</legend>
             <p><input type="text" name="username" placeholder="username..." maxlength="20" required="required"></p>
