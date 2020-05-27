@@ -19,7 +19,8 @@ class Login extends Users
                     $token = bin2hex(openssl_random_pseudo_bytes(64, $cryptographically_strong));
                     $user_id = static::query('SELECT id FROM camagru.users WHERE username=:username', array(':username'=>$username))[0]['id'];
                     static::query('INSERT INTO camagru.tokens (token, user_id) VALUES (:token, :user_id)', array(':token'=>sha1($token), ':user_id'=>$user_id));
-                    setcookie('CamagruID',$token, time() + 604800, '/', NULL, NULL, TRUE);
+                    setcookie('CamagruID',$token, time() + 604800 /*1 week*/, '/', NULL, NULL, TRUE);
+                    setcookie('StayIn', '1', time() + 259200 /*3 days*/, '/', NULL, NULL, TRUE);
                 }
                 else
                 {
