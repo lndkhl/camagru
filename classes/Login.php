@@ -15,6 +15,9 @@ class Login extends Users
                  array(':username'=>$username))[0]['password']))
                 {
                     echo "Welcome back ". $username . "<br>";
+                    $cryptographically_strong = true;
+                    $token = bin2hex(openssl_random_pseudo_bytes(64, $cryptographically_strong));
+                    echo "<br>" . $token;
                 }
                 else
                 {
