@@ -1,9 +1,8 @@
 <?php
-class Home extends Controller
+class CreateAccount extends Users
 {
     function main_()
     {
-        setup::initialize();
         if (isset($_POST['create-account']))
         {
             $username = $_POST['username'];

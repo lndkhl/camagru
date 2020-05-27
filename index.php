@@ -1,5 +1,5 @@
 <?php
-require_once('./classes/Route.php');
+require_once('./controllers/Route.php');
 
 function __autoload($class_name)
 {
