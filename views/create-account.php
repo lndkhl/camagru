@@ -15,13 +15,14 @@
         <nav>
             <p> 
                 <ul>
+                    <li><a href="login">login</a></li>
                     <li><a href="gallery">gallery</a></li>
                 </ul>
             </p>
         </nav><!-- end of links -->
 
         <p>
-            <form action="home" method="post">    
+            <form action="create-account" method="post">    
             <fieldset id="field_1">
             <legend>create account</legend>
             <p><input type="text" name="username" placeholder="username..." maxlength="20" required="required"></p>

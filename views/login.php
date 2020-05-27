@@ -16,18 +16,19 @@
             <p> 
                 <ul>
                     <li><a href="reset-password">reset password</a></li>
+                    <li><a href="create-account"> create account</a></li>
                     <li><a href="gallery">gallery</a></li>
                 </ul>
             </p>
         </nav><!-- end of links -->
 
         <p>
-            <form action="profile" method="post">    
+            <form action="login" method="post">    
             <fieldset id="field_1">
             <legend>login</legend>
             <p><input type="text" name="username" placeholder="username..." maxlength="20" required="required"></p>
             <p><input type="password" name="password" placeholder="password..." maxlength="30" required="required"></p>
-            <p><input type="submit" name="login" value="login" id="submit_login"></p>
+            <p><input type="submit" name="login" value="login" id="login"></p>
             </fieldset>
             </form>
         </p>

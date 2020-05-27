@@ -3,27 +3,28 @@ class Login extends Users
 {
     function main_()
     {
-        setup::initialize();
         if (isset($_POST['login']))
         {
             $username = $_POST['username'];
             $password = $_POST['password'];
 
-            if (static::query('SELECT username FROM camagru.users WHERE username=:username', array(':username'=>$username)))
-            {
-                if(strlen($password) >= 8 && strlen($password) <= 30)
+            if (static::query('SELECT username FROM camagru.users WHERE username=:username',
+                array(':username'=>$username)))
+            {    
+                if(password_verify($password, static::query('SELECT password FROM camagru.users WHERE username=:username',
+                 array(':username'=>$username))[0]['password']))
                 {
-                    static::query('INSERT INTO camagru.users (username, password, email) VALUES (:username, :password, :email)', array(':username'=>$username, ':password'=>password_hash($password, PASSWORD_BCRYPT), ':email'=>$email));
-                    echo "User succesfully registered!<br>";
-                            
+                    echo "Welcome back ". $username . "<br>";
                 }
-                
+                else
+                {
+                    echo "Incorrect Password";
+                }
             }
             else
             {
                 echo "User not found";
             }
-
         }
     }
 }
