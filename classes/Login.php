@@ -17,7 +17,8 @@ class Login extends Users
                     echo "Welcome back ". $username . "<br>";
                     $cryptographically_strong = true;
                     $token = bin2hex(openssl_random_pseudo_bytes(64, $cryptographically_strong));
-                    echo "<br>" . $token;
+                    $user_id = static::query('SELECT id FROM camagru.users WHERE username=:username', array(':username'=>$username))[0]['id'];
+                    static::query('INSERT INTO camagru.tokens (token, user_id) VALUES (:token, :user_id)', array(':token'=>sha1($token), ':user_id'=>$user_id));
                 }
                 else
                 {
