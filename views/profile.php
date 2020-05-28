@@ -24,7 +24,9 @@
         </nav><!-- end of links -->
 
         <p>
-
+            <form action="profile" method="post">
+            <p><input type="submit" name="follow" value="follow" id="follow"></p>
+            </form>
         </p>
 
         <footer>

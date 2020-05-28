@@ -7,6 +7,7 @@ class setup extends database
         static::create_table_users();
         static::create_table_tokens();
         static::create_table_password_tokens();
+        static::create_table_followers();
         static::create_table_posts();
         static::create_table_comments();
     }

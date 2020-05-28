@@ -23,8 +23,8 @@ class Users extends Controller
                     return $user_id;
                 }
             }
-            return FALSE;
         }
+        return FALSE;
    }
 }
 ?>

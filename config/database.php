@@ -116,6 +116,26 @@ class database
         } 
     }
     
+    public static function create_table_followers()
+    {
+        try
+        {
+            $sql = "CREATE TABLE IF NOT EXISTS camagru.followers(
+                id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                user_id INT(12) UNSIGNED NOT NULL,
+                follower_id INT(12) UNSIGNED NOT NULL,
+                
+                FOREIGN KEY (user_id) REFERENCES camagru.users(id)
+                )";
+                self::connect()->exec($sql);
+                //echo "<br>Table followers created successfully<br>";
+        }
+        catch (PDOException $e)
+        {
+            echo "Follower table error: " . "<br>" . $e->getMessage();
+        }
+    }
+
     public static function create_table_posts()
     {
         try
