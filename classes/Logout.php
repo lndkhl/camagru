@@ -9,23 +9,30 @@ class Logout extends Users
     public static function main_()
     {
         $redirect = FALSE;
-        if (isset($_POST['confirm']))
+        if (static::isLoggedIn())
         {
-            if (isset($_POST['alldevices']))
+            if (isset($_POST['confirm']))
             {
-                static::query('DELETE FROM camagru.tokens WHERE user_id=:user_id', array(':user_id'=>static::isLoggedIn()));
-            }
-            else 
-            {
-                if (isset($_COOKIE['CamagruID']))
+                if (isset($_POST['alldevices']))
                 {
-                    static::query('DELETE FROM camagru.tokens WHERE token=:token', array(':token'=>sha1($_COOKIE['CamagruID'])));
+                    static::query('DELETE FROM camagru.tokens WHERE user_id=:user_id', array(':user_id'=>static::isLoggedIn()));
                 }
+                else 
+                {
+                    if (isset($_COOKIE['CamagruID']))
+                    {
+                        static::query('DELETE FROM camagru.tokens WHERE token=:token', array(':token'=>sha1($_COOKIE['CamagruID'])));
+                    }
+                }
+                setcookie('CamagruID',sha1($_COOKIE['CamagruID']), time() - 3600, '/', NULL, NULL, TRUE);
+                setcookie('StayIn', '1', time() - 3600, '/', NULL, NULL, TRUE);
+                Home::main_();
+                $redirect = TRUE;            
             }
-            setcookie('CamagruID',sha1($_COOKIE['CamagruID']), time() - 3600, '/', NULL, NULL, TRUE);
-            setcookie('StayIn', '1', time() - 3600, '/', NULL, NULL, TRUE);
-            Home::main_();
-            $redirect = TRUE;            
+        }
+        else
+        {
+            die("You are not logged in");
         }
         if (!$redirect)
         {

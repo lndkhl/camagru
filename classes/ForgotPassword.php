@@ -17,7 +17,7 @@ class ForgotPassword extends Users
             if (static::query('SELECT user_id FROM camagru.pokens WHERE poken=:poken', array(':poken'=>sha1($_GET['poken']))))
             {
                 $GLOBALS['change_id'] = static::query('SELECT user_id FROM camagru.pokens WHERE poken=:poken', array(':poken'=>sha1($_GET['poken'])))[0]['user_id'];
-                echo "changing password for user " . $change_id;
+                echo "changing password for user " . $change_id . "<br>";
                 if (isset($_POST['changepassword']))
                 {
                     $newpword = $_POST['newpassword'];
@@ -30,6 +30,7 @@ class ForgotPassword extends Users
                                 array(':newpassword'=>password_hash($newpword, PASSWORD_BCRYPT), ':user_id'=>$change_id));
                             echo "Password changed successfully";
                             static::query('DELETE FROM camagru.pokens WHERE user_id=:user_id', array(':user_id'=>$change_id));
+                            unset($GLOBALS['change_id']);
                             Home::main_();
                             $redirect = TRUE;
                         }
@@ -40,7 +41,7 @@ class ForgotPassword extends Users
                     }
                     else
                     {
-                        echo "\'new password\' does not match \'repeat new password\'";
+                        echo "Passwords do not match";
                     }
                 }
             }

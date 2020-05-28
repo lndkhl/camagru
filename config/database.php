@@ -1,16 +1,15 @@
 <?php
 class database
 {
-    private static $host = "127.0.0.1";
-    private static $dbname = "camagru";
-    private static $username = "root";
-    private static $password = "root";
+    private static $DB_DSN = "mysql:hostname=127.0.0.1; db_name=camagru; charset=utf8";
+    private static $DB_USER = "root";
+    private static $DB_PASSWORD = "root";
 
     private static function connect() 
     {
         try
         {
-            $pdo = new PDO("mysql:hostname=".self::$host."; db_name=".self::$dbname."; charset=utf8", self::$username, self::$password);
+            $pdo = new PDO(self::$DB_DSN, self::$DB_USER, self::$DB_PASSWORD);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $pdo;
         }
@@ -113,7 +112,7 @@ class database
         }
         catch(PDOException $e)
         {
-            echo "ptokens table error: " . $e->getMessage();
+            echo "pokens table error: " . $e->getMessage();
         } 
     }
     

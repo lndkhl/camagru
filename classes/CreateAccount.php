@@ -29,27 +29,27 @@ class CreateAccount extends Users
                             }
                             else
                             {
-                                echo "Email in use!";
+                                echo "Email address in use";
                             }
                         }    
                        else
                         {
-                            echo "Invalid Email Address";
+                            echo "Invalid email address";
                        }
                     }
                     else
                     {
-                        echo "Invalid Password (minimum 8 characters)";
+                        echo "Invalid password (minimum 8 characters)";
                     }
                 }
                 else
                 {
-                    echo "Invalid Username";
+                    echo "Invalid username";
                 }
             }
             else
             {
-                echo "User already exists!";
+                echo "User already exists";
             }
         }
         static::create_view("create-account");

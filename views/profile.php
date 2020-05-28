@@ -15,7 +15,7 @@
         <nav>
             <p> 
                 <ul>
-                    <li><a href="home">home</a>></li>
+                    <li><a href="home">home</a></li>
                     <li><a href="logout">logout</a></li>
                     <li><a href="gallery">gallery</a></li>
                     <li><a href="change-password">change password</a></li>
@@ -24,7 +24,7 @@
         </nav><!-- end of links -->
 
         <p>
-            profile
+
         </p>
 
         <footer>
