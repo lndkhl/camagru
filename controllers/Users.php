@@ -26,10 +26,11 @@ class Users extends Controller
             return FALSE;
         }
    }
-
+   /*
    function logout()
    {
        
    }
+   */
 }
 ?>

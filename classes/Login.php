@@ -1,7 +1,12 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 class Login extends Users
 {
-    function main_()
+    public static function main_()
     {
         if (isset($_POST['login']))
         {
@@ -32,6 +37,7 @@ class Login extends Users
                 echo "User not found";
             }
         }
+        static::create_view("login");
     }
 }
 ?>

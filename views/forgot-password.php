@@ -15,24 +15,22 @@
         <nav>
             <p> 
                 <ul>
-                    <li><a href="home">home</a></li>
-                    <li><a href="login">login</a></li>
-                    <li><a href="create-account">create account</a></li>
                     <li><a href="gallery">gallery</a></li>
+                    <li><a href="home">home</a></li>
+                    <li><a href="logout">login</a></li>
                 </ul>
             </p>
         </nav><!-- end of links -->
-
         <p>
-            <form action="reset-password" method="post">
-            <fieldset id="field_2">
-            <legend>reset password</legend>
-            <p><input type="email" name="email" placeholder="e-mail..." maxlength="50" required="required"></p>
-            <p><input type="submit" name="resetpassword" value="reset password" id="resetpassword"></p>
+            <form method="post">
+            <fieldset id="field_1">
+            <legend>change password</legend>
+            <p><input type="password" name="newpassword" placeholder="new password..." required="required"></p>
+            <p><input type="password" name="reppassword" placeholder="repeat new password..." required="required"></p>
+            <p><input type="submit" name="changepassword" value="change password" id="changepassword"></p>
             </fieldset>
             </form>
-        </p>
-
+        </p>   
         <footer>
             <hr />
             <p>"geeked <em>oop!</em>"</p>

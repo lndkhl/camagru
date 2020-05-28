@@ -15,6 +15,7 @@
         <nav>
             <p> 
                 <ul>
+                    <li><a href="home">home</a></li>
                     <li><a href="login">login</a></li>
                     <li><a href="gallery">gallery</a></li>
                 </ul>
@@ -29,7 +30,7 @@
             <p><input tpye="email" name="email" placeholder="e-mail..." maxlength="30" required="required"></p>
             <p><input type="password" name="password" placeholder="password..." maxlength="30" required="required"></p>
             <p><input type="password" name="reenterpassword" placeholder="reenter password..." maxlength= "30" required="required"></p>
-            <p><input type="submit" name="create-account" value="create-account" id="create-account"></p>
+            <p><input type="submit" name="createaccount" value="create account" id="create-account"></p>
             </fieldset>
             </form>
         </p>

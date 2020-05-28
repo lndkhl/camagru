@@ -1,7 +1,12 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 class Logout extends Users
 {
-    function main_()
+    public static function main_()
     {
         if (isset($_POST['confirm']))
         {
@@ -19,5 +24,6 @@ class Logout extends Users
             setcookie('CamagruID',sha1($_COOKIE['CamagruID']), time() - 3600, '/', NULL, NULL, TRUE);
             setcookie('StayIn', '1', time() - 3600, '/', NULL, NULL, TRUE);
         }
+        static::create_view("logout");
     }
 }

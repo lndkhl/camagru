@@ -1,9 +1,15 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 class Home extends Users
 {
-    function main_()
+    public static function main_()
     {
-        setup::initialize();        
+        setup::initialize();
+        static::create_view("home");        
     }
 }
 ?>

@@ -1,7 +1,12 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 class ResetPassword extends Users
 {
-    function main_()
+    public static function main_()
     {
         if (isset($_POST['resetpassword']))
         {
@@ -34,5 +39,6 @@ class ResetPassword extends Users
                 echo "Invalid email address entered";
             }
         }
+        static::create_view("reset-password");
     }
 }

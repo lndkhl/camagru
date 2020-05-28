@@ -1,7 +1,12 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 class ChangePassword extends Users
 {
-    function main_()
+    public static function main_()
     {
         if (isset($_POST['changepassword']))
         {
@@ -34,6 +39,7 @@ class ChangePassword extends Users
                 echo "<br>You have entered an incorrect password<br>";
             }
         }
+        static::create_view("change-password");
     }
 }
 ?>

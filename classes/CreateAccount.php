@@ -1,9 +1,15 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 class CreateAccount extends Users
 {
-    function main_()
+    public static function main_()
     {
-        if (isset($_POST['create-account']))
+        echo "ain";
+        if (isset($_POST['createaccount']))
         {
             $username = $_POST['username'];
             $password = $_POST['password'];
@@ -47,6 +53,7 @@ class CreateAccount extends Users
                 echo "User already exists!";
             }
         }
+        static::create_view("create-account");
     }
 }
 ?>
