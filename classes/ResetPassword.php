@@ -24,7 +24,7 @@ class ResetPassword extends Users
                     {
                         static::query('INSERT INTO camagru.pokens (poken, user_id) VALUES (:poken, :user_id)',
                                     array(':poken'=>sha1($poken), ':user_id'=>static::query('SELECT id FROM camagru.users WHERE email=:email', array(':email'=>$email))[0]['id']));
-                        echo "Email sent";
+                        echo "Follow the link sent to the email address you have provided in order to change your password";
                     }
                     else
                     {
