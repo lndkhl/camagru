@@ -19,7 +19,7 @@ try
     Route::set("profile", function () {Profile::main_();});
     Route::set("change-password", function () {ChangePassword::main_();});
     Route::set("forgot-password", function () {ForgotPassword::main_();});
-    Route::set("reset-passsword", function () {ResetPassword::main_();});
+    Route::set("reset-password", function () {ResetPassword::main_();});
     Route::set("login", function () {Login::main_();});
     Route::set("logout", function () {Logout::main_();});
     Route::set("create-account", function () {CreateAccount::main_();});
