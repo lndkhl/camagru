@@ -13,14 +13,16 @@ class Route
 }
 try
 {
-    Route::set("home", function () {Home::create_view("home");});
-    Route::set("gallery", function () {Gallery::create_view("gallery");});
-    Route::set("create-account", function () {CreateAccount::create_view("create-account");});
-    Route::set("reset-password", function () {ResetPassword::create_view("reset-password");});
-    Route::set("login", function () {Login::create_view("login");});
-    Route::set("profile", function () {if (!Users::isLoggedIn()){die ("You are not logged in");} else {Profile::create_view("profile");}});
-    Route::set("logout", function () {if (!Users::isLoggedIn()){die ("You are not logged in");} else {Logout::create_view("logout");}});
-    Route::set("change-password", function () {if (!Users::isLoggedIn()){die ("You are not logged in");} else {ChangePassword::create_view("change-password");}});
+    /*Route::set("", function () {});*/
+    Route::set("home", function () {Home::main_();});
+    Route::set("gallery", function () {Gallery::main_();});
+    Route::set("profile", function () {Profile::main_();});
+    Route::set("change-password", function () {ChangePassword::main_();});
+    Route::set("forgot-password", function () {ForgotPassword::main_();});
+    Route::set("reset-passsword", function () {ResetPassword::main_();});
+    Route::set("login", function () {Login::main_();});
+    Route::set("logout", function () {Logout::main_();});
+    Route::set("create-account", function () {CreateAccount::main_();});
 }
 catch (Exception $e)
 {

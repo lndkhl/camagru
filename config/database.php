@@ -10,7 +10,7 @@ class database
     {
         try
         {
-            $pdo = new PDO("mysql:hostname=".self::$host."; db_name=".$dbname."; charset=utf8", self::$username, self::$password);
+            $pdo = new PDO("mysql:hostname=".self::$host."; db_name=".self::$dbname."; charset=utf8", self::$username, self::$password);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $pdo;
         }

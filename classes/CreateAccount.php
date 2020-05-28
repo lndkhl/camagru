@@ -8,7 +8,6 @@ class CreateAccount extends Users
 {
     public static function main_()
     {
-        echo "ain";
         if (isset($_POST['createaccount']))
         {
             $username = $_POST['username'];
