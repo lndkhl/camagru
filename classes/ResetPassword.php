@@ -17,8 +17,10 @@ class ResetPassword extends Users
                 {
                     $subject = "Camagru password reset";
                     $cryptographically_strong = true;
+                    $message = "Click the following link or copy and paste it into your browser: ";
+                    $link = "http://127.0.0.1/camagru/forgot-password?poken=";
                     $poken = bin2hex(openssl_random_pseudo_bytes(64, $cryptographically_strong));
-                    if (mail($email, $subject, $poken))
+                    if (mail($email, $subject, $message . $link . $poken))
                     {
                         static::query('INSERT INTO camagru.pokens (poken, user_id) VALUES (:poken, :user_id)',
                                     array(':poken'=>sha1($poken), ':user_id'=>static::query('SELECT id FROM camagru.users WHERE email=:email', array(':email'=>$email))[0]['id']));
