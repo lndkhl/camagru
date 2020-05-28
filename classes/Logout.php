@@ -8,6 +8,7 @@ class Logout extends Users
 {
     public static function main_()
     {
+        $redirect = FALSE;
         if (isset($_POST['confirm']))
         {
             if (isset($_POST['alldevices']))
@@ -23,7 +24,12 @@ class Logout extends Users
             }
             setcookie('CamagruID',sha1($_COOKIE['CamagruID']), time() - 3600, '/', NULL, NULL, TRUE);
             setcookie('StayIn', '1', time() - 3600, '/', NULL, NULL, TRUE);
+            Home::main_();
+            $redirect = TRUE;            
         }
-        static::create_view("logout");
+        if (!$redirect)
+        {
+            static::create_view("logout");
+        }
     }
 }
