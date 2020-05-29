@@ -15,9 +15,9 @@
         <nav>
             <p> 
                 <ul>
+                    <li><a href="create-account">create account</a></li>
                     <li><a href="home">home</a></li>
                     <li><a href="login">login</a></li>
-                    <li><a href="create-acount">create account</a></li>
                     </ul>
             </p>
         </nav><!-- end of links -->

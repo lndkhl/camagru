@@ -2,8 +2,9 @@ RewriteEngine On
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond $1 !^(config|img|css|js|index.php)
+RewriteCond $1 !^(config|img|css|js)
 
+# Disable directory views
 Options -Indexes
 
-RewriteRule ^([^/]+)/? index.php?url=$1 [L,QSA]
+RewriteRule ^([^/]+)/? index.php?url=$1 [QSA,L]
