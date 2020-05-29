@@ -22,7 +22,15 @@ class Home extends Users
                 echo "Email verification complete. You may login";
             }
         }
-        static::create_view("home");        
+        if (!static::isLoggedIn())
+        {
+            static::create_view("home");
+        }
+        else
+        {
+            Route::redirect("profile");
+            exit();
+        }        
     }
 }
 ?>

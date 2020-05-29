@@ -15,11 +15,11 @@
         <nav>
             <p> 
                 <ul>
-                    <li><a href="home">home</a></li>
-                    <li><a href="login">login</a></li>
                     <li><a href="create-account">create account</a></li>
                     <li><a href="gallery">gallery</a></li>
-                </ul>
+                    <li><a href="home">home</a></li>
+                    <li><a href="login">login</a></li>
+                    </ul>
             </p>
         </nav><!-- end of links -->
 

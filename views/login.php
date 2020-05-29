@@ -15,9 +15,10 @@
         <nav>
             <p> 
                 <ul>
-                    <li><a href="reset-password">reset password</a></li>
                     <li><a href="create-account"> create account</a></li>
                     <li><a href="gallery">gallery</a></li>
+                    <li><a href="home">home</a></li>
+                    <li><a href="reset-password">reset password</a></li>
                 </ul>
             </p>
         </nav><!-- end of links -->

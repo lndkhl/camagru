@@ -17,7 +17,7 @@
                 <ul>
                     <li><a href="gallery">gallery</a></li>
                     <li><a href="home">home</a></li>
-                    <li><a href="logout">login</a></li>
+                    <li><a href="login">login</a></li>
                 </ul>
             </p>
         </nav><!-- end of links -->

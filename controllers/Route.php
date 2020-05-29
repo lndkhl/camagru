@@ -27,6 +27,7 @@ class Route
             Route::set("create-account", function () {CreateAccount::main_();});
             Route::set("change-username", function () {ChangeUsername::main_();});
             Route::set("change-email", function () {ChangeEmail::main_();});
+            Route::set("pro-gallery", function () {ProGallery::main_();});
         }
         catch (Exception $e)
         {

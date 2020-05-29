@@ -44,8 +44,6 @@ class CreateAccount extends Users
                                                 static::query('INSERT INTO camagru.vokens (voken, user_id) VALUES (:voken, :user_id)',
                                                     array(':voken'=>sha1($voken), ':user_id'=>static::query('SELECT id FROM camagru.users WHERE email=:email', array(':email'=>$email))[0]['id']));
                                                 echo "Email verification link sent, verify your email to get started";
-                                                Route::redirect("home");
-                                                exit();
                                             }
                                             else
                                             {

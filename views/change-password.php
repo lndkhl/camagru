@@ -18,6 +18,7 @@
                     <li><a href="gallery">gallery</a></li>
                     <li><a href="profile">profile</a></li>
                     <li><a href="logout">logout</a></li>
+                    <li><a href="settings">settings</a></li>
                 </ul>
             </p>
         </nav><!-- end of links -->

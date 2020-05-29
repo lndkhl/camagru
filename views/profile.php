@@ -17,12 +17,11 @@
                 <ul>
                     <li><a href="logout">logout</a></li>
                     <li><a href="gallery">gallery</a></li>
-                    <li><a href="change-password">change password</a></li>
-                    <li><a href="change-username">change username</a></li>
-                    <li><a href="change-email">change email</a></li>
+                    <li><a href="settings">settings</a></li>
                 </ul>
             </p>
         </nav><!-- end of links -->
+
 
         <p>
             <form action="profile" method="post">
