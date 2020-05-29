@@ -12,39 +12,61 @@ class CreateAccount extends Users
         {
             $username = $_POST['username'];
             $password = $_POST['password'];
+            $reppword = $_POST['reenterpassword'];
             $email = $_POST['email'];
 
             if (!static::query('SELECT username FROM camagru.users WHERE username=:username', array(':username'=>$username)))
             {
-                if (strlen($username) >= 3 && strlen($username) <=30 && preg_match('/[a-zA-Z_]+/', $username))
+                if (preg_match('/[a-z_]/', $username) && preg_match('/[a-z]/', $username))
                 {
-                    if(strlen($password) >= 8 && strlen($password) <= 30)
+                    if (preg_match('/.{3}/', $username))
                     {
-                        if (filter_var($email, FILTER_VALIDATE_EMAIL))
+                        if (preg_match('/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/', $password))
                         {
-                            if (!static::query('SELECT email FROM camagru.users WHERE email=:email', array(':email'=>$email)))
+                            if(preg_match('/.{8}/', $password))
                             {
-                                static::query('INSERT INTO camagru.users (username, password, email) VALUES (:username, :password, :email)', array(':username'=>$username, ':password'=>password_hash($password, PASSWORD_BCRYPT), ':email'=>$email));
-                                echo "User succesfully registered!<br>";
-                            }
+                                if ($password === $reppword)
+                                {
+                                    if (filter_var($email, FILTER_VALIDATE_EMAIL))
+                                    {
+                                        if (!static::query('SELECT email FROM camagru.users WHERE email=:email', array(':email'=>$email)))
+                                        {
+                                            static::query('INSERT INTO camagru.users (username, password, email) VALUES (:username, :password, :email)', array(':username'=>$username, ':password'=>password_hash($password, PASSWORD_BCRYPT), ':email'=>$email));
+                                            echo "User succesfully registered!<br>";
+                                        }
+                                        else
+                                        {
+                                            echo "Email address in use";
+                                        }
+                                    }    
+                                    else
+                                    {
+                                        echo "Invalid email address";
+                                    }
+                                }
+                                else
+                                {
+                                    echo "Passwords do not match";
+                                }
+                            }   
                             else
                             {
-                                echo "Email address in use";
+                                echo "Invalid password (minimum 8 characters)";
                             }
-                        }    
-                       else
+                        }
+                        else
                         {
-                            echo "Invalid email address";
-                       }
+                            echo "Invalid password<br>Password must consist of at least:<br>- 1 lower case letter<br>- 1 upper case letter<br>- 1 number<br>";
+                        }
                     }
                     else
                     {
-                        echo "Invalid password (minimum 8 characters)";
+                        echo "Invalid username<br>Username must be at least 3 characters long";
                     }
                 }
                 else
                 {
-                    echo "Invalid username";
+                    echo "Invalid username<br>Username can only consist of lower case letters and (optionally) the underscore character";
                 }
             }
             else

@@ -26,10 +26,10 @@
             <form action="create-account" method="post">    
             <fieldset id="field_1">
             <legend>create account</legend>
-            <p><input type="text" name="username" placeholder="username..." maxlength="20" required="required"></p>
-            <p><input tpye="email" name="email" placeholder="e-mail..." maxlength="30" required="required"></p>
+            <p><input type="text" name="username" placeholder="username..." maxlength="30" required="required"></p>
             <p><input type="password" name="password" placeholder="password..." maxlength="30" required="required"></p>
             <p><input type="password" name="reenterpassword" placeholder="reenter password..." maxlength= "30" required="required"></p>
+            <p><input tpye="email" name="email" placeholder="e-mail..." maxlength="30" required="required"></p>
             <p><input type="submit" name="createaccount" value="create account" id="create-account"></p>
             </fieldset>
             </form>
