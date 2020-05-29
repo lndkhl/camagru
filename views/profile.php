@@ -18,6 +18,7 @@
                     <li><a href="logout">logout</a></li>
                     <li><a href="gallery">gallery</a></li>
                     <li><a href="change-password">change password</a></li>
+                    <li><a href="change-username">change username</a></li>
                 </ul>
             </p>
         </nav><!-- end of links -->

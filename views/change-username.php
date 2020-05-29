@@ -25,7 +25,7 @@
         <p>
             <form action="change-username" method="post">
             <fieldset id="field_1">
-            <legend>login</legend>
+            <legend>change username</legend>
             <p><input type="text" name="username" placeholder="new username..." maxlength="30" required="required"></p>
             <p><input type="submit" name="changeusername" value="change username" id="changeusername"></p>
             </form>

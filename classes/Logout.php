@@ -26,8 +26,7 @@ class Logout extends Users
                 }
                 setcookie('CamagruID',sha1($_COOKIE['CamagruID']), time() - 3600, '/', NULL, NULL, TRUE);
                 setcookie('StayIn', '1', time() - 3600, '/', NULL, NULL, TRUE);
-                $redirect = TRUE;
-                Home::main_();            
+                Route::redirect("home");         
             }
         }
         else
