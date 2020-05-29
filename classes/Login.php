@@ -59,7 +59,8 @@ class Login extends Users
         }
         else
         {
-            echo "Device logged in, logout if you would like to change user account";
+            Route::redirect("profile");
+            exit();
         }
         static::create_view("login");
     }

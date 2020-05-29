@@ -163,7 +163,7 @@ class database
         {        
             $sql = "CREATE TABLE IF NOT EXISTS camagru.posts(
                 id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                post CHAR(64), likes INT(12) UNSIGNED,
+                post VARCHAR(256), likes INT(12) UNSIGNED,
                 user_id INT(12) UNSIGNED NOT NULL,
         
                 FOREIGN KEY (user_id) REFERENCES camagru.users(id)

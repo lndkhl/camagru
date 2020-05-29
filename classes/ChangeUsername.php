@@ -42,7 +42,8 @@ class ChangeUsername extends Users
         }
         else
         {
-            die("You are not logged in");
+            Route::redirect("login");
+            exit();
         }
         static::create_view("change-username");
     }

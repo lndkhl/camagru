@@ -8,7 +8,6 @@ class Logout extends Users
 {
     public static function main_()
     {
-        $redirect = FALSE;
         if (static::isLoggedIn())
         {
             if (isset($_POST['confirm']))
@@ -26,16 +25,15 @@ class Logout extends Users
                 }
                 setcookie('CamagruID',sha1($_COOKIE['CamagruID']), time() - 3600, '/', NULL, NULL, TRUE);
                 setcookie('StayIn', '1', time() - 3600, '/', NULL, NULL, TRUE);
-                Route::redirect("home");         
+                Route::redirect("home");
+                exit();         
             }
         }
         else
         {
-            die("You are not logged in");
+            Route::redirect("login");
+            exit();
         }
-        if (!$redirect)
-        {
-            static::create_view("logout");
-        }
+        static::create_view("logout");
     }
 }

@@ -16,31 +16,44 @@ class ForgotPassword extends Users
             if (static::query('SELECT user_id FROM camagru.pokens WHERE poken=:poken', array(':poken'=>sha1($_GET['poken']))))
             {
                 $GLOBALS['change_id'] = static::query('SELECT user_id FROM camagru.pokens WHERE poken=:poken', array(':poken'=>sha1($_GET['poken'])))[0]['user_id'];
-                echo "changing password for user " . $change_id . "<br>";
                 if (isset($_POST['changepassword']))
                 {
                     $newpword = $_POST['newpassword'];
                     $reppword = $_POST['reppassword'];
-                    if ($newpword == $reppword)
+                    if (preg_match('/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/', $newpword))
                     {
-                        if(strlen($newpword) >= 8 && strlen($newpword) <= 30)
+                        if (preg_match('/.{8}/', $newpword))
                         {
-                            static::query('UPDATE camagru.users SET password=:newpassword WHERE id=:user_id',
-                                array(':newpassword'=>password_hash($newpword, PASSWORD_BCRYPT), ':user_id'=>$change_id));
-                            /*echo "Password changed successfully";*/
-                            static::query('DELETE FROM camagru.pokens WHERE user_id=:user_id', array(':user_id'=>$change_id));
-                            unset($GLOBALS['change_id']);
-                            Home::main_();
-                            exit();
+                            if ($newpword == $reppword)
+                            {
+                                if(strlen($newpword) >= 8 && strlen($newpword) <= 30)
+                                {
+                                    static::query('UPDATE camagru.users SET password=:newpassword WHERE id=:user_id',
+                                        array(':newpassword'=>password_hash($newpword, PASSWORD_BCRYPT), ':user_id'=>$change_id));
+                                    static::query('DELETE FROM camagru.pokens WHERE user_id=:user_id', array(':user_id'=>$change_id));
+                                    unset($GLOBALS['change_id']);
+                                    echo "Password changed successfully";
+                                    Home::main_();
+                                    exit();
+                                }
+                                else
+                                {
+                                    echo "Invalid new password (minimum 8 characters)";
+                                }
+                            }
+                            else
+                            {
+                                echo "Passwords do not match";
+                            }
                         }
                         else
                         {
-                            echo "Invalid new password (minimum 8 characters)";
+                            echo "Invalid password (minimum 8 characters)"; 
                         }
                     }
                     else
                     {
-                        echo "Passwords do not match";
+                        echo "Invalid password<br>Password must consist of at least:<br>- 1 lower case letter<br>- 1 upper case letter<br>- 1 number<br>";
                     }
                 }
             }
