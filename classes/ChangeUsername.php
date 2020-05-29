@@ -10,6 +10,7 @@ class ChangeUsername extends Users
     {
         if (static::isLoggedIn())
         {
+            $user_id = static::isLoggedIn();
             if (isset($_POST['changeusername']))
             {
                 $username = $_POST['username'];
@@ -20,7 +21,7 @@ class ChangeUsername extends Users
                         if(preg_match('/.{3}/', $username))
                         {
                             static::query('UPDATE camagru.users SET username=:username WHERE id=:user_id',
-                                array(':username'=>$username, ':user_id'=>static::isLoggedIn()));
+                                array(':username'=>$username, ':user_id'=>$user_id));
                             echo "Username changed successfully";
                         }
                         else

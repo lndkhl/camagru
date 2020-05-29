@@ -21,7 +21,6 @@ class Login extends Users
                         array(':username'=>$username)))
                     {
                         $verified =static::query('SELECT verified FROM camagru.users WHERE username=:username', array(':username'=>$username))[0]['verified'];
-                        echo "verified status = " . $verified;
                         if ($verified == 1)    
                         {
                             if(password_verify($password, static::query('SELECT password FROM camagru.users WHERE username=:username',
@@ -44,7 +43,7 @@ class Login extends Users
                         }
                         else
                         {
-                            echo "Please verify your account";
+                            echo "Please follow the verification link sent to your email address";
                         }
                     }
                     else

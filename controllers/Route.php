@@ -26,6 +26,7 @@ class Route
             Route::set("logout", function () {Logout::main_();});
             Route::set("create-account", function () {CreateAccount::main_();});
             Route::set("change-username", function () {ChangeUsername::main_();});
+            Route::set("change-email", function () {ChangeEmail::main_();});
         }
         catch (Exception $e)
         {

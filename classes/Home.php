@@ -19,7 +19,7 @@ class Home extends Users
                     array(':verified'=>$verified, ':user_id'=>$user_id));
                 /*echo "verification status changed successfully";*/
                 static::query('DELETE FROM camagru.vokens WHERE user_id=:user_id', array(':user_id'=>$user_id));
-                echo "User registration complete. You may login";
+                echo "Email varification complete. You may login";
             }
         }
         static::create_view("home");        

@@ -36,7 +36,7 @@ class CreateAccount extends Users
                                             echo "Registration succesfull!<br>";
                                             $subject = "Camagru user verification";
                                             $cryptographically_strong = true;
-                                            $message = "Click the following link or copy and paste it into your browser to complete the registration process: ";
+                                            $message = "Click the following link, or copy and paste it into your browser, to complete the registration process: ";
                                             $link = "http://127.0.0.1/camagru/home?voken=";
                                             $voken = bin2hex(openssl_random_pseudo_bytes(64, $cryptographically_strong));
                                             if (mail($email, $subject, $message . $link . $voken))
