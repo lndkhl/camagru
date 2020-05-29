@@ -1,8 +1,9 @@
 RewriteEngine On
 
+DirectoryIndex index.php
+
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond $1 !^(config|img|css|js)
 
 # Disable directory views
 Options -Indexes
