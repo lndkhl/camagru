@@ -11,7 +11,6 @@ class ForgotPassword extends Users
     public static function main_()
     {
         global $change_id;
-        $redirect = FALSE;
         if (isset($_GET['poken']))
         {
             if (static::query('SELECT user_id FROM camagru.pokens WHERE poken=:poken', array(':poken'=>sha1($_GET['poken']))))
@@ -28,11 +27,11 @@ class ForgotPassword extends Users
                         {
                             static::query('UPDATE camagru.users SET password=:newpassword WHERE id=:user_id',
                                 array(':newpassword'=>password_hash($newpword, PASSWORD_BCRYPT), ':user_id'=>$change_id));
-                            echo "Password changed successfully";
+                            /*echo "Password changed successfully";*/
                             static::query('DELETE FROM camagru.pokens WHERE user_id=:user_id', array(':user_id'=>$change_id));
                             unset($GLOBALS['change_id']);
                             Home::main_();
-                            $redirect = TRUE;
+                            exit();
                         }
                         else
                         {
@@ -50,10 +49,7 @@ class ForgotPassword extends Users
                 die ("Invalid password-reset token");
             }
         }
-        if (!$redirect)
-        {
-            static::create_view("forgot-password");
-        }
+        static::create_view("forgot-password");
     }
 }
 ?>
