@@ -31,8 +31,26 @@ class CreateAccount extends Users
                                     {
                                         if (!static::query('SELECT email FROM camagru.users WHERE email=:email', array(':email'=>$email)))
                                         {
-                                            static::query('INSERT INTO camagru.users (username, password, email) VALUES (:username, :password, :email)', array(':username'=>$username, ':password'=>password_hash($password, PASSWORD_BCRYPT), ':email'=>$email));
-                                            echo "User succesfully registered!<br>";
+                                            $verified = 0;
+                                            static::query('INSERT INTO camagru.users (username, password, email, verified) VALUES (:username, :password, :email, :verified)', array(':username'=>$username, ':password'=>password_hash($password, PASSWORD_BCRYPT), ':email'=>$email, ':verified'=>$verified));
+                                            echo "Registration succesfull!<br>";
+                                            $subject = "Camagru user verification";
+                                            $cryptographically_strong = true;
+                                            $message = "Click the following link or copy and paste it into your browser to complete the registration process: ";
+                                            $link = "http://127.0.0.1/camagru/home?voken=";
+                                            $voken = bin2hex(openssl_random_pseudo_bytes(64, $cryptographically_strong));
+                                            if (mail($email, $subject, $message . $link . $voken))
+                                            {
+                                                static::query('INSERT INTO camagru.vokens (voken, user_id) VALUES (:voken, :user_id)',
+                                                    array(':voken'=>sha1($voken), ':user_id'=>static::query('SELECT id FROM camagru.users WHERE email=:email', array(':email'=>$email))[0]['id']));
+                                                echo "Email verification link sent, verify your email to get started";
+                                                Route::redirect("home");
+                                                exit();
+                                            }
+                                            else
+                                            {
+                                                echo "We are experiencing difficulty sending you a verification email, please try again";
+                                            }
                                         }
                                         else
                                         {

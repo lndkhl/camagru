@@ -28,7 +28,7 @@ class database
         }
         catch(PDOException $e)
         {
-            echo "create database error: " . "<br>" . $e->getMessage();
+            echo "failed to create database: " . "<br>" . $e->getMessage();
         }
     }
 
@@ -65,7 +65,8 @@ class database
                 username VARCHAR(32) NOT NULL,
                 password VARCHAR(64) NOT NULL,
                 email VARCHAR(64),
-                registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                verified TINYINT(1) UNSIGNED
                 )";
             self::connect()->exec($sql);
             //echo "<br>Table users created successfully<br>";
@@ -73,6 +74,26 @@ class database
         catch(PDOException $e)
         {
             echo "users table error: " . $e->getMessage();
+        } 
+    }
+
+    public static function create_table_verification_tokens()
+    {
+        try
+        {
+            $sql = "CREATE TABLE IF NOT EXISTS camagru.vokens(
+                id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                voken CHAR(64) UNIQUE NOT NULL,
+                user_id INT(12) UNSIGNED NOT NULL,
+                
+                FOREIGN KEY (user_id) REFERENCES camagru.users(id)
+                )";
+            self::connect()->exec($sql);
+            //echo "<br>Table vokens created successfully<br>";
+        }
+        catch(PDOException $e)
+        {
+            echo "Verification tokens table initialization error: " . $e->getMessage();
         } 
     }
 
@@ -92,7 +113,7 @@ class database
         }
         catch(PDOException $e)
         {
-            echo "tokens table error: " . $e->getMessage();
+            echo "Session tokens table initialization error: " . $e->getMessage();
         } 
     }
     
@@ -112,7 +133,7 @@ class database
         }
         catch(PDOException $e)
         {
-            echo "pokens table error: " . $e->getMessage();
+            echo "Password reset tokens table initialization error: " . $e->getMessage();
         } 
     }
     
@@ -132,7 +153,7 @@ class database
         }
         catch (PDOException $e)
         {
-            echo "Follower table error: " . "<br>" . $e->getMessage();
+            echo "Followers table initialization error: " . "<br>" . $e->getMessage();
         }
     }
 
@@ -152,7 +173,7 @@ class database
         }
         catch(PDOException $e)
         {
-            echo "profile table error: " . "<br>" . $e->getMessage();
+            echo "Posts table initialization error: " . "<br>" . $e->getMessage();
         }
     }
 
@@ -172,7 +193,7 @@ class database
         }
         catch(PDOException $e)
         {
-            echo "<br>comments table error: " . "<br>" . $e->getMessage();
+            echo "Comments table initialization error: " . "<br>" . $e->getMessage();
         }
     }
 }

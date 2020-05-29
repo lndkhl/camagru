@@ -15,16 +15,19 @@
         <nav>
             <p> 
                 <ul>
+                    <li><a href="profile">home</a></li>
                     <li><a href="logout">logout</a></li>
                     <li><a href="gallery">gallery</a></li>
-                    <li><a href="change-password">change password</a></li>
-                </ul>
+                    </ul>
             </p>
         </nav><!-- end of links -->
 
         <p>
-            <form action="profile" method="post">
-            <p><input type="submit" name="follow" value="follow" id="follow"></p>
+            <form action="change-username" method="post">
+            <fieldset id="field_1">
+            <legend>login</legend>
+            <p><input type="text" name="username" placeholder="new username..." maxlength="30" required="required"></p>
+            <p><input type="submit" name="changeusername" value="change username" id="changeusername"></p>
             </form>
         </p>
 

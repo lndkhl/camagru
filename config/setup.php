@@ -5,6 +5,7 @@ class setup extends database
     {
         static::create_db();
         static::create_table_users();
+        static::create_table_verification_tokens();
         static::create_table_tokens();
         static::create_table_password_tokens();
         static::create_table_followers();

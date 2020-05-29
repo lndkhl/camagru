@@ -17,7 +17,7 @@ class ResetPassword extends Users
                 {
                     $subject = "Camagru password reset";
                     $cryptographically_strong = true;
-                    $message = "Click the following link or copy and paste it into your browser: ";
+                    $message = "Click the following link or copy and paste it into your browser to reset your password: ";
                     $link = "http://127.0.0.1/camagru/forgot-password?poken=";
                     $poken = bin2hex(openssl_random_pseudo_bytes(64, $cryptographically_strong));
                     if (mail($email, $subject, $message . $link . $poken))
