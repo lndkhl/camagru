@@ -17,7 +17,6 @@ class Home extends Users
                 $verified = 1;
                 static::query('UPDATE camagru.users SET verified=:verified WHERE id=:user_id',
                     array(':verified'=>$verified, ':user_id'=>$user_id));
-                /*echo "verification status changed successfully";*/
                 static::query('DELETE FROM camagru.vokens WHERE user_id=:user_id', array(':user_id'=>$user_id));
                 echo "Email verification complete. You may login";
             }

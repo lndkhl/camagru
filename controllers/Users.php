@@ -114,7 +114,7 @@ class Users extends Controller
         $voken = bin2hex(openssl_random_pseudo_bytes(64, $cryptographically_strong));
         
         static::query('INSERT INTO camagru.users (username, password, email, verified, notifications) VALUES (:username, :password, :email, :verified, :notifications)', 
-        array(':username'=>$username, ':password'=>password_hash($password, PASSWORD_BCRYPT), ':email'=>$email, ':verified'=>$verified, ':notifications'=>$notifications));
+                                    array(':username'=>$username, ':password'=>password_hash($password, PASSWORD_BCRYPT), ':email'=>$email, ':verified'=>$verified, ':notifications'=>$notifications));
         echo "Registration succesfull!<br>";
         if (mail($email, $subject, $message . $link . $voken))
         {
@@ -128,5 +128,31 @@ class Users extends Controller
         }
     }
 
+    public static function uploadPic($imgname, $user_id)
+    {
+        $likes = 0;
+        $insert = static::query('INSERT INTO camagru.posts (imgname, likes, user_id) VALUES (:imgname, :likes, :user_id)',
+                            array(':imgname'=>$imgname, ':likes'=>$likes, ':user_id'=>$user_id));
+        if ($insert)
+        {
+            echo "Image uploaded successfully.";
+        }
+        else
+        {
+            echo "File upload failed, please try again.";
+        }    
+    }
+
+    public static function getUsername($user_id)
+    {
+        if (static::query('SELECT username FROM camagru.users WHERE id=:user_id', array(':user_id'=>$user_id)))
+        {
+            return (static::query('SELECT username FROM camagru.users WHERE id=:user_id', array(':user_id'=>$user_id))[0]['username']);
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
 }
 ?>

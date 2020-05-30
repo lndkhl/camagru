@@ -1,55 +1,36 @@
-    navigator.getUserMedia = ( navigator.getUserMedia ||
-         navigator.webkitGetUserMedia ||
-         navigator.mozGetUserMedia ||
-         navigator.msGetUserMedia);
+var video = document.getElementById('video');
+var canvas = document.getElementById('canvas');
+var context = resizeCanvas.getContext('2d');
+var video = document.getElementById('video');
 
-    var video;
+if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+        video.srcObject = stream;
+        video.play();
+    });
+}
 
-    function startWebcam() 
-    {
-        if (navigator.getUserMedia) 
-        {
-           navigator.getUserMedia 
-           (
-                {
-                    video: true,
-                    audio: false
-                },
+document.getElementById("snap").addEventListener("click", function() {
+	context.drawImage(video, 0, 0, 240, 240);
+});
 
-                function(localMediaStream) 
-                {
-                    video = document.getElementById('video-player');
-                    video.src = localMediaStream;
-                    video.play();
-                },
-             
-                function(error)
-                {
-                    console.log("The following error occured: " + error);
-                }
-           );
-        } 
-        else 
-        {
-            console.log("getUserMedia not supported");
-        }  
-      }
+function savepic () {
+  var data = canvas.toDataURL();
+	var xhttp = new XMLHttpRequest();
+	var uri = "upload";
 
-    function stopWebcam()
-    {
-        video.stop();
-    }
-    
-    var canvas; 
-    var ctx;
-
-    function init() 
-    {
-        canvas = document.getElementById("myCanvas");
-        ctx = canvas.getContext('2d');
-    }
-
-    function snapshot() 
-    {
-        ctx.drawImage(video, 0,0, canvas.width, canvas.height);
-    }
+	xhttp.open("POST", uri, true);
+	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhttp.onreadystatechange = function() {
+    	if (this.readyState == 4 && this.status == 200) {
+      		console.log(url);
+    	} 
+	};
+	xhttp.send('key='+data);
+	location.reload();
+}
+/*
+document.getElementById("save").addEventListener("click", function(){
+  savepic();
+});
+*/

@@ -24,7 +24,6 @@ class database
         try
         {
             self::connect()->exec("CREATE DATABASE IF NOT EXISTS camagru");
-            //echo "Database created successfully<br>";
         }
         catch(PDOException $e)
         {
@@ -70,7 +69,6 @@ class database
                 notifications TINYINT(1) UNSIGNED
                 )";
             self::connect()->exec($sql);
-            //echo "<br>Table users created successfully<br>";
         }
         catch(PDOException $e)
         {
@@ -90,7 +88,6 @@ class database
                 FOREIGN KEY (user_id) REFERENCES camagru.users(id)
                 )";
             self::connect()->exec($sql);
-            //echo "<br>Table vokens created successfully<br>";
         }
         catch(PDOException $e)
         {
@@ -110,7 +107,6 @@ class database
                 FOREIGN KEY (user_id) REFERENCES camagru.users(id)
                 )";
             self::connect()->exec($sql);
-            //echo "<br>Table tokens created successfully<br>";
         }
         catch(PDOException $e)
         {
@@ -130,47 +126,25 @@ class database
                 FOREIGN KEY (user_id) REFERENCES camagru.users(id)
                 )";
             self::connect()->exec($sql);
-            //echo "<br>Table pokens created successfully<br>";
         }
         catch(PDOException $e)
         {
             echo "Password reset tokens table initialization error: " . $e->getMessage();
         } 
     }
-    /*
-    public static function create_table_followers()
-    {
-        try
-        {
-            $sql = "CREATE TABLE IF NOT EXISTS camagru.followers(
-                id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                user_id INT(12) UNSIGNED NOT NULL,
-                follower_id INT(12) UNSIGNED NOT NULL,
-                
-                FOREIGN KEY (user_id) REFERENCES camagru.users(id)
-                )";
-                self::connect()->exec($sql);
-                //echo "<br>Table followers created successfully<br>";
-        }
-        catch (PDOException $e)
-        {
-            echo "Followers table initialization error: " . "<br>" . $e->getMessage();
-        }
-    }
-    */
+    
     public static function create_table_posts()
     {
         try
         {        
             $sql = "CREATE TABLE IF NOT EXISTS camagru.posts(
                 id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                post VARCHAR(256), likes INT(12) UNSIGNED,
+                imgname CHAR(64), likes INT(12) UNSIGNED,
                 user_id INT(12) UNSIGNED NOT NULL,
         
                 FOREIGN KEY (user_id) REFERENCES camagru.users(id)
                 )";
             self::connect()->exec($sql);
-            //echo "<br>Table posts created successfully<br>";
         }
         catch(PDOException $e)
         {
@@ -185,12 +159,11 @@ class database
             $sql = "CREATE TABLE IF NOT EXISTS camagru.comments(
                 id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                 comment VARCHAR(240), likes INT(12) UNSIGNED,
-                user_id INT(12) UNSIGNED NOT NULL,
+                post_id INT(12) UNSIGNED NOT NULL,
         
-                FOREIGN KEY (user_id) REFERENCES camagru.users(id)
+                FOREIGN KEY (post_id) REFERENCES camagru.posts(id)
                 )";
             self::connect()->exec($sql);
-            //echo "<br>Table comments created successfully<br>";
         }
         catch(PDOException $e)
         {
