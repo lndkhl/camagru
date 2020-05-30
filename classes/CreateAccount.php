@@ -15,42 +15,23 @@ class CreateAccount extends Users
             $reppword = $_POST['reenterpassword'];
             $email = $_POST['email'];
 
-            if (!static::query('SELECT username FROM camagru.users WHERE username=:username', array(':username'=>$username)))
+            if (!static::userExists($username))
             {
-                if (preg_match('/[a-z_]/', $username) && preg_match('/[a-z]/', $username))
+                if (static::validUsername($username))
                 {
-                    if (preg_match('/.{3}/', $username))
+                    if (static::validUsernameLength($username))
                     {
-                        if (preg_match('/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/', $password))
+                        if (static::validPasswordComplexity($password))
                         {
-                            if(preg_match('/.{8}/', $password))
+                            if(static::validPasswordLength($password))
                             {
                                 if ($password === $reppword)
                                 {
                                     if (filter_var($email, FILTER_VALIDATE_EMAIL))
                                     {
-                                        if (!static::query('SELECT email FROM camagru.users WHERE email=:email', array(':email'=>$email)))
+                                        if (!static::emailExists($email))
                                         {
-                                            $verified = 0;
-                                            $notifications = 1;
-                                            static::query('INSERT INTO camagru.users (username, password, email, verified, notifications) VALUES (:username, :password, :email, :verified, :notifications)', 
-                                                            array(':username'=>$username, ':password'=>password_hash($password, PASSWORD_BCRYPT), ':email'=>$email, ':verified'=>$verified, ':notifications'=>$notifications));
-                                            echo "Registration succesfull!<br>";
-                                            $subject = "Camagru user verification";
-                                            $cryptographically_strong = true;
-                                            $message = "Click the following link, or copy and paste it into your browser, to complete the registration process: ";
-                                            $link = "http://127.0.0.1/camagru/home?voken=";
-                                            $voken = bin2hex(openssl_random_pseudo_bytes(64, $cryptographically_strong));
-                                            if (mail($email, $subject, $message . $link . $voken))
-                                            {
-                                                static::query('INSERT INTO camagru.vokens (voken, user_id) VALUES (:voken, :user_id)',
-                                                    array(':voken'=>sha1($voken), ':user_id'=>static::query('SELECT id FROM camagru.users WHERE email=:email', array(':email'=>$email))[0]['id']));
-                                                echo "Email verification link sent, verify your email to get started";
-                                            }
-                                            else
-                                            {
-                                                echo "We are experiencing difficulty sending you a verification email, please try again";
-                                            }
+                                                static::registerUser($username, $password, $email);
                                         }
                                         else
                                         {
@@ -74,7 +55,7 @@ class CreateAccount extends Users
                         }
                         else
                         {
-                            echo "Invalid password<br>Password must consist of at least:<br>- 1 lower case letter<br>- 1 upper case letter<br>- 1 number<br>";
+                            echo "Invalid password<br>Password must consist of at least:<br>- 1 lower case letter<br>- 1 upper case letter<br>- 1 digit<br>";
                         }
                     }
                     else
@@ -84,7 +65,7 @@ class CreateAccount extends Users
                 }
                 else
                 {
-                    echo "Invalid username<br>Username can only consist of lower case letters and (optionally) the underscore character";
+                    echo "Invalid username<br>Username can only consist of lower case letters and (optionally) digits and/or the underscore character";
                 }
             }
             else
