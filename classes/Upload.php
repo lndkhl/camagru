@@ -15,11 +15,12 @@ class Upload extends Users
             {
                 $imgName = $_FILES['img']['name'];
                 $fileType = pathinfo($imgName, PATHINFO_EXTENSION);
+                echo "filetype = " . $fileType;
                 $allowTypes = array('jpg','png','jpeg');
                 if(in_array($fileType, $allowTypes))
                 {
                     $imgName = static::getUsername(static::isLoggedIn()) . date('-Y-m-d_h:i:s.'.$fileType.'');
-                    $targetDir = "./uploads/";
+                    $targetDir = "uploads/";
                     $targetFilePath = $targetDir . $imgName;
         
                     if(move_uploaded_file($_FILES["img"]["tmp_name"], $targetFilePath))
