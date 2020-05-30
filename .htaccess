@@ -3,7 +3,6 @@ RewriteEngine On
 DirectoryIndex index.php
 
 RewriteCond %{REQUEST_URI} !^index.php$
-RewriteCond %{REQUEST_URI} !^./CSS/fonts.css$
-# RewriteCond %{REQUEST_URI} !.(css|gif|ico|jpg|js|png)$
+RewriteCond %{REQUEST_FILENAME} !.(css|gif|ico|jpg|js|png)$
 
 RewriteRule ^([^/]+)/? index.php?url=$1 [QSA,L]
