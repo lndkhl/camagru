@@ -66,7 +66,8 @@ class database
                 password VARCHAR(64) NOT NULL,
                 email VARCHAR(64),
                 registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                verified TINYINT(1) UNSIGNED
+                verified TINYINT(1) UNSIGNED,
+                notifications TINYINT(1) UNSIGNED
                 )";
             self::connect()->exec($sql);
             //echo "<br>Table users created successfully<br>";
@@ -136,7 +137,7 @@ class database
             echo "Password reset tokens table initialization error: " . $e->getMessage();
         } 
     }
-    
+    /*
     public static function create_table_followers()
     {
         try
@@ -156,7 +157,7 @@ class database
             echo "Followers table initialization error: " . "<br>" . $e->getMessage();
         }
     }
-
+    */
     public static function create_table_posts()
     {
         try

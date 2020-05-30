@@ -16,13 +16,16 @@
             <p> 
                 <ul>
                     <li><a href="logout">logout</a></li>
-                    <li><a href="gallery">gallery</a></li>
-                    <li><a href="settings">settings</a></li>
-                </ul>
+                    <li><a href="profile">profile</a></li>
+                    </ul>
             </p>
         </nav><!-- end of links -->
 
         <p>
+        <li><a href="change-password">change password</a></li>
+        <li><a href="change-username">change username</a></li>
+        <li><a href="change-email">change email address</a></li>
+        <li><a href="set-notifications">set notifications</a></li>
         </p>
 
         <footer>

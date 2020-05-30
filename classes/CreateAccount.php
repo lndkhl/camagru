@@ -32,7 +32,9 @@ class CreateAccount extends Users
                                         if (!static::query('SELECT email FROM camagru.users WHERE email=:email', array(':email'=>$email)))
                                         {
                                             $verified = 0;
-                                            static::query('INSERT INTO camagru.users (username, password, email, verified) VALUES (:username, :password, :email, :verified)', array(':username'=>$username, ':password'=>password_hash($password, PASSWORD_BCRYPT), ':email'=>$email, ':verified'=>$verified));
+                                            $notifications = 1;
+                                            static::query('INSERT INTO camagru.users (username, password, email, verified, notifications) VALUES (:username, :password, :email, :verified, :notifications)', 
+                                                            array(':username'=>$username, ':password'=>password_hash($password, PASSWORD_BCRYPT), ':email'=>$email, ':verified'=>$verified, ':notifications'=>$notifications));
                                             echo "Registration succesfull!<br>";
                                             $subject = "Camagru user verification";
                                             $cryptographically_strong = true;

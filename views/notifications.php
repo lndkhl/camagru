@@ -15,16 +15,24 @@
         <nav>
             <p> 
                 <ul>
-                    <li><a href="logout">logout</a></li>
                     <li><a href="gallery">gallery</a></li>
+                    <li><a href="profile">profile</a></li>
+                    <li><a href="logout">logout</a></li>
                     <li><a href="settings">settings</a></li>
                 </ul>
             </p>
         </nav><!-- end of links -->
-
         <p>
-        </p>
-
+            <form method="post">
+            <fieldset id="field_1">
+            <legend>allow notifications?</legend>
+            <p>
+                <input type="submit" name="allownotifications" value="allow" id="allow">
+                <input type="submit" name="disallownotifications" value="disallow" id="disallow">            
+            </p>
+            </fieldset>
+            </form>
+        </p>   
         <footer>
             <hr />
             <p>"geeked <em>oop!</em>"</p>
