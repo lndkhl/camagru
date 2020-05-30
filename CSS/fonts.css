@@ -1,5 +1,15 @@
-.header
+body {
+    font-family: Arial, Verdana, sans-serif;
+    font-size: 12px;
+}
+h1 {
+    font-size: 200%;
+}
+h2 {
+    font-size: 1.3em;
+}
+.title
 {
-    font-family: cursive;
-    background-color: rgb(10,100,55);
+    font-family: Arial, Verdana, sans-serif;
+    font-size: 24px;
 }
