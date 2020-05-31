@@ -3,18 +3,24 @@ var canvas = document.getElementById('canvas');
 var context = resizeCanvas.getContext('2d');
 var video = document.getElementById('video');
 
+
 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) 
 {
-		navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream)
-	 	{
-        	video.srcObject = stream;
-        	video.play();
-    	});
+	navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream)
+ 	{
+       	video.srcObject = stream;
+		document.getElementById("camera").addEventListener("click", function () {video.play()});
+		document.getElementById("pause").addEventListener("click", function () {video.pause();})
+	}).catch(e => console.error(e));
+
 }
 
-document.getElementById("snap").addEventListener("click", function() {
-	context.drawImage(video, 0, 0, 360, 360);
-});
+document.getElementById("snap").addEventListener("click", function () 
+	{
+		context.drawImage(video, 0, 0, 360, 360);
+	});
+
+
 /*
 function savepic () {
   	var data = resizeCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");

@@ -133,7 +133,7 @@ class Users extends Controller
         $likes = 0;
         static::query('INSERT INTO camagru.posts (imgname, likes, user_id) VALUES (:imgname, :likes, :user_id)',
                     array(':imgname'=>$imgname, ':likes'=>$likes, ':user_id'=>$user_id));
-        echo "Image uploaded successfully.";
+        echo "Image uploaded successfully<br>";
     }
 
     public static function getUsername($user_id)

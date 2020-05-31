@@ -18,7 +18,7 @@ class Upload extends Users
                 $allowTypes = array('jpg','png','jpeg');
                 if(in_array($fileType, $allowTypes))
                 {
-                    $img = static::getUsername(static::isLoggedIn()) . date('-Y-m-d_h:i:s.'.$fileType.'');
+                    $img = static::getUsername(static::isLoggedIn()) . date('-Y-m-d_h:i:s.') . $fileType;
                     if(!file_exists("uploads"))
                     {
                         mkdir("uploads");

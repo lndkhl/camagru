@@ -23,10 +23,12 @@
         </nav><!-- end of links -->  
 
         <p>
-            <video id="video" width="360" height="360" autoplay></video>
+            <video id="video" class="imgbox"></video>
             <button id="snap">Take Photo</button>
             <!-- <canvas id="canvas" width="360" height="360"></canvas> -->
-            <canvas id="resizeCanvas" height="360" width="360"></canvas>
+            <canvas id="resizeCanvas"></canvas>
+            <button id="camera">camera</button>
+            <button id="pause">pause</button>
             <button id="store">Save To Gallery</button>
         </p>
 
