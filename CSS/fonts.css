@@ -31,12 +31,15 @@
     height: 65px;
 }
 #sticker5 {
-    background: url(http://localhost/~juluka/camagru/stickers/circle.png);
+    background: url(http://localhost/~juluka/camagru/stickers/ring.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
     width: 80px;
     height: 65px;
+}
+.hidden {
+    display: none;
 }
 .title {
     text-align: center;
@@ -103,14 +106,14 @@ footer {
 video {
     float: left;
     width: 300px;
-    height: 220px;
+    height: 230px;
     padding: 5px;
     margin: 20px;
     border: 1px solid #eeeeee;}
 canvas {
     float: center;
     width: 300px;
-    height: 220px;
+    height: 230px;
     padding: 5px;
     margin: 20px;
     border: 1px solid #eeeeee;}

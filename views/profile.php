@@ -30,16 +30,16 @@
             <div class="imgbox">
             
                 <video id="video"></video>
-                <canvas id="resizeCanvas"></canvas>
+                <canvas id="canvas"></canvas>
 
                 <aside>
                     <h2>pick a sticker:</h2>
                     <ul>
-                        <li><button id="sticker1"></button></li>
-                        <li><button id="sticker2"></button></li>
-                        <li><button id="sticker3"></button></li>
-                        <li><button id="sticker4"></button></li>
-                        <li><button id="sticker5"></button></li>
+                        <li><button id="sticker1" class="buttons"></button></li>
+                        <li><button id="sticker2" class="buttons"></button></li>
+                        <li><button id="sticker3" class="buttons"></button></li>
+                        <li><button id="sticker4" class="buttons"></button></li>
+                        <li><button id="sticker5" class="buttons"></button></li>
                     </ul>
                 </aside>
             
@@ -74,6 +74,14 @@
         <footer>
             <p>"<em>oop</em>"</p>
         </footer><!-- end of footer -->
+        
+        <div class="hidden">
+        <img id="img1" src="stickers/growmoney.png" />
+        <img id="img2" src="stickers/crown.png" />
+        <img id="img3" src="stickers/pause.png" />
+        <img id="img4" src="stickers/trash.png" />
+        <img id="img5" src="stickers/ring.png" />
+        </div>
 
     </body>
 

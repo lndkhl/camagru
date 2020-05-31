@@ -1,9 +1,33 @@
 var	video = document.getElementById('video');
 var canvas = document.getElementById('canvas');
-var context = resizeCanvas.getContext('2d');
+var context = canvas.getContext('2d');
 var video = document.getElementById('video');
 
-document.getElementById("sticker1").addEventListener("click", function () {console.log("sticker1")});
+var sticker1 = document.getElementById('img1');
+var sticker2 = document.getElementById('img2');
+var sticker3 = document.getElementById('img3');
+var sticker4 = document.getElementById('img4');
+var sticker5 = document.getElementById('img5');
+
+var preview = [sticker1, sticker2, sticker3, sticker4, sticker5];
+
+var stickers = document.getElementsByClassName("buttons");
+
+for (var i = 0; i < stickers.length; i++){
+	stickers[i].addEventListener("click", function () {		
+		j = 0;
+		for (var k = 0; k < preview.length; k++)
+		{
+			if (stickers[k] == this)
+			{
+				j = k;
+			}
+		}
+		var hRatio = canvas.width / preview[j].width;
+		var vRatio = canvas.height / preview[j].height;
+		var ratio  = Math.min ( hRatio, vRatio );
+		context.clearRect(0, 0, canvas.width, canvas.height);
+		context.drawImage(preview[j], 0, 0, preview[j].width, preview[j].height, 0, 0, preview[j].width*ratio, preview[j].height*ratio);});}
 
 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) 
 {
@@ -16,15 +40,12 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia)
 
 }
 
-document.getElementById("snap").addEventListener("click", function () 
-	{
-		context.drawImage(video, 0, 0, 360, 360);
-	});
+document.getElementById("snap").addEventListener("click", function () {context.drawImage(video, 0, 0, 360, 360);});
 
 
 /*
 function savepic () {
-  	var data = resizeCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+  	var data = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
 	var xhttp = new XMLHttpRequest();
 	var uri = "upload";
 
@@ -53,9 +74,9 @@ async function submit() {
 	let result = await response.json();
 	alert(result.message);
 }
-*/
 
-const img = resizeCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+
+const img = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
 const formData = new FormData();
 
 formData.append('file', img);
@@ -63,10 +84,6 @@ formData.append('file', img);
     const options = {
       method: 'POST',
       body: formData,
-      // If you add this, upload won't work
-      // headers: {
-      //   'Content-Type': 'multipart/form-data',
-      // }
     };
 
-    fetch('upload', options);
+    fetch('upload', options);*/
