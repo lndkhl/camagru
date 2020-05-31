@@ -131,16 +131,9 @@ class Users extends Controller
     public static function uploadPic($imgname, $user_id)
     {
         $likes = 0;
-        $insert = static::query('INSERT INTO camagru.posts (imgname, likes, user_id) VALUES (:imgname, :likes, :user_id)',
-                            array(':imgname'=>$imgname, ':likes'=>$likes, ':user_id'=>$user_id));
-        if ($insert)
-        {
-            echo "Image uploaded successfully.";
-        }
-        else
-        {
-            echo "File upload failed, please try again.";
-        }    
+        static::query('INSERT INTO camagru.posts (imgname, likes, user_id) VALUES (:imgname, :likes, :user_id)',
+                    array(':imgname'=>$imgname, ':likes'=>$likes, ':user_id'=>$user_id));
+        echo "Image uploaded successfully.";
     }
 
     public static function getUsername($user_id)

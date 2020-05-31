@@ -15,11 +15,14 @@ class Upload extends Users
             {
                 $imgName = $_FILES['img']['name'];
                 $fileType = pathinfo($imgName, PATHINFO_EXTENSION);
-                echo "filetype = " . $fileType;
                 $allowTypes = array('jpg','png','jpeg');
                 if(in_array($fileType, $allowTypes))
                 {
                     $img = static::getUsername(static::isLoggedIn()) . date('-Y-m-d_h:i:s.'.$fileType.'');
+                    if(!file_exists("uploads"))
+                    {
+                        mkdir("uploads");
+                    }
                     $targetDir = "uploads/";
                     $targetFilePath = $targetDir . $img;
         

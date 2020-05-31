@@ -17,7 +17,7 @@ class Profile extends Users
                 {
                     $username = static::query('SELECT username FROM camagru.users WHERE username=:username',
                         array(':username'=>$_GET['username']))[0]['username'];
-                    echo htmlspecialchars($username) . "'s profile";
+                    echo htmlspecialchars($username) . " the big dawg profile";
                 }
             }
             else

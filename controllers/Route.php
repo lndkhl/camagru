@@ -40,8 +40,7 @@ class Route
 
     public static function redirect($page)
     {
-        $projectRoot = "http://127.0.0.1/camagru/";
-        header('Location:' . $projectRoot . $page);
+        header('Location:' . $page);
         exit();
     }
 }
