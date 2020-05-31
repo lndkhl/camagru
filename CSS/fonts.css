@@ -1,5 +1,5 @@
 #sticker1 {
-    background: url(http://localhost/~juluka/camagru/stickers/growmoney.png);
+    background: url(../stickers/growmoney.png);   
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -7,7 +7,7 @@
     height: 65px;
 }
 #sticker2 {
-    background: url(http://localhost/~juluka/camagru/stickers/crown.png);
+    background: url(../stickers/crown.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -15,7 +15,7 @@
     height: 65px;
 }
 #sticker3 {
-    background: url(http://localhost/~juluka/camagru/stickers/pause.png);
+    background: url(../stickers/pause.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -23,7 +23,7 @@
     height: 65px;
 }
 #sticker4 {
-    background: url(http://localhost/~juluka/camagru/stickers/trash.png);
+    background: url(../stickers/trash.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -31,7 +31,7 @@
     height: 65px;
 }
 #sticker5 {
-    background: url(http://localhost/~juluka/camagru/stickers/ring.png);
+    background: url(../stickers/ring.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
