@@ -1,25 +1,42 @@
 #sticker1 {
-    background: url(http://localhost/~juluka/camagru/uploads/juluka-2020-05-31_09:15:16.jpeg);
-    padding: 1.5em 3em;
+    background: url(http://localhost/~juluka/camagru/stickers/growmoney.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 80px;
+    height: 65px;
 }
 #sticker2 {
-    padding: 1.5em 3em;
-}
-#ttg {
-    padding: 2em 4em;   
-    background: url('http://localhost/~juluka/camagru/stickers/srand.png');
+    background: url(http://localhost/~juluka/camagru/stickers/crown.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 80px;
+    height: 65px;
 }
 #sticker3 {
-    background: url(upload/juluka-2020-05-31_09:15:16.jpeg);
-    padding: 1.5em 3em;
+    background: url(http://localhost/~juluka/camagru/stickers/pause.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 80px;
+    height: 65px;
 }
 #sticker4 {
-    background: url(stickers/srand.png);
-    padding: 1.5em 3em;
+    background: url(http://localhost/~juluka/camagru/stickers/trash.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 80px;
+    height: 65px;
 }
 #sticker5 {
-    background: url(upload/juluka-2020-05-31_09:15:16.jpeg);
-    padding: 1.5em 3em;
+    background: url(http://localhost/~juluka/camagru/stickers/circle.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 80px;
+    height: 65px;
 }
 .title {
     text-align: center;
@@ -32,12 +49,15 @@
 }
 #capture {
     float: left;
+    margin-left: 90px;
 }
 #process {
     float: right;
+    margin-right: 150px;
 }
 #alts {
-    flaot: center;
+    margin-top: 50px;
+    margin-left: 20px;
 }
 header, section, footer, aside, nav {
     display: block;
@@ -59,6 +79,9 @@ header {
 	height: 80px;
     margin: 10px;
 }
+ul {
+    list-style-type: none;
+}
 nav, footer {
 	clear: both;
 	color: #ffffff;
@@ -71,7 +94,7 @@ nav li {
 	display: inline;
     margin-right: 40px;}
 aside {
-	width: 250px;
+	width: 210px;
 	float: right;
     padding: 0px 0px 0px 20px;}
 footer {
@@ -79,14 +102,14 @@ footer {
     padding: 7px 0px 0px 20px;}
 video {
     float: left;
-    width: 280px;
+    width: 300px;
     height: 220px;
     padding: 5px;
     margin: 20px;
     border: 1px solid #eeeeee;}
 canvas {
     float: center;
-    width: 280px;
+    width: 300px;
     height: 220px;
     padding: 5px;
     margin: 20px;

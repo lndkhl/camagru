@@ -3,7 +3,7 @@ var canvas = document.getElementById('canvas');
 var context = resizeCanvas.getContext('2d');
 var video = document.getElementById('video');
 
-document.getElementById("sticker2").addEventListener("click", function () {console.log("sticker2")});
+document.getElementById("sticker1").addEventListener("click", function () {console.log("sticker1")});
 
 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) 
 {

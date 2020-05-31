@@ -31,15 +31,15 @@
             
                 <video id="video"></video>
                 <canvas id="resizeCanvas"></canvas>
-            
+
                 <aside>
                     <h2>pick a sticker:</h2>
                     <ul>
-                        <li><button id="sticker1">Go!</button></li>
-                        <li><button id="sticker2"><span id="ttg">Going!</span></button></li>
-                        <li><img id="press" src="stickers/srand.png" height=65px width=105px></li>
-                        <li><button id="sticker4" background="url(stickers/srand.png)" height="65px" width="105px">Go!</button></li>
-                        <li><input type="image" id="presser" alt="press me" src="stickers/srand.png" height="65px" width="105px"></li>
+                        <li><button id="sticker1"></button></li>
+                        <li><button id="sticker2"></button></li>
+                        <li><button id="sticker3"></button></li>
+                        <li><button id="sticker4"></button></li>
+                        <li><button id="sticker5"></button></li>
                     </ul>
                 </aside>
             
@@ -48,28 +48,28 @@
             <div class="options">
             
                 <span id="capture">
-                    <button id="snap">Take Photo</button>
+                    <button id="snap">snap</button>
                     <button id="camera">camera</button>
                     <button id="pause">pause</button>
-                </span>
-
-                <span id="alts">
-                    <form  action="upload" method="post" enctype="multipart/form-data">
-                    <input type="file" id="img" name= "img" />
-                    <input type=submit name="upload" value="Upload" id="upload">
-                    </form>
-
                 </span>
             
             </div><!-- end of options -->
             
             <div id="process">
-                <button id="store">Save To Gallery</button>
+                <button id="store">upload</button>
             </div><!-- end of alts -->
         
-        </section><!-- end of main -->
+            </section><!-- end of main -->
+            
+                <div id="alts">
+                    <p>No webcam?</p>
+                    <form  action="upload" method="post" enctype="multipart/form-data">
+                    <input type="file" id="img" name= "img" />
+                    <input type=submit name="upload" value="submit" id="upload">
+                    </form>
+                </div>
 
-        </div><!-- end of inner -->
+            </div><!-- end of inner -->
 
         <footer>
             <p>"<em>oop</em>"</p>
