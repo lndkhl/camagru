@@ -13,6 +13,11 @@ var preview = [sticker1, sticker2, sticker3, sticker4, sticker5];
 
 var stickers = document.getElementsByClassName("buttons");
 
+const process = document.getElementById("store");
+process.disabled = true;
+const render = document.getElementById("upload");
+render.disabled = true;
+
 for (var i = 0; i < stickers.length; i++){
 	stickers[i].addEventListener("click", function () {		
 		j = 0;
@@ -27,7 +32,11 @@ for (var i = 0; i < stickers.length; i++){
 		var vRatio = canvas.height / preview[j].height;
 		var ratio  = Math.min ( hRatio, vRatio );
 		context.clearRect(0, 0, canvas.width, canvas.height);
-		context.drawImage(preview[j], 0, 0, preview[j].width, preview[j].height, 0, 0, preview[j].width*ratio, preview[j].height*ratio);});}
+		if (preview[j])
+		{
+			context.drawImage(preview[j], 0, 0, preview[j].width, preview[j].height, 0, 0, preview[j].width*ratio, preview[j].height*ratio);
+			process.disabled = false;
+			render.disabled = false;}});}
 
 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) 
 {
@@ -40,7 +49,7 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia)
 
 }
 
-document.getElementById("snap").addEventListener("click", function () {context.drawImage(video, 0, 0, 360, 360);});
+document.getElementById("snap").addEventListener("click", function () {context.drawImage(video, 0, 0, canvas.width, canvas.height);});
 
 
 /*
