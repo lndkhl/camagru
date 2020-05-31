@@ -27,12 +27,13 @@
             <button id="snap">Take Photo</button>
             <!-- <canvas id="canvas" width="360" height="360"></canvas> -->
             <canvas id="resizeCanvas" height="360" width="360"></canvas>
+            <button id="store">Save To Gallery</button>
         </p>
 
         <p>
-            <form  action="upload/image" method="post" enctype="multipart/form-data">
-            <input id="img" name= "img" type="file" />
-            <input type=submit name="upload" id="save">Upload</button>
+            <form  action="upload" method="post" enctype="multipart/form-data">
+            <input type="file" id="img" name= "img" />
+            <input type=submit name="upload" value="Upload" id="upload">
             </form>
         </p>
         <footer>
