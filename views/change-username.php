@@ -7,6 +7,7 @@
         <link href="./CSS/fonts.css" type="text/css" rel="stylesheet" />
     </head>
     
+    <div class="wrapper">
     <body>
         <header>
         <h1 class="title">camagru</h1>
@@ -23,6 +24,7 @@
             </p>
         </nav><!-- end of links -->
 
+        <div class="inner">
         <p>
             <form action="change-username" method="post">
             <fieldset id="field_1">
@@ -31,10 +33,12 @@
             <p><input type="submit" name="changeusername" value="change username" id="changeusername"></p>
             </form>
         </p>
+        </div>
 
         <footer>
             <hr />
             <p>"geeked <em>oop!</em>"</p>
         </footer><!-- end of footer -->
     </body>
+    </div><!-- end of wrapper -->
 </html>

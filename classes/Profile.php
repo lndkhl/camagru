@@ -28,6 +28,7 @@ class Profile extends Users
                 $username = static::query('SELECT username FROM camagru.users WHERE id=:user_id', array(':user_id'=>static::isLoggedIn()))[0]['username'];
                 echo htmlspecialchars($username) . " the big dawg's profile";
             }
+            static::parsePic();
         }
         else
         {

@@ -14,11 +14,11 @@ class ChangeUsername extends Users
             if (isset($_POST['changeusername']))
             {
                 $username = $_POST['username'];
-                if (preg_match('/[a-z_]/', $username) && preg_match('/[a-z]/', $username))
+                if (static::isValid($username))
                 {
-                    if (!static::query('SELECT username FROM camagru.users WHERE username=:username', array(':username'=>$username)))
+                    if (!static::userExists($username))
                     {
-                        if(preg_match('/.{3}/', $username))
+                        if(static::validUsernameLength($username))
                         {
                             static::query('UPDATE camagru.users SET username=:username WHERE id=:user_id',
                                 array(':username'=>$username, ':user_id'=>$user_id));

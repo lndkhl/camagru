@@ -15,10 +15,9 @@ class Login extends Users
             {
                 $username = $_POST['username'];
                 $password = $_POST['password'];
-                if (preg_match('/[a-z_]/', $username) && preg_match('/[a-z]/', $username))
+                if (static::validUsername($username))
                 {
-                    if (static::query('SELECT username FROM camagru.users WHERE username=:username',
-                        array(':username'=>$username)))
+                    if (static::userExists($username))
                     {
                         $verified =static::query('SELECT verified FROM camagru.users WHERE username=:username', array(':username'=>$username))[0]['verified'];
                         if ($verified == 1)    

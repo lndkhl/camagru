@@ -6,7 +6,8 @@
         </title>
         <link href="./CSS/fonts.css" type="text/css" rel="stylesheet" />
     </head>
-    
+   
+    <div class="wrapper">
     <body>
         <header>
         <h1 class="title">camagru</h1>
@@ -23,6 +24,7 @@
             </p>
         </nav><!-- end of links -->
 
+        <div class="inner">
         <p>
             <form action="reset-password" method="post">
             <fieldset id="field_2">
@@ -32,10 +34,12 @@
             </fieldset>
             </form>
         </p>
+        </div><!-- end of inner -->
 
         <footer>
             <hr />
             <p>"geeked <em>oop!</em>"</p>
         </footer><!-- end of footer -->
     </body>
+    </div><!-- end of wrapper -->
 </html>

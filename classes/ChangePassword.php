@@ -18,9 +18,9 @@ class ChangePassword extends Users
                 if (password_verify($password, static::query('SELECT password FROM camagru.users WHERE id=:user_id',
                     array(':user_id'=>static::isLoggedIn()))[0]['password']))
                 {
-                    if (preg_match('/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/', $newpword))
+                    if (static::validPasswordComplexity($newpword))
                     {
-                        if (preg_match('/.{8}/', $newpword))
+                        if (static::validPasswordLength($newpword))
                         {
                             if ($newpword == $reppword)
                             {

@@ -29,7 +29,7 @@ class Route
             Route::set("change-email", function () {ChangeEmail::main_();});
             Route::set("pro-gallery", function () {ProGallery::main_();});
             Route::set("settings", function () {Settings::main_();});
-            Route::set("upload", function () {Upload::main_();});
+            Route::set("upload", function () {Profile::main_();});
             Route::set("set-notifications", function () {Notifications::main_();});
         }
         catch (Exception $e)

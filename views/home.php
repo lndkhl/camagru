@@ -6,12 +6,14 @@
         </title>
         <link href="./CSS/fonts.css" type="text/css" rel="stylesheet" />
     </head>
-    
+   
+    <div class="wrapper">
     <body>
         <header>
         <h1 class="title">camagru</h1>
         </header><!-- end of header -->
 
+        <div class="inner">
         <nav>
             <p> 
                 <ul>
@@ -22,10 +24,12 @@
                 </ul>
             </p>
         </nav><!-- end of links -->
+        </div><!-- end of inner ==>
 
         <footer>
             <hr />
             <p>"geeked <em>oop!</em>"</p>
         </footer><!-- end of footer -->
     </body>
+    </div><!-- end of wrapper -->
 </html>

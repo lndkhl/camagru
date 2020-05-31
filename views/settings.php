@@ -6,7 +6,8 @@
         </title>
         <link href="./CSS/fonts.css" type="text/css" rel="stylesheet" />
     </head>
-    
+   
+    <div class="wrapper">
     <body>
         <header>
         <h1 class="title">camagru</h1>
@@ -21,16 +22,19 @@
             </p>
         </nav><!-- end of links -->
 
+        <div class="inner">
         <p>
         <li><a href="change-password">change password</a></li>
         <li><a href="change-username">change username</a></li>
         <li><a href="change-email">change email address</a></li>
         <li><a href="set-notifications">set notifications</a></li>
         </p>
+        </div><!-- end of inner -->
 
         <footer>
             <hr />
             <p>"geeked <em>oop!</em>"</p>
         </footer><!-- end of footer -->
     </body>
+    <div><!-- end of wrapper -->
 </html>
