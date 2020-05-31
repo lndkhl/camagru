@@ -10,6 +10,9 @@ class Profile extends Users
     {
         if(static::isLoggedIn())
         {
+            echo "There are ";
+            print_r (static::countRows("posts"));
+            echo "posts<br>";
             if (isset($_GET['username']))
             {
                 if (static::query('SELECT username FROM camagru.users WHERE username=:username',

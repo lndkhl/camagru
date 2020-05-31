@@ -54,7 +54,13 @@ class database
             return $data;
         }
     }
-    
+
+    public static function countRows($table)
+    {
+        $nRows = self::connect()->query('SELECT COUNT(*) from camagru.' .$table. '')->fetchColumn(); 
+        return $nRows;
+    }
+
     public static function create_table_users()
     {
         try

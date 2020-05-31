@@ -135,7 +135,13 @@ class Users extends Controller
                     array(':imgname'=>$imgname, ':likes'=>$likes, ':user_id'=>$user_id));
         echo "Image uploaded successfully<br>";
     }
-
+/*
+    public static function countRows()
+    {
+        $rows = static::query('SELECT COUNT * FROM camagru.posts WHERE user_id=:user_id', array(':user_id'=>static::isLoggedIn()));
+        return $rows;
+    }
+*/
     public static function getUsername($user_id)
     {
         if (static::query('SELECT username FROM camagru.users WHERE id=:user_id', array(':user_id'=>$user_id)))
