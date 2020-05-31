@@ -40,6 +40,28 @@ class Upload extends Users
                     echo "Sorry, only JPG, JPEG, PNG, files are allowed.";
                 }
             }
+            else if (isset($_POST['image']))
+            {
+                    $image_string = $_POST['image'];
+                    $image_string = str_replace('data:image/png;base64,', '', $image_string);
+                    $image_string = str_replace(' ', '+', $image_string);
+                    $image_string = base64_decode($image_string);
+
+                    if (!file_exists("uploads"))
+                    {
+                        mkdir(uploads);
+                    }
+                    $pic = static::getUsername(static::isLoggedIn()). date('-Y-m-d_h:i:s') . '.png';
+                    $path = 'uploads/' . $pic;
+                    if (file_put_contents($path, $image_string) != FALSE)
+                    {
+                        static::uploadPic($pic, $user_id);
+                    }
+                    else
+                    {
+                        echo "File upload failed, please try again.";
+                    }
+            }
         }
         else
         {

@@ -36,7 +36,8 @@ for (var i = 0; i < stickers.length; i++){
 		{
 			context.drawImage(preview[j], 0, 0, preview[j].width, preview[j].height, 0, 0, preview[j].width*ratio, preview[j].height*ratio);
 			process.disabled = false;
-			render.disabled = false;}});}
+			render.disabled = false;
+		}});}
 
 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) 
 {
@@ -51,7 +52,6 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia)
 
 document.getElementById("snap").addEventListener("click", function () {context.drawImage(video, 0, 0, canvas.width, canvas.height);});
 
-
 /*
 function savepic () {
   	var data = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
@@ -62,37 +62,28 @@ function savepic () {
 	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	xhttp.onreadystatechange = function() {
     	if (this.readyState == 4 && this.status == 200) {
-      		console.log(url);
+      		console.log(uri);
     	} 
 	};
 	xhttp.send('key='+data);
 	location.reload();
 }
-
 document.getElementById("store").addEventListener("click", function(){
-  submit();
+  savepic();
 });
+*/
+document.getElementById("store").addEventListener("click", function() {
+	var image = canvas.toDataURL("image/png");
+	var xhr = new XMLHttpRequest();	
 
-async function submit() {
-	let blob = await new Promise(resolve => resizeCanvas.toBlob(resolve, 'image/png'));
-	let response = await fetch('upload', {
-	  method: 'POST',
-	  body: blob
-	});
-
-	let result = await response.json();
-	alert(result.message);
-}
-
-
-const img = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-const formData = new FormData();
-
-formData.append('file', img);
-
-    const options = {
-      method: 'POST',
-      body: formData,
-    };
-
-    fetch('upload', options);*/
+	xhr.open('POST', 'upload', 'true');
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.onreadystatechange = function (res) {
+		if (xhr.status === 200 && xhr.readyState === xhr.DONE) {
+			console.log('Response Text: ' + res.target.response);
+			console.log('Response:', res);
+		}
+	}
+	xhr.send("image=" + image);
+	//location.reload();
+	})
