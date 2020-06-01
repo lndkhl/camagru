@@ -17,6 +17,7 @@ class Gallery extends Users
                             camagru
                         </title>
                     <link href="./CSS/fonts.css" type="text/css" rel="stylesheet" />
+                    <link rel="shortcut icon" href="forward.ico">
                     </head>
     
                     <div class="wrapper">
@@ -36,21 +37,14 @@ class Gallery extends Users
                     </p>
                     </nav><!-- end of links -->
                     <section class="main">';
-            
+
+                    /*end of header html*/
+
             if (static::countRows("posts"))
             {
-                $open_div = -1;
-                for ($i = 0; $i < static::countRows("posts") && $i < 15; $i++)
+                $actual = array();
+                for ($i = 0; $i < static::countRows("posts"); $i++)
                 {
-                    if ($i % 3 == 0)
-                    {    
-                        echo '</div>';
-                    }
-                    if ($i % 3 == 0 || $i == 0)
-                    {    
-                        echo '<div class="row">';
-                        $open_div *= -1;
-                    }
                     $posts = static::fetchPosts();
                     if ($posts)
                     {
@@ -61,17 +55,35 @@ class Gallery extends Users
                                 $uploads = scandir("uploads");
                                 if (in_array($posts[$i]['imgname'], $uploads))
                                 {
-                                    echo '<img src="uploads/' . $posts[$i]['imgname'] . '" class="gallery" />';                                    
+                                    array_push($actual, $posts[$i]['imgname']);
                                 }
                             }
                         }
                     }
                 }
-                if ($open_div == 1)
+                $open_div = -1;
+                if (count($actual))
                 {
-                    echo '</div>';
+                    for ($j = 0; $j  < count($actual); $j++)
+                    {
+                        if ($j % 3 == 0) { echo '</div>'; }
+                        if ($j % 3 == 0 || $j == 0)
+                        {    
+                            echo '<div class="row">';
+                            $open_div *= -1;
+                            $class = "left";
+                        }
+                        else if  (($j - 1) % 3 == 0){ $class = "mid"; }
+                        else { $class = "right"; }
+                        //echo '<span class="' . $class . '">' . $actual[$j] . '</span>';
+                        echo '<span class= "' . $class . '"><img src="uploads/' . $actual[$j] . '" /></span>';                                    
+                    }
                 }
+                if ($open_div == 1) { echo '</div>'; }
             }
+
+            /*footer html*/         
+
             echo '</section> <!-- end of main-->
                     </div><!-- end of inner -->
                     <footer>

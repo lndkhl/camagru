@@ -78,15 +78,31 @@ body {
 	border: 2px solid #000000;
     background-color: #ffffff;}
 .row {
-    max-width: 100%;
-    margin-left: 5px;
-    margin-top: 10px;
-    margin-bottom: 5px;
+    padding-left: 0px;
+    padding-top: 50px;
+    padding-right: 50px;
+    padding-bottom: 50px;
+    width: 100%;
 }
-.gallery {
-    max-width: 100%;
+.left {
+    padding-left: 10px;
+    float: left;
+    width: 300px;
     height: auto;
-    padding: 5px;
+}
+.mid {
+    padding-left: 10px;
+    padding-left: 10px;
+    float: center;
+    width: 300px;
+    height: auto;
+}
+.right {
+    padding-left: 10px;
+    padding-right: 10px;
+    float: right;   
+    width: 300px;
+    height: auto;
 }
 header {
 	width: 940px;
