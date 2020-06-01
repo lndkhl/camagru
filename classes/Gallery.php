@@ -38,17 +38,24 @@ class Gallery extends Users
             
             if (static::countRows("posts"))
             {
-                //for ($i = 0; $i < static::countRows(); $i++)
-                //{
+                for ($i = 0; $i < static::countRows("posts"); $i++)
+                {
                     $posts = static::fetchPosts();
                     if ($posts)
                     {
-                        print_r($posts);
+                        if (file_exists("uploads"))
+                        {
+                            if (count(scandir("uploads")))
+                            {
+                                $uploads = scandir("uploads");
+                                if (in_array($posts[$i]['imgname'], $uploads))
+                                {
+                                    echo '<img src="uploads/' . $posts[$i]['imgname'] . '" /><br>';                                    
+                                }
+                            }
+                        }
                     }
-                    //echo '<img src="uploads/lindo-2020-06-01_05:33:34.png" />';
-                    //echo '<img src="' /*. static::get_project_root("gallery")*/ . 'stickers/' . 'trash.png" />';
-                    //echo '<img id="img1" src="stickers/growmoney.png" />';
-                //}
+                }
             }
         }
         else
