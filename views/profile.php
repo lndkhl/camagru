@@ -48,9 +48,9 @@
             <div class="options">
             
                 <span id="capture">
-                    <button id="snap">snap</button>
                     <button id="camera">camera</button>
-                    <button id="pause">pause</button>
+                    <button id="snap">snap</button>
+                    <button id="pause" class="hidden">pause</button>
                 </span>
             
             </div><!-- end of options -->

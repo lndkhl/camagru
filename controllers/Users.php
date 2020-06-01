@@ -175,7 +175,7 @@ class Users extends Controller
             if (isset($_POST['upload']) && !empty($_FILES['img']['name']))
             {
                 $imgName = $_FILES['img']['name'];
-                $fileType = pathinfo($imgName, PATHINFO_EXTENSION);
+                $fileType = strtolower(pathinfo($imgName, PATHINFO_EXTENSION));
                 $allowTypes = array('jpg','png','jpeg');
                 if(in_array($fileType, $allowTypes))
                 {
@@ -217,6 +217,11 @@ class Users extends Controller
                 if (file_put_contents($path, $image_string) != FALSE)
                 {
                     static::uploadPic($pic, $user_id);
+                    
+                    /*
+                    echo '<meta http-equiv="refresh" content="100;url=' . static::get_project_root("profile") . '/profile">';
+                    Route::redirect("profile");
+                    */
                 }
                 else
                 {

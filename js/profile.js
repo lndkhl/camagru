@@ -52,26 +52,6 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia)
 
 document.getElementById("snap").addEventListener("click", function () {context.drawImage(video, 0, 0, canvas.width, canvas.height);});
 
-/*
-function savepic () {
-  	var data = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-	var xhttp = new XMLHttpRequest();
-	var uri = "upload";
-
-	xhttp.open("POST", uri, true);
-	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	xhttp.onreadystatechange = function() {
-    	if (this.readyState == 4 && this.status == 200) {
-      		console.log(uri);
-    	} 
-	};
-	xhttp.send('key='+data);
-	location.reload();
-}
-document.getElementById("store").addEventListener("click", function(){
-  savepic();
-});
-*/
 document.getElementById("store").addEventListener("click", function() {
 	var image = canvas.toDataURL("image/png");
 	var xhr = new XMLHttpRequest();	
@@ -85,5 +65,5 @@ document.getElementById("store").addEventListener("click", function() {
 		}
 	}
 	xhr.send("image=" + image);
-	//location.reload();
+	window.location.reload(true);
 	})

@@ -20,13 +20,13 @@ class Profile extends Users
                 {
                     $username = static::query('SELECT username FROM ' .  static::get_db_name()  .  '.users WHERE username=:username',
                         array(':username'=>$_GET['username']))[0]['username'];
-                    echo htmlspecialchars($username) . " the homie's profile";
+                    echo htmlspecialchars($username) . " the homie's profile<br>";
                 }
             }
             else
             {
                 $username = static::query('SELECT username FROM ' .  static::get_db_name()  .  '.users WHERE id=:user_id', array(':user_id'=>static::isLoggedIn()))[0]['username'];
-                echo htmlspecialchars($username) . " the big dawg's profile";
+                echo htmlspecialchars($username) . " the big dawg's profile<br>";
             }
             static::parsePic();
         }

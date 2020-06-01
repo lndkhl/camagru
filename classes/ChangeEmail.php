@@ -19,10 +19,10 @@ class ChangeEmail extends Users
                     if (!static::query('SELECT email FROM ' . static::get_db_name . '.users WHERE email=:email', array(':email'=>$email)))
                     {
                         $verified = 0;
-                        static::query('UPDATE camagru.users SET email=:email, verified=:verified WHERE id=:user_id',
+                        static::query('UPDATE ' .  static::get_db_name()  .  '.users SET email=:email, verified=:verified WHERE id=:user_id',
                         array(':email'=>$email, ':verified'=>$verified, ':user_id'=>$user_id));
                         echo "New email address saved!<br>";
-                        $subject = "Camagru email address update";
+                        $subject = "' .  static::get_db_name()  .  ' email address update";
                         $cryptographically_strong = true;
                         $message = "Click the following link, or copy and paste it into your browser, to verify your email address: ";
                         $project_root = static::get_project_root("change-email");
@@ -30,8 +30,8 @@ class ChangeEmail extends Users
                         $voken = bin2hex(openssl_random_pseudo_bytes(64, $cryptographically_strong));
                         if (mail($email, $subject, $message . $link . $voken))
                         {
-                            static::query('INSERT INTO camagru.vokens (voken, user_id) VALUES (:voken, :user_id)',
-                                array(':voken'=>sha1($voken), ':user_id'=>static::query('SELECT id FROM camagru.users WHERE email=:email', array(':email'=>$email))[0]['id']));
+                            static::query('INSERT INTO ' .  static::get_db_name()  .  '.vokens (voken, user_id) VALUES (:voken, :user_id)',
+                                array(':voken'=>sha1($voken), ':user_id'=>static::query('SELECT id FROM ' .  static::get_db_name()  .  '.users WHERE email=:email', array(':email'=>$email))[0]['id']));
                             echo "<br>Email verification link sent, veirfy your email before attempting to log in again<br>";
                         }
                     }

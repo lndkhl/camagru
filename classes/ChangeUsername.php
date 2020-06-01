@@ -20,7 +20,7 @@ class ChangeUsername extends Users
                     {
                         if(static::validUsernameLength($username))
                         {
-                            static::query('UPDATE camagru.users SET username=:username WHERE id=:user_id',
+                            static::query('UPDATE ' .  static::get_db_name()  .  '.users SET username=:username WHERE id=:user_id',
                                 array(':username'=>$username, ':user_id'=>$user_id));
                             echo "Username changed successfully";
                         }

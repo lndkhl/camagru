@@ -24,11 +24,15 @@
                 </ul>
             </p>
         </nav><!-- end of links -->
-        </div><!-- end of inner ==>
+
+        <p>
+        </p>
+
+        </div><!-- end of inner -->
 
         <footer>
             <hr />
-            <p>"geeked <em>oop!</em>"</p>
+            <p>"<em>oop</em>"</p>
         </footer><!-- end of footer -->
     </body>
     </div><!-- end of wrapper -->
