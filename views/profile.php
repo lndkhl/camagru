@@ -9,10 +9,10 @@
         <link rel="shortcut icon" href="forward.ico">
     </head>
     
-    <div class="wrapper">
+    <div class="wrapper" id="profwrap">
     <body>
         <header>
-            <h1 class="title">camagru</h1>
+            <h1 class="title" id="proftitle">camagru</h1>
         </header><!-- end of header -->
 
         <nav>

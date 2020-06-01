@@ -61,25 +61,23 @@ class Gallery extends Users
                         }
                     }
                 }
-                $open_div = -1;
                 if (count($actual))
                 {
-                    for ($j = 0; $j  < count($actual); $j++)
+                    for ($j = 0; $j  < count($actual) && $j < 15; $j++)
                     {
-                        if ($j % 3 == 0) { echo '</div>'; }
-                        if ($j % 3 == 0 || $j == 0)
-                        {    
-                            echo '<div class="row">';
-                            $open_div *= -1;
-                            $class = "left";
-                        }
-                        else if  (($j - 1) % 3 == 0){ $class = "mid"; }
-                        else { $class = "right"; }
+                        echo '<div class="row">';
+                        $class = "post";
                         //echo '<span class="' . $class . '">' . $actual[$j] . '</span>';
-                        echo '<span class= "' . $class . '"><img src="uploads/' . $actual[$j] . '" /></span>';                                    
+                        echo '<span class= "' . $class . '">
+                                <figure class="cap">        
+                                <img src="uploads/' . $actual[$j] . '" class="pic" />
+                                <figcaption>likes</figcaption>
+                                </figure>
+                                </span>
+                                </div>';
+                                                            
                     }
                 }
-                if ($open_div == 1) { echo '</div>'; }
             }
 
             /*footer html*/         

@@ -1,3 +1,9 @@
+#profwrap{
+    width: 940px;
+}
+#proftitle{
+    margin-right: 20px;
+}
 #sticker1 {
     background: url(../stickers/growmoney.png);   
     background-repeat: no-repeat;
@@ -43,6 +49,8 @@
 }
 .title {
     text-align: center;
+    margin-right: 450px;
+    color: green;
 }
 .imgbox {
     display: inline;
@@ -71,37 +79,33 @@ body {
     background-position: center;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	line-height: 1.4em;
-	margin: 0px;}
+    margin: 0px;}
+.pic {
+    display: block;
+    margin: 0 auto;
+    min-width: 400px;
+    height:auto;
+}
+.cap {
+    float: center;
+    text-align: center;
+}
 .wrapper {
-	width: 940px;
+	width: 510px;
 	margin: 20px auto 20px auto;
 	border: 2px solid #000000;
     background-color: #ffffff;}
 .row {
-    padding-left: 0px;
-    padding-top: 50px;
-    padding-right: 50px;
-    padding-bottom: 50px;
+    padding-left: 1px;
+    padding-top: 1px;
+    padding-right: 1px;
+    padding-bottom: 1px;
     width: 100%;
 }
-.left {
-    padding-left: 10px;
-    float: left;
-    width: 300px;
-    height: auto;
-}
-.mid {
-    padding-left: 10px;
-    padding-left: 10px;
-    float: center;
-    width: 300px;
-    height: auto;
-}
-.right {
-    padding-left: 10px;
-    padding-right: 10px;
-    float: right;   
-    width: 300px;
+.post {
+    padding-left: 1px;
+    padding-right: 1px;
+    min-width: 450px;
     height: auto;
 }
 header {
