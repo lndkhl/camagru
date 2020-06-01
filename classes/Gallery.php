@@ -34,12 +34,23 @@ class Gallery extends Users
                             <li><a href="login">login</a></li>
                         </ul>
                     </p>
-                    </nav><!-- end of links -->';
+                    </nav><!-- end of links -->
+                    <section class="main">';
             
             if (static::countRows("posts"))
             {
-                for ($i = 0; $i < static::countRows("posts"); $i++)
+                $open_div = -1;
+                for ($i = 0; $i < static::countRows("posts") && $i < 15; $i++)
                 {
+                    if ($i % 3 == 0)
+                    {    
+                        echo '</div>';
+                    }
+                    if ($i % 3 == 0 || $i == 0)
+                    {    
+                        echo '<div class="row">';
+                        $open_div *= -1;
+                    }
                     $posts = static::fetchPosts();
                     if ($posts)
                     {
@@ -50,13 +61,25 @@ class Gallery extends Users
                                 $uploads = scandir("uploads");
                                 if (in_array($posts[$i]['imgname'], $uploads))
                                 {
-                                    echo '<img src="uploads/' . $posts[$i]['imgname'] . '" /><br>';                                    
+                                    echo '<img src="uploads/' . $posts[$i]['imgname'] . '" class="gallery" />';                                    
                                 }
                             }
                         }
                     }
                 }
+                if ($open_div == 1)
+                {
+                    echo '</div>';
+                }
             }
+            echo '</section> <!-- end of main-->
+                    </div><!-- end of inner -->
+                    <footer>
+                    <p>"<em>oop</em>"</p>
+                    </footer><!-- end of footer -->
+                    </body>
+                    </div><!-- end of wrapper -->
+                    </html>';
         }
         else
         {
