@@ -182,7 +182,7 @@ class Users extends Controller
                     $img = static::getUsername(static::isLoggedIn()) . date('-Y-m-d_h:i:s.') . $fileType;
                     if(!file_exists("uploads"))
                     {
-                        mkdir("uploads");
+                        mkdir("uploads", 0700, TRUE);
                     }
                     $targetDir = "uploads/";
                     $targetFilePath = $targetDir . $img;
@@ -210,7 +210,7 @@ class Users extends Controller
 
                 if (!file_exists("uploads"))
                 {
-                    mkdir(uploads);
+                    mkdir("uploads", 0700, TRUE);
                 }
                 $pic = static::getUsername(static::isLoggedIn()). date('-Y-m-d_h:i:s') . '.png';
                 $path = 'uploads/' . $pic;

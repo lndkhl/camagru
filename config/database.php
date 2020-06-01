@@ -1,11 +1,6 @@
 <?php
 class database
 {
-    /*
-    private static $DB_DSN = "mysql:hostname=127.0.0.1; db_name=camagru; charset=utf8";
-    private static $DB_USER = "root";
-    private static $DB_PASSWORD = "root";
-    */
     private static $DB_NAME;
     private static $DB_DSN;
     private static $DB_USER;
@@ -83,6 +78,19 @@ class database
     {
         $nRows = self::connect()->query('SELECT COUNT(*) from ' . static::get_db_name() . '.' . $table . '')->fetchColumn(); 
         return $nRows;
+    }
+
+    public static function fetchPosts()
+    {
+        if (self::connect()->query('SELECT imgname FROM ' . static::get_db_name() . '.posts ORDER BY id DESC'))
+        {
+            $images = self::connect()->query('SELECT imgname FROM ' . static::get_db_name() . '.posts ORDER BY id DESC')->fetchAll();
+            return $images;
+        }
+        else
+        {
+            echo "no images were found";
+        }
     }
 
     public static function create_table_users()
