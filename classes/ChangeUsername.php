@@ -14,7 +14,7 @@ class ChangeUsername extends Users
             if (isset($_POST['changeusername']))
             {
                 $username = $_POST['username'];
-                if (static::isValid($username))
+                if (static::validUsername($username))
                 {
                     if (!static::userExists($username))
                     {

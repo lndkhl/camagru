@@ -16,7 +16,7 @@ class ChangeEmail extends Users
                 $email = $_POST['email'];
                 if (filter_var($email, FILTER_VALIDATE_EMAIL))
                 {
-                    if (!static::query('SELECT email FROM camagru.users WHERE email=:email', array(':email'=>$email)))
+                    if (!static::query('SELECT email FROM ' . static::get_db_name . '.users WHERE email=:email', array(':email'=>$email)))
                     {
                         $verified = 0;
                         static::query('UPDATE camagru.users SET email=:email, verified=:verified WHERE id=:user_id',
@@ -25,7 +25,8 @@ class ChangeEmail extends Users
                         $subject = "Camagru email address update";
                         $cryptographically_strong = true;
                         $message = "Click the following link, or copy and paste it into your browser, to verify your email address: ";
-                        $link = "http://127.0.0.1/camagru/home?voken=";
+                        $project_root = static::get_project_root("change-email");
+                        $link = $project_root . "home?voken=";
                         $voken = bin2hex(openssl_random_pseudo_bytes(64, $cryptographically_strong));
                         if (mail($email, $subject, $message . $link . $voken))
                         {

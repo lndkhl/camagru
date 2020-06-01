@@ -103,6 +103,17 @@ class Users extends Controller
         }
    }
 
+   public static function get_project_root($page)
+    {
+        $project_root = "http://";
+        $project_root .= $_SERVER['HTTP_HOST'];
+        $project_root .= $_SERVER['REQUEST_URI'];
+        $project_index = strstr($project_root, $page);
+        $project_root = substr($project_root, 0, strlen($project_root) - strlen($project_index));
+        return $project_root;
+    }
+
+
    public static function registerUser($username, $password, $email)
    {
         $verified = 0;
@@ -110,7 +121,8 @@ class Users extends Controller
         $subject = "Camagru user verification";
         $cryptographically_strong = true;
         $message = "Click the following link, or copy and paste it into your browser, to complete the registration process: ";
-        $link = "http://127.0.0.1/camagru/home?voken=";
+        $project_root = static::get_project_root("create-account");
+        $link = $project_root . "home?voken=";
         $voken = bin2hex(openssl_random_pseudo_bytes(64, $cryptographically_strong));
         
         static::query('INSERT INTO camagru.users (username, password, email, verified, notifications) VALUES (:username, :password, :email, :verified, :notifications)', 

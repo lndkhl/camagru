@@ -11,13 +11,13 @@ class Home extends Users
         setup::initialize();
         if (isset($_GET['voken']))
         {
-            if (static::query('SELECT user_id FROM camagru.vokens WHERE voken=:voken', array(':voken'=>sha1($_GET['voken']))))
+            if (static::query('SELECT user_id FROM ' .  static::get_db_name()  .  '.vokens WHERE voken=:voken', array(':voken'=>sha1($_GET['voken']))))
             {
-                $user_id = static::query('SELECT user_id FROM camagru.vokens WHERE voken=:voken', array(':voken'=>sha1($_GET['voken'])))[0]['user_id'];
+                $user_id = static::query('SELECT user_id FROM ' .  static::get_db_name()  .  '.vokens WHERE voken=:voken', array(':voken'=>sha1($_GET['voken'])))[0]['user_id'];
                 $verified = 1;
-                static::query('UPDATE camagru.users SET verified=:verified WHERE id=:user_id',
+                static::query('UPDATE ' .  static::get_db_name()  .  '.users SET verified=:verified WHERE id=:user_id',
                     array(':verified'=>$verified, ':user_id'=>$user_id));
-                static::query('DELETE FROM camagru.vokens WHERE user_id=:user_id', array(':user_id'=>$user_id));
+                static::query('DELETE FROM ' .  static::get_db_name()  .  '.vokens WHERE user_id=:user_id', array(':user_id'=>$user_id));
                 echo "Email verification complete. You may login";
             }
         }

@@ -15,7 +15,7 @@ class ChangePassword extends Users
                 $password = $_POST['oldpassword'];
                 $newpword = $_POST['newpassword'];
                 $reppword = $_POST['reppassword'];
-                if (password_verify($password, static::query('SELECT password FROM camagru.users WHERE id=:user_id',
+                if (password_verify($password, static::query('SELECT password FROM ' .  static::get_db_name()  .  '.users WHERE id=:user_id',
                     array(':user_id'=>static::isLoggedIn()))[0]['password']))
                 {
                     if (static::validPasswordComplexity($newpword))
@@ -26,7 +26,7 @@ class ChangePassword extends Users
                             {
                                 if(strlen($newpword) >= 8 && strlen($newpword) <= 30)
                                 {
-                                    static::query('UPDATE camagru.users SET password=:newpassword WHERE id=:user_id',
+                                    static::query('UPDATE ' .  static::get_db_name()  .  '.users SET password=:newpassword WHERE id=:user_id',
                                         array(':newpassword'=>password_hash($newpword, PASSWORD_BCRYPT), ':user_id'=>static::isLoggedIn()));
                                     echo "Password changed successfully";
                                 }

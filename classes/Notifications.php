@@ -14,14 +14,14 @@ class Notifications extends Users
             if (isset($_POST['allownotifications']))
             {
                 $notifications = 1;
-                static::query('UPDATE camagru.users SET notifications=:notifications WHERE id=:user_id',
+                static::query('UPDATE ' .  static::get_db_name()  .  '.users SET notifications=:notifications WHERE id=:user_id',
                     array(':notifications'=>$notifications, ':user_id'=>$user_id));
                     echo "Notifications enabled";    
             }
             else if (isset($_POST['disallownotifications']))
             {
                 $notifications = 0;
-                static::query('UPDATE camagru.users SET notifications=:notifications WHERE id=:user_id',
+                static::query('UPDATE ' .  static::get_db_name()  .  '.users SET notifications=:notifications WHERE id=:user_id',
                     array(':notifications'=>$notifications, ':user_id'=>$user_id));
                 echo "Notifications disabled";
             }

@@ -13,22 +13,18 @@ class ResetPassword extends Users
             $email = $_POST['email'];
             if (filter_var($email, FILTER_VALIDATE_EMAIL))
             {
-                if (static::query('SELECT id FROM camagru.users WHERE email=:email', array(':email'=>$email)))
+                if (static::query('SELECT id FROM ' .  static::get_db_name()  .  '.users WHERE email=:email', array(':email'=>$email)))
                 {
                     $subject = "Camagru password reset";
                     $cryptographically_strong = true;
                     $message = "Click the following link or copy and paste it into your browser to reset your password: ";
-                    $project_root = "http://";
-                    $project_root .= $_SERVER['HTTP_HOST'];
-                    $project_root .= $_SERVER['REQUEST_URI'];
-                    $stub = strstr($project_root, "camagru");
-                    $project_root = substr($project_root, 0, strlen($project_root) - strlen($stub));
-                    $link = $project_root . "camagru/forgot-password?poken=";
+                    $project_root = static::get_project_root("reset-password");
+                    $link = $project_root . "forgot-password?poken=";
                     $poken = bin2hex(openssl_random_pseudo_bytes(64, $cryptographically_strong));
                     if (mail($email, $subject, $message . $link . $poken))
                     {
-                        static::query('INSERT INTO camagru.pokens (poken, user_id) VALUES (:poken, :user_id)',
-                                    array(':poken'=>sha1($poken), ':user_id'=>static::query('SELECT id FROM camagru.users WHERE email=:email', array(':email'=>$email))[0]['id']));
+                        static::query('INSERT INTO ' .  static::get_db_name()  .  '.pokens (poken, user_id) VALUES (:poken, :user_id)',
+                                    array(':poken'=>sha1($poken), ':user_id'=>static::query('SELECT id FROM ' .  static::get_db_name()  .  '.users WHERE email=:email', array(':email'=>$email))[0]['id']));
                         echo "Password-reset link sent";
                     }
                     else

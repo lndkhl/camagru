@@ -19,20 +19,20 @@ class Login extends Users
                 {
                     if (static::userExists($username))
                     {
-                        $verified =static::query('SELECT verified FROM camagru.users WHERE username=:username', array(':username'=>$username))[0]['verified'];
+                        $verified =static::query('SELECT verified FROM ' .  static::get_db_name()  .  '.users WHERE username=:username', array(':username'=>$username))[0]['verified'];
                         if ($verified == 1)    
                         {
-                            if(password_verify($password, static::query('SELECT password FROM camagru.users WHERE username=:username',
+                            if(password_verify($password, static::query('SELECT password FROM ' .  static::get_db_name()  .  '.users WHERE username=:username',
                                 array(':username'=>$username))[0]['password']))
                             {
                                 echo "Welcome back ". htmlspecialchars($username) . "<br>";
                                 $cryptographically_strong = true;
                                 $token = bin2hex(openssl_random_pseudo_bytes(64, $cryptographically_strong));
-                                $user_id = static::query('SELECT id FROM camagru.users WHERE username=:username', array(':username'=>$username))[0]['id'];
-                                static::query('INSERT INTO camagru.tokens (token, user_id) VALUES (:token, :user_id)', array(':token'=>sha1($token), ':user_id'=>$user_id));
+                                $user_id = static::query('SELECT id FROM ' .  static::get_db_name()  .  '.users WHERE username=:username', array(':username'=>$username))[0]['id'];
+                                static::query('INSERT INTO ' .  static::get_db_name()  .  '.tokens (token, user_id) VALUES (:token, :user_id)', array(':token'=>sha1($token), ':user_id'=>$user_id));
                                 setcookie('CamagruID',$token, time() + 604800 /*1 week*/, '/', NULL, NULL, TRUE);
                                 setcookie('StayIn', '1', time() + 259200 /*3 days*/, '/', NULL, NULL, TRUE);
-                                echo '<meta http-equiv="refresh" content="100;url=http://127.0.0.1/camagru/login">';
+                                echo '<meta http-equiv="refresh" content="100;url=' . static::get_project_root("login") . '/login">';
                                 Route::redirect("home");
                                 exit();
                             }

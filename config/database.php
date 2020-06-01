@@ -1,14 +1,21 @@
 <?php
 class database
 {
+    /*
     private static $DB_DSN = "mysql:hostname=127.0.0.1; db_name=camagru; charset=utf8";
     private static $DB_USER = "root";
     private static $DB_PASSWORD = "root";
+    */
+    private static $DB_NAME;
+    private static $DB_DSN;
+    private static $DB_USER;
+    private static $DB_PASSWORD;
 
     private static function connect() 
     {
         try
-        {
+        {            
+            static::set_vars();
             $pdo = new PDO(self::$DB_DSN, self::$DB_USER, self::$DB_PASSWORD);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $pdo;
@@ -19,11 +26,28 @@ class database
         }
     }
 
+    public static function get_db_name()
+    {
+        if (!self::$DB_NAME)
+        {
+            self::$DB_NAME = "camagru";
+        }
+        return self::$DB_NAME;
+    }
+
+    
+    public static function set_vars()
+    {        
+        self::$DB_DSN = "mysql:hostname=" . $_SERVER['HTTP_HOST'] . "; db_name=" . static::get_db_name() . "; charset=utf8";
+        self::$DB_USER = "root";
+        self::$DB_PASSWORD = "root";
+    }
+
     public static function create_db()
     {
         try
         {
-            self::connect()->exec("CREATE DATABASE IF NOT EXISTS camagru");
+            self::connect()->exec("CREATE DATABASE IF NOT EXISTS ".self::$DB_NAME."");
         }
         catch(PDOException $e)
         {
@@ -35,7 +59,7 @@ class database
     {
         try
         {
-            self::connect()->exec("DROP DATABASE IF EXISTS camagru");
+            self::connect()->exec("DROP DATABASE IF EXISTS " . self::get_db_name() . "");
         }
         catch(PDOException $e)
         {
@@ -57,7 +81,7 @@ class database
 
     public static function countRows($table)
     {
-        $nRows = self::connect()->query('SELECT COUNT(*) from camagru.' .$table. '')->fetchColumn(); 
+        $nRows = self::connect()->query('SELECT COUNT(*) from ' . static::get_db_name() . '.' . $table . '')->fetchColumn(); 
         return $nRows;
     }
 
@@ -65,7 +89,7 @@ class database
     {
         try
         {
-            $sql = "CREATE TABLE IF NOT EXISTS camagru.users(
+            $sql = "CREATE TABLE IF NOT EXISTS " . static::get_db_name() . ".users(
                 id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                 username VARCHAR(32) NOT NULL,
                 password VARCHAR(64) NOT NULL,
@@ -86,12 +110,12 @@ class database
     {
         try
         {
-            $sql = "CREATE TABLE IF NOT EXISTS camagru.vokens(
+            $sql = "CREATE TABLE IF NOT EXISTS " . static::get_db_name() . ".vokens(
                 id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                 voken CHAR(64) UNIQUE NOT NULL,
                 user_id INT(12) UNSIGNED NOT NULL,
                 
-                FOREIGN KEY (user_id) REFERENCES camagru.users(id)
+                FOREIGN KEY (user_id) REFERENCES " . static::get_db_name() . ".users(id)
                 )";
             self::connect()->exec($sql);
         }
@@ -105,12 +129,12 @@ class database
     {
         try
         {
-            $sql = "CREATE TABLE IF NOT EXISTS camagru.tokens(
+            $sql = "CREATE TABLE IF NOT EXISTS " . static::get_db_name() . ".tokens(
                 id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                 token CHAR(64) UNIQUE NOT NULL,
                 user_id INT(12) UNSIGNED NOT NULL,
                 
-                FOREIGN KEY (user_id) REFERENCES camagru.users(id)
+                FOREIGN KEY (user_id) REFERENCES " . static::get_db_name() . ".users(id)
                 )";
             self::connect()->exec($sql);
         }
@@ -124,12 +148,12 @@ class database
     {
         try
         {
-            $sql = "CREATE TABLE IF NOT EXISTS camagru.pokens(
+            $sql = "CREATE TABLE IF NOT EXISTS " . static::get_db_name() . ".pokens(
                 id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                 poken CHAR(64) UNIQUE NOT NULL,
                 user_id INT(12) UNSIGNED NOT NULL,
                 
-                FOREIGN KEY (user_id) REFERENCES camagru.users(id)
+                FOREIGN KEY (user_id) REFERENCES " . static::get_db_name() . ".users(id)
                 )";
             self::connect()->exec($sql);
         }
@@ -143,12 +167,12 @@ class database
     {
         try
         {        
-            $sql = "CREATE TABLE IF NOT EXISTS camagru.posts(
+            $sql = "CREATE TABLE IF NOT EXISTS " . static::get_db_name() . ".posts(
                 id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                 imgname CHAR(64), likes INT(12) UNSIGNED,
                 user_id INT(12) UNSIGNED NOT NULL,
         
-                FOREIGN KEY (user_id) REFERENCES camagru.users(id)
+                FOREIGN KEY (user_id) REFERENCES " . static::get_db_name() . ".users(id)
                 )";
             self::connect()->exec($sql);
         }
@@ -162,12 +186,12 @@ class database
     {
         try
         {        
-            $sql = "CREATE TABLE IF NOT EXISTS camagru.comments(
+            $sql = "CREATE TABLE IF NOT EXISTS " . static::get_db_name() . ".comments(
                 id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                 comment VARCHAR(240), likes INT(12) UNSIGNED,
                 post_id INT(12) UNSIGNED NOT NULL,
         
-                FOREIGN KEY (post_id) REFERENCES camagru.posts(id)
+                FOREIGN KEY (post_id) REFERENCES " . static::get_db_name() . ".posts(id)
                 )";
             self::connect()->exec($sql);
         }
