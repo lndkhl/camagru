@@ -30,7 +30,6 @@
 
         </div><!-- end of class inner -->
         <footer>
-            <hr />
             <p>"<em>oop</em>"</p>
         </footer><!-- end of footer -->
     </body>

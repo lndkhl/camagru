@@ -24,16 +24,15 @@
         </nav><!-- end of links -->
 
         <div class="inner">
-        <p>
+        <ul>
         <li><a href="change-password">change password</a></li>
         <li><a href="change-username">change username</a></li>
         <li><a href="change-email">change email address</a></li>
         <li><a href="set-notifications">set notifications</a></li>
-        </p>
+        </ul>
         </div><!-- end of inner -->
 
         <footer>
-            <hr />
             <p>"<em>oop</em>"</p>
         </footer><!-- end of footer -->
     </body>

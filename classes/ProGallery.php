@@ -71,7 +71,7 @@ class ProGallery extends Users
                         echo '<span class= "' . $class . '">
                                 <figure class="cap">        
                                 <img src="uploads/' . $actual[$j] . '" class="pic" />
-                                <figcaption><button>like</button><button>comment</button></figcaption>
+                                <figcaption><button class="likes">like</button><button class="comments">comment</button></figcaption>
                                 </figure>
                                 </span>
                                 </div>';

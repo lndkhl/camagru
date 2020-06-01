@@ -44,13 +44,16 @@
     width: 80px;
     height: 65px;
 }
+.likes {
+    margin-right: 5px;
+}
 .hidden {
     display: none;
 }
 .title {
     text-align: center;
     margin-right: 450px;
-    color: green;
+    color:gray;
 }
 .imgbox {
     display: inline;
@@ -118,7 +121,7 @@ ul {
 }
 nav, footer {
 	clear: both;
-	color: #ffffff;
+	color:white;
 	background-color: #aeaca8;
 	height: 50px;}
 nav ul {

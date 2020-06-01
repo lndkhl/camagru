@@ -37,7 +37,6 @@
         </div>
 
         <footer>
-            <hr />
             <p>"<em>oop</em>"</p>
         </footer><!-- end of footer -->
     </body>

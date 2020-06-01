@@ -28,13 +28,28 @@ for (var i = 0; i < stickers.length; i++){
 				j = k;
 			}
 		}
+		/*
 		var hRatio = canvas.width / preview[j].width;
 		var vRatio = canvas.height / preview[j].height;
 		var ratio  = Math.min ( hRatio, vRatio );
 		context.clearRect(0, 0, canvas.width, canvas.height);
+		*/
 		if (preview[j])
 		{
-			context.drawImage(preview[j], 0, 0, preview[j].width, preview[j].height, 0, 0, preview[j].width*ratio, preview[j].height*ratio);
+			var xhr = new XMLHttpRequest();
+
+			xhr.open('POST', j, 'true');
+			xhr.setRequestHeader("Content-Type", "text/plain");
+			xhr.onreadystatechange = function (res) {
+				if (xhr.status === 200 && xhr.readyState === xhr.DONE) {
+					console.log('Response Text: ' + res.target.response);
+					console.log('Response:', res);
+				}
+			}
+			xhr.send("sticker=" + j);
+			//window.location.reload(true);
+
+			/*context.drawImage(preview[j], 0, 0, preview[j].width, preview[j].height, 0, 0, preview[j].width*ratio, preview[j].height*ratio);*/
 			process.disabled = false;
 			render.disabled = false;
 		}});}
@@ -54,7 +69,7 @@ document.getElementById("snap").addEventListener("click", function () {context.d
 
 document.getElementById("store").addEventListener("click", function() {
 	var image = canvas.toDataURL("image/png");
-	var xhr = new XMLHttpRequest();	
+	var xhr = new XMLHttpRequest();
 
 	xhr.open('POST', 'upload', 'true');
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");

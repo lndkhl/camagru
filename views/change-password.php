@@ -25,6 +25,7 @@
             </p>
         </nav><!-- end of links -->
         <div class="inner">
+        <section class="main">
         <p>
             <form method="post">
             <fieldset id="field_1">
@@ -35,10 +36,10 @@
             <p><input type="submit" name="changepassword" value="change password" id="changepassword"></p>
             </fieldset>
             </form>
-        </p>   
+        </p>
+        </section><!-- end of main -->
         </div><!-- end of inner -->
         <footer>
-            <hr />
             <p>"<em>oop</em>"</p>
         </footer><!-- end of footer -->
     </body>
