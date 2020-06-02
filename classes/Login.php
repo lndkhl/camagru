@@ -19,11 +19,10 @@ class Login extends Users
                 {
                     if (static::userExists($username))
                     {
-                        if (static::verify($username))    
+                        if (static::confirmVerification($username))    
                         {
                             if(static::authenticateLogin($username, $password))
                             {
-                                /*echo "Welcome back ". htmlspecialchars($username) . "<br>";*/
                                 static::setCookies($username);
                                 echo '<meta http-equiv="refresh" content="100;url=' . static::get_project_root("login") . '/login">';
                                 Route::redirect("home");
