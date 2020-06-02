@@ -166,12 +166,12 @@ class Users extends Controller
 
     public static function displayPrev($current, $caller)
     {
-        echo '<a href="' . static::get_project_root($caller) . '' . $caller . '?page=' . (--$current) . '">prev</a>';
+        echo '<a href="' . static::get_project_root($caller) . '' . $caller . '?page=' . (--$current) . '" class="paging">prev</a>';
     }
 
     private static function displayNext($current, $caller)
     {
-        echo '<a href="' . static::get_project_root($caller) . '' . $caller . '?page=' . (++$current) . '">next</a>';
+        echo '<a href="' . static::get_project_root($caller) . '' . $caller . '?page=' . (++$current) . '" class="paging">next</a>';
     }
 
 

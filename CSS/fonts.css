@@ -89,6 +89,9 @@ body {
     width: 400px;
     height:auto;
 }
+.paging {
+        margin: 110px;
+}
 .cap {
     float: center;
     text-align: center;
