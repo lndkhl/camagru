@@ -8,7 +8,6 @@ class ProGallery extends Users
 {
     public static function main_()
     {
-        global $page_index;
         if (static::isLoggedIn())
         {
             static::displayLoggedInHeader();
@@ -17,10 +16,7 @@ class ProGallery extends Users
                 $actual = static::populateGallery();
                 if (count($actual))
                 {
-                    for ($j = 0; $j  < count($actual) && $j < 15; $j++)
-                    {
-                        static::displayPic($actual[$j]);
-                    }
+                    static::displayPage($actual, "pro-gallery");
                 }
             }
             static::displayFooter();

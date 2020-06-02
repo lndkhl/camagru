@@ -8,16 +8,6 @@ $page_index;
 
 class Gallery extends Users
 {
-    private static function displayPrev($current)
-    {
-        echo '<a href="' . static::get_project_root("gallery") . 'gallery?page=' . (--$current) . '">prev</a>';
-    }
-
-    private static function displayNext($current)
-    {
-        echo '<a href="' . static::get_project_root("gallery") . 'gallery?page=' . (++$current) . '">next</a>';
-    }
-
     public static function main_()
     {
         if (!static::isLoggedIn())
@@ -28,20 +18,7 @@ class Gallery extends Users
                 $actual = static::populateGallery();
                 if (count($actual))
                 {
-                    $ppp = 7;
-                    if (isset($_GET['page'])) { $page_index = $_GET['page']; }
-                    else { $page_index = 0; }
-                    if ($page_index > 0 && ((($page_index * $ppp) + $ppp) < count($actual)))
-                    {
-                        for ($j = ($page_index * $ppp), $j >=0; $j  < count($actual) && $j < (($page_index * $ppp) + $ppp); $j++)
-                        {
-                            //echo "page index = " . $page_index . "br";
-                            static::displayPic($actual[$j]);
-                        }
-                        if ($page_index) { static::displayPrev($page_index); }
-                        if ((($page_index * $ppp) + $ppp) < count($actual)) { static::displayNext($page_index); }
-                    }
-                    else { die("page does not exist"); }
+                    static::displayPage($actual, "gallery");
                 }
             }
             static::displayFooter();

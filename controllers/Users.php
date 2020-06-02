@@ -145,6 +145,36 @@ class Users extends Controller
                 </div>';
     }
 
+    public static function displayPage($actual, $caller)
+    {
+        $ppp = 7;
+        
+        if (isset($_GET['page'])) { $page_index = $_GET['page']; }
+        else { $page_index = 0; }
+        if (is_numeric($page_index) && $page_index >= 0 &&( $page_index * $ppp < count($actual) ))
+        {
+            for ($j = ($page_index * $ppp), $j >= 0; $j  < count($actual) && $j < (($page_index + 1)  * $ppp); $j++)
+            {
+                //echo "page index = " . $page_index . "br";
+                static::displayPic($actual[$j]);
+            }
+            if ($page_index) { static::displayPrev($page_index, $caller); }
+            if ((($page_index + 1) * $ppp) <= count($actual)) { static::displayNext($page_index, $caller); }
+        }
+        else { die("page does not exist"); }        
+    }
+
+    public static function displayPrev($current, $caller)
+    {
+        echo '<a href="' . static::get_project_root($caller) . '' . $caller . '?page=' . (--$current) . '">prev</a>';
+    }
+
+    private static function displayNext($current, $caller)
+    {
+        echo '<a href="' . static::get_project_root($caller) . '' . $caller . '?page=' . (++$current) . '">next</a>';
+    }
+
+
     public static function displayLoggedOutHeader()
     {
         echo '<!DOCTYPE html>
