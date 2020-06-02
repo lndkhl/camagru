@@ -23,6 +23,8 @@ class ChangeUsername extends Users
                             static::query('UPDATE ' .  static::get_db_name()  .  '.users SET username=:username WHERE id=:user_id',
                                 array(':username'=>$username, ':user_id'=>$user_id));
                             echo "Username changed successfully";
+                            Settings::main_();
+                            exit();
                         }
                         else
                         {

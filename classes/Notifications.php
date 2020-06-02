@@ -11,19 +11,15 @@ class Notifications extends Users
         if (static::isLoggedIn())
         {
             $user_id = static::isLoggedIn();
-            if (isset($_POST['allownotifications']))
+            if (isset($_POST['notifyme']))
             {
-                $notifications = 1;
+                $notifications = $_POST['notifyme'];
                 static::query('UPDATE ' .  static::get_db_name()  .  '.users SET notifications=:notifications WHERE id=:user_id',
-                    array(':notifications'=>$notifications, ':user_id'=>$user_id));
-                    echo "Notifications enabled";    
-            }
-            else if (isset($_POST['disallownotifications']))
-            {
-                $notifications = 0;
-                static::query('UPDATE ' .  static::get_db_name()  .  '.users SET notifications=:notifications WHERE id=:user_id',
-                    array(':notifications'=>$notifications, ':user_id'=>$user_id));
-                echo "Notifications disabled";
+                            array(':notifications'=>$notifications, ':user_id'=>$user_id));
+                if ($notifications) { echo "Notifications enabled"; }
+                else { echo "Notifications disabled"; }
+                Settings::main_();
+                exit();
             }
         }
         else

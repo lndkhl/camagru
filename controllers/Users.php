@@ -27,6 +27,18 @@ class Users extends Controller
         return FALSE;
    }
 
+   public static function getUsername($user_id)
+   {
+       if (static::query('SELECT username FROM camagru.users WHERE id=:user_id', array(':user_id'=>$user_id)))
+       {
+           return (static::query('SELECT username FROM camagru.users WHERE id=:user_id', array(':user_id'=>$user_id))[0]['username']);
+       }
+       else
+       {
+           return FALSE;
+       }
+   }
+
    public static function userExists($username)
    {
         if (static::validUsername($username))
@@ -37,10 +49,14 @@ class Users extends Controller
                 return TRUE;
             }
         }
-        else
-        {
-            return FALSE;
-        }
+        return FALSE;
+   }
+
+   public static function verify($username)
+   {
+        $verified = static::query('SELECT verified FROM ' .  static::get_db_name()  .  '.users WHERE username=:username', 
+                                array(':username'=>$username))[0]['verified'];
+        return $verified;
    }
 
    public static function validUsername($username)
@@ -49,10 +65,7 @@ class Users extends Controller
         {
             return TRUE;
         }
-        else
-        {
-            return FALSE;
-        }
+        return FALSE;
    }
 
    public static function validUsernameLength($username)
@@ -61,10 +74,7 @@ class Users extends Controller
         {
             return TRUE;
         }
-        else
-        {
-            return FALSE;
-        }
+        return FALSE;
    }
 
    public static function validPasswordComplexity($password)
@@ -73,10 +83,7 @@ class Users extends Controller
         {
             return TRUE;
         }
-        else
-        {
-            return FALSE;
-        }
+        return FALSE;
    }
 
    public static function validPasswordLength($password)
@@ -85,10 +92,14 @@ class Users extends Controller
         {
             return TRUE;
         }
-        else
-        {
-            return FALSE;
-        }
+        return FALSE;
+   }
+
+   public static function updatePassword($newpword)
+   {
+        static::query('UPDATE ' .  static::get_db_name()  .  '.users SET password=:newpassword WHERE id=:user_id',
+                    array(':newpassword'=>password_hash($newpword, PASSWORD_BCRYPT), ':user_id'=>static::isLoggedIn()));
+        echo "Password changed successfully";
    }
 
    public static function emailExists($email)
@@ -97,22 +108,39 @@ class Users extends Controller
         {
             return TRUE;
         }
-        else
-        {
-            return FALSE;
-        }
+        return FALSE;
    }
 
-   public static function get_project_root($page)
-    {
-        $project_root = "http://";
-        $project_root .= $_SERVER['HTTP_HOST'];
-        $project_root .= $_SERVER['REQUEST_URI'];
-        $project_index = strstr($project_root, $page);
-        $project_root = substr($project_root, 0, strlen($project_root) - strlen($project_index));
-        return $project_root;
-    }
+   public static function authenticateLogin($username, $password)
+   {
+       if (password_verify($password, static::query('SELECT password FROM ' .  static::get_db_name()  .  '.users WHERE username=:username',
+       array(':username'=>$username))[0]['password']))
+       {
+           return TRUE;
+       }
+       return FALSE;
+   }
 
+   public static function setCookies($username)
+   {
+        $cryptographically_strong = true;
+        $token = bin2hex(openssl_random_pseudo_bytes(64, $cryptographically_strong));
+        $user_id = static::query('SELECT id FROM ' .  static::get_db_name()  .  '.users WHERE username=:username', array(':username'=>$username))[0]['id'];
+        
+        static::query('INSERT INTO ' .  static::get_db_name()  .  '.tokens (token, user_id) VALUES (:token, :user_id)', array(':token'=>sha1($token), ':user_id'=>$user_id));
+        setcookie('CamagruID',$token, time() + 604800 /*1 week*/, '/', NULL, NULL, TRUE);
+        setcookie('StayIn', '1', time() + 259200 /*3 days*/, '/', NULL, NULL, TRUE);
+   }
+
+   public static function authenticate($password)
+   {
+       if (password_verify($password, static::query('SELECT password FROM ' .  static::get_db_name()  .  '.users WHERE id=:user_id',
+       array(':user_id'=>static::isLoggedIn()))[0]['password']))
+       {
+           return TRUE;
+       }
+       return FALSE;
+   }
 
    public static function registerUser($username, $password, $email)
    {
@@ -147,25 +175,8 @@ class Users extends Controller
                     array(':imgname'=>$imgname, ':likes'=>$likes, ':user_id'=>$user_id));
         echo "Image uploaded successfully<br>";
     }
-/*
-    public static function countRows()
-    {
-        $rows = static::query('SELECT COUNT * FROM camagru.posts WHERE user_id=:user_id', array(':user_id'=>static::isLoggedIn()));
-        return $rows;
-    }
-*/
-    public static function getUsername($user_id)
-    {
-        if (static::query('SELECT username FROM camagru.users WHERE id=:user_id', array(':user_id'=>$user_id)))
-        {
-            return (static::query('SELECT username FROM camagru.users WHERE id=:user_id', array(':user_id'=>$user_id))[0]['username']);
-        }
-        else
-        {
-            return FALSE;
-        }
-    }
 
+    
 
     public static function parsePic()
     {
@@ -189,7 +200,7 @@ class Users extends Controller
                     
                     if(move_uploaded_file($_FILES["img"]["tmp_name"], $targetFilePath))
                     {
-                        static::uploadPic($targetFilePath, $user_id);            
+                        static::uploadPic($img, $user_id);            
                     }
                     else
                     {

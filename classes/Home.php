@@ -17,9 +17,10 @@ class Home extends Users
                 $verified = 1;
                 static::query('UPDATE ' .  static::get_db_name()  .  '.users SET verified=:verified WHERE id=:user_id',
                     array(':verified'=>$verified, ':user_id'=>$user_id));
-                static::query('DELETE FROM ' .  static::get_db_name()  .  '.vokens WHERE user_id=:user_id', array(':user_id'=>$user_id));
-                echo "Email verification complete. You may login";
+                static::deleteById($user_id, "vokens");
+                echo "Email verification complete<br>";
             }
+            else { echo "invalid token<br>"; }
         }
         if (!static::isLoggedIn())
         {
@@ -27,7 +28,7 @@ class Home extends Users
         }
         else
         {
-            Route::redirect("profile");
+            Profile::main_();
             exit();
         }        
     }

@@ -5,7 +5,7 @@
             camagru
         </title>
         <link href="./CSS/fonts.css" type="text/css" rel="stylesheet" />
-        <link rel="shortcut icon" href="forward.ico">
+        <link rel="shortcut icon" href="favicon.ico">
     </head>
     
     <div class="wrapper">
@@ -31,8 +31,11 @@
             <fieldset id="field_1">
             <legend>allow notifications?</legend>
             <p>
-                <input type="submit" name="allownotifications" value="allow" id="allow">
-                <input type="submit" name="disallownotifications" value="disallow" id="disallow">            
+                <select name="notifyme">
+                    <option name="allownotifications" value="1" id="allow"> allow </option>
+                    <option name="disallownotifications" value="0" id="disallow"> disallow </option>
+                </select>
+                <input type="submit" name="notifications" value="submit" />
             </p>
             </fieldset>
             </form>

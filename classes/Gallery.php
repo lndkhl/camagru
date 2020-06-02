@@ -17,7 +17,7 @@ class Gallery extends Users
                             camagru
                         </title>
                     <link href="./CSS/fonts.css" type="text/css" rel="stylesheet" />
-                    <link rel="shortcut icon" href="forward.ico">
+                    <link rel="shortcut icon" href="flavicon.ico">
                     </head>
     
                     <div class="wrapper">

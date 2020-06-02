@@ -15,8 +15,7 @@ class ChangePassword extends Users
                 $password = $_POST['oldpassword'];
                 $newpword = $_POST['newpassword'];
                 $reppword = $_POST['reppassword'];
-                if (password_verify($password, static::query('SELECT password FROM ' .  static::get_db_name()  .  '.users WHERE id=:user_id',
-                    array(':user_id'=>static::isLoggedIn()))[0]['password']))
+                if (static::authenticate($password))
                 {
                     if (static::validPasswordComplexity($newpword))
                     {
@@ -24,36 +23,19 @@ class ChangePassword extends Users
                         {
                             if ($newpword == $reppword)
                             {
-                                if(strlen($newpword) >= 8 && strlen($newpword) <= 30)
+                                if(static::validPasswordLength($newpword))
                                 {
-                                    static::query('UPDATE ' .  static::get_db_name()  .  '.users SET password=:newpassword WHERE id=:user_id',
-                                        array(':newpassword'=>password_hash($newpword, PASSWORD_BCRYPT), ':user_id'=>static::isLoggedIn()));
-                                    echo "Password changed successfully";
+                                    static::updatePassword($newpword);
                                 }
-                                else
-                                {
-                                    echo "Invalid new password (minimum 8 characters)";
-                                }
+                                else {  echo "Invalid new password (minimum 8 characters)"; }
                             }
-                            else
-                            {
-                                echo "new password not duplicated accurately, please try again";
-                            }
+                            else { echo "new password not duplicated accurately, please try again"; }
                         }
-                        else
-                        {
-                            echo "Invalid password (minimum 8 characters)";
-                        }
+                        else { echo "Invalid password (minimum 8 characters)"; }
                     }
-                    else
-                    {
-                        echo "Invalid password<br>Password must consist of at least:<br>- 1 lower case letter<br>- 1 upper case letter<br>- 1 number<br>";
-                    }
+                    else { echo "Invalid password<br>Password must consist of at least:<br>- 1 lower case letter<br>- 1 upper case letter<br>- 1 number<br>"; }
                 }
-                else
-                {
-                    echo "<br>You have entered an incorrect password<br>";
-                }
+                else { echo "<br>You have entered an incorrect password<br>"; }
             }
         }
         else

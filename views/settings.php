@@ -5,7 +5,7 @@
             camagru
         </title>
         <link href="./CSS/fonts.css" type="text/css" rel="stylesheet" />
-        <link rel="shortcut icon" href="forward.ico">
+        <link rel="shortcut icon" href="favicon.ico">
     </head>
    
     <div class="wrapper">
@@ -19,7 +19,7 @@
                 <ul>
                     <li><a href="logout">logout</a></li>
                     <li><a href="profile">profile</a></li>
-                    </ul>
+                </ul>
             </p>
         </nav><!-- end of links -->
 

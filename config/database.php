@@ -38,6 +38,16 @@ class database
         self::$DB_PASSWORD = "root";
     }
 
+    public static function get_project_root($page)
+    {
+        $project_root = "http://";
+        $project_root .= $_SERVER['HTTP_HOST'];
+        $project_root .= $_SERVER['REQUEST_URI'];
+        $project_index = strstr($project_root, $page);
+        $project_root = substr($project_root, 0, strlen($project_root) - strlen($project_index));
+        return $project_root;
+    }
+
     public static function create_db()
     {
         try
@@ -92,6 +102,12 @@ class database
             echo "no images were found";
         }
     }
+
+    
+    public static function deleteById($user_id, $table)
+    {
+        static::query('DELETE FROM ' .  static::get_db_name()  .  '.' . $table . ' WHERE user_id=:user_id', array(':user_id'=>$user_id));
+    }                
 
     public static function create_table_users()
     {

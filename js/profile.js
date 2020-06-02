@@ -80,5 +80,5 @@ document.getElementById("store").addEventListener("click", function() {
 		}
 	}
 	xhr.send("image=" + image);
-	window.location.reload(true);
+	//window.location.reload(true);
 	})

@@ -86,7 +86,7 @@ body {
 .pic {
     display: block;
     margin: 0 auto;
-    min-width: 400px;
+    width: 400px;
     height:auto;
 }
 .cap {
