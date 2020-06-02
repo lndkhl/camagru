@@ -151,7 +151,7 @@ class Users extends Controller
         
         if (isset($_GET['page'])) { $page_index = $_GET['page']; }
         else { $page_index = 0; }
-        if (is_numeric($page_index) && $page_index >= 0 &&( $page_index * $ppp < count($actual) ))
+        if (is_numeric($page_index) && $page_index >= 0 &&( $page_index * $ppp <= count($actual) ))
         {
             for ($j = ($page_index * $ppp), $j >= 0; $j  < count($actual) && $j < (($page_index + 1)  * $ppp); $j++)
             {
