@@ -31,13 +31,17 @@ class Gallery extends Users
                     $ppp = 7;
                     if (isset($_GET['page'])) { $page_index = $_GET['page']; }
                     else { $page_index = 0; }
-                    for ($j = ($page_index * $ppp), $j >=0; $j  < count($actual) && $j < (($page_index * $ppp) + $ppp); $j++)
+                    if ($page_index > 0 && ((($page_index * $ppp) + $ppp) < count($actual)))
                     {
-                        //echo "page index = " . $page_index . "br";
-                        static::displayPic($actual[$j]);
+                        for ($j = ($page_index * $ppp), $j >=0; $j  < count($actual) && $j < (($page_index * $ppp) + $ppp); $j++)
+                        {
+                            //echo "page index = " . $page_index . "br";
+                            static::displayPic($actual[$j]);
+                        }
+                        if ($page_index) { static::displayPrev($page_index); }
+                        if ((($page_index * $ppp) + $ppp) < count($actual)) { static::displayNext($page_index); }
                     }
-                    if ($page_index) { static::displayPrev($page_index); }
-                    if ((($page_index * $ppp) + $ppp) < count($actual)) { static::displayNext($page_index); }
+                    else { die("page does not exist"); }
                 }
             }
             static::displayFooter();
