@@ -26,20 +26,11 @@ class ChangeUsername extends Users
                             Settings::main_();
                             exit();
                         }
-                        else
-                        {
-                            echo "Invalid username<>Username must be at least 3 characters long";
-                        }
+                        else { echo "Invalid username<>Username must be at least 3 characters long"; }
                     }
-                    else
-                    {
-                        echo "That username is unavailable";
-                    }
+                    else { echo "That username is unavailable"; }
                 }
-                else
-                {
-                    echo "Invalid username<br>Username can only consist of lower case letters and (optionally) the underscore character";
-                }
+                else { echo "Invalid username<br>Username can only consist of lower case letters and (optionally) the underscore character"; }
             }
         }
         else

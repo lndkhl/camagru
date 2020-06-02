@@ -6,6 +6,23 @@ error_reporting(E_ALL);
 
 class ChangePassword extends Users
 {
+    private static function authenticate($password)
+    {
+       if (password_verify($password, static::query('SELECT password FROM ' .  static::get_db_name()  .  '.users WHERE id=:user_id',
+       array(':user_id'=>static::isLoggedIn()))[0]['password']))
+       {
+           return TRUE;
+       }
+       return FALSE;
+    }
+
+    private static function updatePassword($newpword)
+    {
+        static::query('UPDATE ' .  static::get_db_name()  .  '.users SET password=:newpassword WHERE id=:user_id',
+                    array(':newpassword'=>password_hash($newpword, PASSWORD_BCRYPT), ':user_id'=>static::isLoggedIn()));
+        echo "Password changed successfully";
+    }
+
     public static function main_()
     {
         if (static::isLoggedIn())

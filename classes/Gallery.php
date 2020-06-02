@@ -4,99 +4,54 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+$page_index;
+
 class Gallery extends Users
 {
+    private static function displayPrev($current)
+    {
+        echo '<a href="' . static::get_project_root("gallery") . 'gallery?page=' . (--$current) . '">prev</a>';
+    }
+
+    private static function displayNext($current)
+    {
+        echo '<a href="' . static::get_project_root("gallery") . 'gallery?page=' . (++$current) . '">next</a>';
+        /*
+        echo '<form method="post">
+                <input type="submit" name="next" value="next" class="paging">
+                </form>';
+        */
+    }
+
     public static function main_()
     {
         if (!static::isLoggedIn())
         {
-            echo '<!DOCTYPE html>
-                    <html>
-                    <head>
-                        <title>
-                            camagru
-                        </title>
-                    <link href="./CSS/fonts.css" type="text/css" rel="stylesheet" />
-                    <link rel="shortcut icon" href="flavicon.ico">
-                    </head>
-    
-                    <div class="wrapper">
-                    <body>
-                    <header>
-                        <h1 class="title">camagru</h1>
-                    </header><!-- end of header -->
-
-                    <div class="inner">
-                    <nav>
-                    <p> 
-                        <ul>
-                            <li><a href="create-account">create account</a></li>
-                            <li><a href="home">home</a></li>
-                            <li><a href="login">login</a></li>
-                        </ul>
-                    </p>
-                    </nav><!-- end of links -->
-                    <section class="main">';
-
-                    /*end of header html*/
-
+            static::displayLoggedOutHeader();
             if (static::countRows("posts"))
             {
-                $actual = array();
-                for ($i = 0; $i < static::countRows("posts"); $i++)
-                {
-                    $posts = static::fetchPosts();
-                    if ($posts)
-                    {
-                        if (file_exists("uploads"))
-                        {
-                            if (count(scandir("uploads")))
-                            {
-                                $uploads = scandir("uploads");
-                                if (in_array($posts[$i]['imgname'], $uploads))
-                                {
-                                    array_push($actual, $posts[$i]['imgname']);
-                                }
-                            }
-                        }
-                    }
-                }
+                $actual = static::populateGallery();
                 if (count($actual))
                 {
-                    for ($j = 0; $j  < count($actual) && $j < 15; $j++)
+                    $ppp = 7;
+                    if (isset($_GET['page'])) { $page_index = $_GET['page']; }
+                    else { $page_index = 0; }
+                    for ($j = ($page_index * $ppp), $j >=0; $j  < count($actual) && $j < (($page_index * $ppp) + $ppp); $j++)
                     {
-                        echo '<div class="row">';
-                        $class = "post";
-                        //echo '<span class="' . $class . '">' . $actual[$j] . '</span>';
-                        echo '<span class= "' . $class . '">
-                                <figure class="cap">        
-                                <img src="uploads/' . $actual[$j] . '" class="pic" />
-                                <figcaption>likes</figcaption>
-                                </figure>
-                                </span>
-                                </div>';
-                                                            
+                        //echo "page index = " . $page_index . "br";
+                        static::displayPic($actual[$j]);
                     }
+                    if ($page_index) { static::displayPrev($page_index); }
+                    if (($page_index * $ppp) < count($actual)) { static::displayNext($page_index); }
                 }
             }
-
-            /*footer html*/         
-
-            echo '</section> <!-- end of main-->
-                    </div><!-- end of inner -->
-                    <footer>
-                    <p>"<em>oop</em>"</p>
-                    </footer><!-- end of footer -->
-                    </body>
-                    </div><!-- end of wrapper -->
-                    </html>';
+            static::displayFooter();
         }
         else
         {
             Route::redirect("pro-gallery");
             exit();
         }
-        //static::create_view("gallery");
     }
 }
 ?>

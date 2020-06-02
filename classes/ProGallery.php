@@ -8,88 +8,22 @@ class ProGallery extends Users
 {
     public static function main_()
     {
+        global $page_index;
         if (static::isLoggedIn())
         {
-            echo '<!DOCTYPE html>
-            <html>
-            <head>
-                <title>
-                    camagru
-                </title>
-            <link href="./CSS/fonts.css" type="text/css" rel="stylesheet" />
-            <link rel="shortcut icon" href="favicon.ico">
-            </head>
-
-            <div class="wrapper">
-            <body>
-            <header>
-                <h1 class="title">camagru</h1>
-            </header><!-- end of header -->
-
-            <div class="inner">
-            <nav>
-            <p> 
-                <ul>
-                    <li><a href="logout">logout</a></li>
-                    <li><a href="profile">profile</a></li>
-                    <li><a href="settings">settings</a></li>
-                </ul>
-            </p>
-            </nav><!-- end of links -->
-            <section class="main">';
-
-            /*end of header html*/
-
+            static::displayLoggedInHeader();
             if (static::countRows("posts"))
             {
-                $actual = array();
-                for ($i = 0; $i < static::countRows("posts"); $i++)
-                {
-                    $posts = static::fetchPosts();
-                    if ($posts)
-                    {
-                        if (file_exists("uploads"))
-                        {
-                            if (count(scandir("uploads")))
-                            {
-                                $uploads = scandir("uploads");
-                                if (in_array($posts[$i]['imgname'], $uploads))
-                                {
-                                    array_push($actual, $posts[$i]['imgname']);
-                                }
-                            }
-                        }
-                    }
-                }
+                $actual = static::populateGallery();
                 if (count($actual))
                 {
                     for ($j = 0; $j  < count($actual) && $j < 15; $j++)
                     {
-                        echo '<div class="row">';
-                        $class = "post";
-                        //echo '<span class="' . $class . '">' . $actual[$j] . '</span>';
-                        echo '<span class= "' . $class . '">
-                                <figure class="cap">        
-                                <img src="uploads/' . $actual[$j] . '" class="pic" />
-                                <figcaption><button class="likes">like</button><button class="comments">comment</button></figcaption>
-                                </figure>
-                                </span>
-                                </div>';
-                                                            
+                        static::displayPic($actual[$j]);
                     }
                 }
             }
-
-            /*footer html*/         
-
-            echo '</section> <!-- end of main-->
-                    </div><!-- end of inner -->
-                    <footer>
-                    <p>"<em>oop</em>"</p>
-                    </footer><!-- end of footer -->
-                    </body>
-                    </div><!-- end of wrapper -->
-                    </html>';
+            static::displayFooter();
         }
         else
         {

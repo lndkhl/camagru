@@ -6,11 +6,37 @@ error_reporting(E_ALL);
 
 class ChangeEmail extends Users
 {
+    private static function updateEmail($user_id, $email)
+    {
+        $verified = 0;
+        static::query('UPDATE ' .  static::get_db_name()  .  '.users SET email=:email, verified=:verified WHERE id=:user_id',
+        array(':email'=>$email, ':verified'=>$verified, ':user_id'=>$user_id));
+        echo "New email address saved!<br>";
+    }
+
+    private static function sendVerificationLink($email)
+    {
+        $subject = "camagru email address update";
+        $cryptographically_strong = true;
+        $message = "Click the following link, or copy and paste it into your browser, to verify your email address: ";
+        $project_root = static::get_project_root("change-email");
+        $link = $project_root . "home?voken=";
+        $voken = bin2hex(openssl_random_pseudo_bytes(64, $cryptographically_strong));
+        if (mail($email, $subject, $message . $link . $voken))
+        {
+            static::query('INSERT INTO ' .  static::get_db_name()  .  '.vokens (voken, user_id) VALUES (:voken, :user_id)',
+                array(':voken'=>sha1($voken), ':user_id'=>static::isLoggedIn()));
+            echo "Email verification link sent, verify your email before attempting to log in again<br>";
+            Settings::main_();
+            exit();
+        }
+        else { echo "We are experiencing difficulty sending you a verification email, please try again"; }
+    }
+
     public static function main_()
     {
         if (static::isLoggedIn())
         {
-            $user_id = static::isLoggedIn();
             if (isset($_POST['changeemail']))
             {
                 $email = $_POST['email'];
@@ -18,34 +44,11 @@ class ChangeEmail extends Users
                 {
                     if (!static::emailExists($email))
                     {
-                        $verified = 0;
-                        static::query('UPDATE ' .  static::get_db_name()  .  '.users SET email=:email, verified=:verified WHERE id=:user_id',
-                        array(':email'=>$email, ':verified'=>$verified, ':user_id'=>$user_id));
-                        echo "New email address saved!<br>";
-                        $subject = "camagru email address update";
-                        $cryptographically_strong = true;
-                        $message = "Click the following link, or copy and paste it into your browser, to verify your email address: ";
-                        $project_root = static::get_project_root("change-email");
-                        $link = $project_root . "home?voken=";
-                        $voken = bin2hex(openssl_random_pseudo_bytes(64, $cryptographically_strong));
-                        if (mail($email, $subject, $message . $link . $voken))
-                        {
-                            static::query('INSERT INTO ' .  static::get_db_name()  .  '.vokens (voken, user_id) VALUES (:voken, :user_id)',
-                                array(':voken'=>sha1($voken), ':user_id'=>static::query('SELECT id FROM ' .  static::get_db_name()  .  '.users WHERE email=:email', array(':email'=>$email))[0]['id']));
-                            echo "Email verification link sent, veirfy your email before attempting to log in again<br>";
-                            Settings::main_();
-                            exit();
-                        }
+                        static::sendVerificationLink($email);
                     }
-                    else
-                    {
-                        echo "That email address is unavailable";
-                    }
+                    else { echo "That email address is unavailable"; }
                 }
-                else
-                {
-                    echo "Invalid email address";
-                }
+                else { echo "Invalid email address"; }
             }
         }
         else
