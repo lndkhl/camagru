@@ -102,7 +102,6 @@ class database
             echo "no images were found";
         }
     }
-
     
     public static function deleteById($user_id, $table)
     {

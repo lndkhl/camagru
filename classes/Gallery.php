@@ -16,11 +16,6 @@ class Gallery extends Users
     private static function displayNext($current)
     {
         echo '<a href="' . static::get_project_root("gallery") . 'gallery?page=' . (++$current) . '">next</a>';
-        /*
-        echo '<form method="post">
-                <input type="submit" name="next" value="next" class="paging">
-                </form>';
-        */
     }
 
     public static function main_()
@@ -42,7 +37,7 @@ class Gallery extends Users
                         static::displayPic($actual[$j]);
                     }
                     if ($page_index) { static::displayPrev($page_index); }
-                    if (($page_index * $ppp) < count($actual)) { static::displayNext($page_index); }
+                    if ((($page_index * $ppp) + $ppp) < count($actual)) { static::displayNext($page_index); }
                 }
             }
             static::displayFooter();
