@@ -47,7 +47,6 @@ for (var i = 0; i < stickers.length; i++){
 					console.log('Response:', res);
 				}
 			}
-
 			/*context.drawImage(preview[j], 0, 0, preview[j].width, preview[j].height, 0, 0, preview[j].width*ratio, preview[j].height*ratio);*/
 			render.disabled = false;
 			process.disabled = false;
@@ -72,7 +71,7 @@ document.getElementById("store").addEventListener("click", function() {
 	xhr.send("image=" + image);
 	xhr.onreadystatechange = function (res) {
 		if (xhr.status === 200 && xhr.readyState === xhr.DONE) {
-			console.log('Response:', res);
+			//console.log('Response:', res);
 			window.alert("image uploaded successfully");
 		}
 	}})

@@ -50,7 +50,6 @@ class Profile extends Users
                 if (file_put_contents($path, $image_string) != FALSE)
                 {
                     static::uploadPic($pic, $user_id);
-                    
                     /*
                     echo '<meta http-equiv="refresh" content="100;url=' . static::get_project_root("profile") . '/profile">';
                     Route::redirect("profile");
@@ -63,14 +62,12 @@ class Profile extends Users
     
     public static function main_()
     {
-        echo "sticker = ";
         if(static::isLoggedIn())
         {
             //static::displayLoggedInHeader();
             if (isset($_POST['sticker']))
             {
-                $sticker = $_POST['sticker'];
-                print_r($sticker);
+                
             }
             static::parsePic();
             //static::displayFooter();

@@ -137,7 +137,7 @@ class Users extends Controller
         echo '<div class="row">';
         /* echo '<span class="' . $class . '">' . $source . '</span>'; */
         echo '<span class= "' . $class . '">
-                <figure class="cap">        
+                <figure class="cap" id="' . $source . '">        
                 <img src="uploads/' . $source . '" class="pic" />
                 <figcaption><div class="caption"><button class="likes"></button><span class="likecount">1000</span><button class= "comments">...</button></div></figcaption>
                 </figure>
