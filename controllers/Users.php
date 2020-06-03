@@ -139,7 +139,7 @@ class Users extends Controller
         echo '<span class= "' . $class . '">
                 <figure class="cap">        
                 <img src="uploads/' . $source . '" class="pic" />
-                <figcaption><button class="likes">like</button><button class= "comments">comment</button></figcaption>
+                <figcaption><div class="caption"><button class="likes"></button><span class="likecount">1000</span><button class= "comments">...</button></div></figcaption>
                 </figure>
                 </span>
                 </div>';
@@ -166,12 +166,12 @@ class Users extends Controller
 
     public static function displayPrev($current, $caller)
     {
-        echo '<a href="' . static::get_project_root($caller) . '' . $caller . '?page=' . (--$current) . '" class="paging">prev</a>';
+        echo '<span id="prev"><a href="' . static::get_project_root($caller) . '' . $caller . '?page=' . (--$current) . '">prev</a></span>';
     }
 
     private static function displayNext($current, $caller)
     {
-        echo '<a href="' . static::get_project_root($caller) . '' . $caller . '?page=' . (++$current) . '" class="paging">next</a>';
+        echo '<span id="next"><a href="' . static::get_project_root($caller) . '' . $caller . '?page=' . (++$current) . '">next</a></span>';
     }
 
 

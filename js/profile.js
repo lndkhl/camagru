@@ -44,25 +44,20 @@ for (var i = 0; i < stickers.length; i++){
 			xhr.send("sticker=this right here");
 			xhr.onreadystatechange = function (res) {
 				if (xhr.status === 200 && xhr.readyState === xhr.DONE) {
-					//console.log('Response Text: ' + res.target.response);
 					console.log('Response:', res);
 				}
 			}
-			//window.location.reload(true);
 
 			/*context.drawImage(preview[j], 0, 0, preview[j].width, preview[j].height, 0, 0, preview[j].width*ratio, preview[j].height*ratio);*/
 			render.disabled = false;
 			process.disabled = false;
 		}});}
 
-if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) 
-{
-	navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream)
- 	{
-       	video.srcObject = stream;
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+	navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+		video.srcObject = stream;
 		video.play();
 	}).catch(e => console.error(e));
-
 }
 
 document.getElementById("snap").addEventListener("click", function () {
@@ -77,10 +72,7 @@ document.getElementById("store").addEventListener("click", function() {
 	xhr.send("image=" + image);
 	xhr.onreadystatechange = function (res) {
 		if (xhr.status === 200 && xhr.readyState === xhr.DONE) {
-			//console.log('Response Text: ' + res.target.response);
 			console.log('Response:', res);
-			csend.innerHTML = "image uploaded successfully";
+			window.alert("image uploaded successfully");
 		}
-	}
-	//window.location.reload(true);
-	})
+	}})

@@ -53,8 +53,43 @@
 #store {
     margin-left: 150px;
 }
+#next {
+    float: right;
+    margin-right: 12px;
+    margin-bottom: 10px;
+}
+#prev {
+    float: left;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
 .likes {
-    margin-right: 5px;
+    background: url(../stickers/like-icon.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 30px;
+    height: 23px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-left: 10px;;
+    float: left;
+}
+.likecount {
+    margin-top: 10px;
+    float: left;
+}
+.comments {
+    background: url(../stickers/comment.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 30px;
+    height: 23px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-left: 5px;;
+    float: right;
 }
 .hidden {
     display: none;
@@ -73,9 +108,6 @@
     width: 400px;
     height: 300px;
 }
-.paging {
-        margin: 110px;
-}
 .cap {
     float: center;
     text-align: center;
@@ -91,6 +123,7 @@
     padding-top: 1px;
     padding-right: 1px;
     padding-bottom: 1px;
+    margin-bottom: 20px;
     width: 100%;
 }
 .post {

@@ -45,6 +45,8 @@
                     </div>
                 </div>
                 
+                <p id="canvasUpload"></p>
+
             </section><!-- end of main -->
             
             <div id="alts">
