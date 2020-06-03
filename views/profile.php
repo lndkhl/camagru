@@ -62,11 +62,11 @@
         </footer><!-- end of footer -->
         
         <div class="hidden">
-        <img id="img1" src="stickers/growmoney.png" />
-        <img id="img2" src="stickers/crown.png" />
-        <img id="img3" src="stickers/pause.png" />
-        <img id="img4" src="stickers/trash.png" />
-        <img id="img5" src="stickers/ring.png" />
+        <img id="img1" src="stickers/pikachu.png" />
+        <img id="img2" src="stickers/pikachu-happy.png" />
+        <img id="img3" src="stickers/pepe.png" />
+        <img id="img4" src="stickers/shades.png" />
+        <img id="img5" src="stickers/deal-with-it-shades.png" />
         </div>
 
     </body>

@@ -25,9 +25,9 @@
 
         <div class="inner">
         <ul>
-        <li><a href="change-password">change password</a></li>
-        <li><a href="change-username">change username</a></li>
-        <li><a href="change-email">change email address</a></li>
+        <li><a href="change-password">change password</a></li><br>
+        <li><a href="change-username">change username</a></li><br>
+        <li><a href="change-email">change email address</a></li><br>
         <li><a href="set-notifications">set notifications</a></li>
         </ul>
         </div><!-- end of inner -->
