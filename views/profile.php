@@ -57,6 +57,7 @@
             </div><!-- end of options -->
             
             <div id="process">
+                <p id="canvasUpload">preview</p>
                 <button id="store">upload</button>
             </div><!-- end of alts -->
         

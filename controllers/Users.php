@@ -139,7 +139,7 @@ class Users extends Controller
         echo '<span class= "' . $class . '">
                 <figure class="cap">        
                 <img src="uploads/' . $source . '" class="pic" />
-                <figcaption>likes</figcaption>
+                <figcaption><button class="likes">like</button><button class= "comments">comment</button></figcaption>
                 </figure>
                 </span>
                 </div>';
@@ -184,7 +184,7 @@ class Users extends Controller
                         camagru
                     </title>
                 <link href="./CSS/fonts.css" type="text/css" rel="stylesheet" />
-                <link rel="shortcut icon" href="flavicon.ico">
+                <link rel="shortcut icon" href="favicon.ico">
                 </head>
 
                 <div class="wrapper">
@@ -206,7 +206,7 @@ class Users extends Controller
                 <section class="main">';
     }
 
-    private static function displayLoggedInHeader()
+    public static function displayLoggedInHeader()
     {
         echo '<!DOCTYPE html>
                 <html>
