@@ -12,6 +12,8 @@ var preview = [sticker1, sticker2, sticker3, sticker4, sticker5];
 
 var stickers = document.getElementsByClassName("buttons");
 
+var likes = document.getElementsByClassName("likes");
+
 var csend = document.getElementById("canvasUpload");
 
 const process = document.getElementById("store");
@@ -44,14 +46,13 @@ for (var i = 0; i < stickers.length; i++){
 				if (xhr.status === 200 && xhr.readyState === xhr.DONE) {
 					//console.log('Response Text: ' + res.target.response);
 					console.log('Response:', res);
-					console.log('Test' , 'this nigga');
 				}
 			}
 			//window.location.reload(true);
 
 			/*context.drawImage(preview[j], 0, 0, preview[j].width, preview[j].height, 0, 0, preview[j].width*ratio, preview[j].height*ratio);*/
-			process.disabled = false;
 			render.disabled = false;
+			process.disabled = false;
 		}});}
 
 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) 
@@ -59,13 +60,13 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia)
 	navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream)
  	{
        	video.srcObject = stream;
-		document.getElementById("camera").addEventListener("click", function () {video.play()});
-		document.getElementById("pause").addEventListener("click", function () {video.pause();})
+		video.play();
 	}).catch(e => console.error(e));
 
 }
 
-document.getElementById("snap").addEventListener("click", function () {context.drawImage(video, 0, 0, canvas.width, canvas.height);});
+document.getElementById("snap").addEventListener("click", function () {
+	context.drawImage(video, 0, 0, canvas.width, canvas.height); camshot = 1;});
 
 document.getElementById("store").addEventListener("click", function() {
 	var image = canvas.toDataURL("image/png");
@@ -76,7 +77,7 @@ document.getElementById("store").addEventListener("click", function() {
 	xhr.send("image=" + image);
 	xhr.onreadystatechange = function (res) {
 		if (xhr.status === 200 && xhr.readyState === xhr.DONE) {
-			console.log('Response Text: ' + res.target.response);
+			//console.log('Response Text: ' + res.target.response);
 			console.log('Response:', res);
 			csend.innerHTML = "image uploaded successfully";
 		}

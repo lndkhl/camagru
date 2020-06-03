@@ -66,12 +66,14 @@ class Profile extends Users
         echo "sticker = ";
         if(static::isLoggedIn())
         {
+            //static::displayLoggedInHeader();
             if (isset($_POST['sticker']))
             {
                 $sticker = $_POST['sticker'];
                 print_r($sticker);
             }
             static::parsePic();
+            //static::displayFooter();
         }
         else
         {

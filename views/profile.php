@@ -9,10 +9,10 @@
         <link rel="shortcut icon" href="favicon.ico">
     </head>
     
-    <div class="wrapper" id="profwrap">
+    <div class="wrapper">
     <body>
         <header>
-            <h1 class="title" id="proftitle">camagru</h1>
+            <h1 class="title">camagru</h1>
         </header><!-- end of header -->
 
         <nav>
@@ -26,52 +26,36 @@
         </nav><!-- end of links -->  
 
         <div class="inner">
-        <section class="main">
-        
-            <div class="imgbox">
+            <section class="main">
             
-                <video id="video"></video>
-                <canvas id="canvas"></canvas>
+                <ul>
+                    <li><button id="sticker1" class="buttons"></button></li>
+                    <li><button id="sticker2" class="buttons"></button></li>
+                    <li><button id="sticker3" class="buttons"></button></li>
+                    <li><button id="sticker4" class="buttons"></button></li>
+                    <li><button id="sticker5" class="buttons"></button></li>
+                </ul>
 
-                <aside>
-                    <h2>pick a sticker:</h2>
-                    <ul>
-                        <li><button id="sticker1" class="buttons"></button></li>
-                        <li><button id="sticker2" class="buttons"></button></li>
-                        <li><button id="sticker3" class="buttons"></button></li>
-                        <li><button id="sticker4" class="buttons"></button></li>
-                        <li><button id="sticker5" class="buttons"></button></li>
-                    </ul>
-                </aside>
-            
-            </div><!-- end of imgbox -->
-            
-            <div class="options">
-            
-                <span id="capture">
-                    <button id="camera">camera</button>
-                    <button id="snap">snap</button>
-                    <button id="pause" class="hidden">pause</button>
-                </span>
-            
-            </div><!-- end of options -->
-            
-            <div id="process">
-                <p id="canvasUpload">preview</p>
-                <button id="store">upload</button>
-            </div><!-- end of alts -->
-        
+                <div class="imgbox">
+                    <video id="video" autoplay="on"></video>
+                    <canvas id="canvas"></canvas>
+                    <div class="media-buttons">
+                        <button id="snap">snap</button>
+                        <button id="store">upload</button>
+                    </div>
+                </div>
+                
             </section><!-- end of main -->
             
-                <div id="alts">
-                    <p>No webcam?</p>
-                    <form  action="upload" method="post" enctype="multipart/form-data">
-                    <input type="file" id="img" name= "img" />
-                    <input type=submit name="upload" value="submit" id="upload">
-                    </form>
-                </div>
+            <div id="alts">
+                <p>No webcam?</p>
+                <form  action="upload" method="post" enctype="multipart/form-data">
+                <input type="file" id="img" name= "img" />
+                <input type=submit name="upload" value="submit" id="upload">
+                </form>
+            </div>
 
-            </div><!-- end of inner -->
+        </div><!-- end of inner -->
 
         <footer>
             <p>"<em>oop</em>"</p>
