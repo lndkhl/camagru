@@ -138,11 +138,19 @@ class Users extends Controller
         /* echo '<span class="' . $class . '">' . $source . '</span>'; */
         echo '<span class= "' . $class . '">
                 <figure class="cap" id="' . $source . '">        
-                <img src="uploads/' . $source . '" class="pic" />
-                <figcaption><div class="caption"><button class="likes"></button><span class="likecount">1000</span><button class= "comments">...</button></div></figcaption>
+                    <img src="uploads/' . $source . '" class="pic" />
+                    <figcaption>
+                        <div class="caption">
+                            <button class="likes"></button>
+                            <span class="likecount">1000</span>
+                            <button class="delete"></button>
+                            <span class="commcount">300</span>
+                            <button class= "comments">...</button>
+                        </div>
+                    </figcaption>
                 </figure>
-                </span>
-                </div>';
+            </span>
+            </div>';
     }
 
     public static function displayPage($actual, $caller)
