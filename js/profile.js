@@ -12,8 +12,6 @@ var preview = [sticker1, sticker2, sticker3, sticker4, sticker5];
 
 var stickers = document.getElementsByClassName("buttons");
 
-var likes = document.getElementsByClassName("likes");
-
 var csend = document.getElementById("canvasUpload");
 
 const process = document.getElementById("store");

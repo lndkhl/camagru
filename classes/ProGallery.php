@@ -17,6 +17,8 @@ class ProGallery extends Users
                 if (count($actual))
                 {
                     static::displayPage($actual, "pro-gallery");
+                    echo '<script src="./js/gallery.js"></script>';
+                    static::parseUserInput();
                 }
             }
             static::displayFooter();

@@ -130,6 +130,21 @@ class Users extends Controller
         echo "Image uploaded successfully<br>";
     }
 
+    public static function ownPic($imgname)
+    {
+        if(static::isLoggedIn())
+        {
+            $user_id = static::isLoggedIn();
+            $owner = static::query('SELECT user_id FROM ' . static::get_db_name() . '.posts WHERE imgname=:imgname',
+                                array(':imgname'=>$imgname))[0]['user_id'];
+            if ($user_id == $owner)
+            {
+                return TRUE;
+            }
+            return FALSE;
+        }
+    }
+
     public static function displayPic($source)
     {
         $class = "post";
@@ -142,15 +157,37 @@ class Users extends Controller
                     <figcaption>
                         <div class="caption">
                             <button class="likes"></button>
-                            <span class="likecount">1000</span>
-                            <button class="delete"></button>
-                            <span class="commcount">300</span>
+                            <span class="likecount">1000</span>';
+                            if (static::ownPic($source))
+                            {
+                                echo '<button class="delete"></button>';
+                            }
+                            echo '<span class="commcount">30200</span>
                             <button class= "comments">...</button>
                         </div>
                     </figcaption>
                 </figure>
             </span>
             </div>';
+    }
+
+    public static function deletePic ($imgname)
+    {
+        if (static::ownPic($imgname))
+        {
+            static::query('DELETE FROM ' .  static::get_db_name()  .  '.posts WHERE imgname=:imgname', array(':imgname'=>$imgname));
+        }
+    }
+
+    public static function parseUserInput ()
+    {
+        if (static::isLoggedIn())
+        {
+            if (isset($_POST['imgname']))
+            {
+                static::deletePic($_POST['imgname']);
+            }
+        }
     }
 
     public static function displayPage($actual, $caller)
