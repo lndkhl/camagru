@@ -35,7 +35,7 @@ class ForgotPassword extends Users
                             {
                                
                                 static::updatePassword($newpword, $change_id);
-                                static::query('delete from ' .  static::get_db_name()  .  '.pokens where user_id=:user_id', array(':user_id'=>$change_id));
+                                static::query('DELETE FROM ' .  static::get_db_name()  .  '.pokens WHERE user_id=:user_id', array(':user_id'=>$change_id));
                                 unset($GLOBALS['change_id']);
                                 Home::main_();
                                 exit();
