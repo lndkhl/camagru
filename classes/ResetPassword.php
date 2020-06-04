@@ -6,6 +6,23 @@ error_reporting(E_ALL);
 
 class ResetPassword extends Users
 {
+    private static function reset($user_id, $email)
+    {
+        $subject = "Camagru password reset";
+        $cryptographically_strong = true;
+        $message = "Click the following link or copy and paste it into your browser to reset your password: ";
+        $project_root = static::get_project_root("reset-password");
+        $link = $project_root . "forgot-password?poken=";
+        $poken = bin2hex(openssl_random_pseudo_bytes(64, $cryptographically_strong));
+        if (mail($email, $subject, $message . $link . $poken))
+        {
+            static::query('INSERT INTO ' .  static::get_db_name()  .  '.pokens (poken, user_id) VALUES (:poken, :user_id)',
+                        array(':poken'=>sha1($poken), ':user_id'=>$user_id));
+            echo "Password-reset link sent";
+        }
+        else { echo "Something went wrong, please try again"; }
+    }
+
     public static function main_()
     {
         if (isset($_POST['resetpassword']))
@@ -13,34 +30,14 @@ class ResetPassword extends Users
             $email = $_POST['email'];
             if (filter_var($email, FILTER_VALIDATE_EMAIL))
             {
-                if (static::query('SELECT id FROM ' .  static::get_db_name()  .  '.users WHERE email=:email', array(':email'=>$email)))
+                if (static::emailExists($email))
                 {
-                    $subject = "Camagru password reset";
-                    $cryptographically_strong = true;
-                    $message = "Click the following link or copy and paste it into your browser to reset your password: ";
-                    $project_root = static::get_project_root("reset-password");
-                    $link = $project_root . "forgot-password?poken=";
-                    $poken = bin2hex(openssl_random_pseudo_bytes(64, $cryptographically_strong));
-                    if (mail($email, $subject, $message . $link . $poken))
-                    {
-                        static::query('INSERT INTO ' .  static::get_db_name()  .  '.pokens (poken, user_id) VALUES (:poken, :user_id)',
-                                    array(':poken'=>sha1($poken), ':user_id'=>static::query('SELECT id FROM ' .  static::get_db_name()  .  '.users WHERE email=:email', array(':email'=>$email))[0]['id']));
-                        echo "Password-reset link sent";
-                    }
-                    else
-                    {
-                        echo "Something went wrong, please try again";
-                    }
+                    $user_id = static::emailExists($email);
+                    static::reset($user_id, $email);                    
                 }
-                else
-                {
-                    echo "The email address entered does not belong to a registered user";
-                }
+                else{ echo "The email address entered does not belong to a registered user"; }
             }
-            else
-            {
-                echo "Invalid email address entered";
-            }
+            else{ echo "Invalid email address entered"; }
         }
         static::create_view("reset-password");
     }

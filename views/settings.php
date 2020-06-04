@@ -5,7 +5,7 @@
             camagru
         </title>
         <link href="./CSS/fonts.css" type="text/css" rel="stylesheet" />
-        <link rel="shortcut icon" href="forward.ico">
+        <link rel="shortcut icon" href="favicon.ico">
     </head>
    
     <div class="wrapper">
@@ -19,15 +19,15 @@
                 <ul>
                     <li><a href="logout">logout</a></li>
                     <li><a href="profile">profile</a></li>
-                    </ul>
+                </ul>
             </p>
         </nav><!-- end of links -->
 
         <div class="inner">
         <ul>
-        <li><a href="change-password">change password</a></li>
-        <li><a href="change-username">change username</a></li>
-        <li><a href="change-email">change email address</a></li>
+        <li><a href="change-password">change password</a></li><br>
+        <li><a href="change-username">change username</a></li><br>
+        <li><a href="change-email">change email address</a></li><br>
         <li><a href="set-notifications">set notifications</a></li>
         </ul>
         </div><!-- end of inner -->

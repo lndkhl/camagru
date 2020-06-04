@@ -1,11 +1,5 @@
-#profwrap{
-    width: 940px;
-}
-#proftitle{
-    margin-right: 20px;
-}
 #sticker1 {
-    background: url(../stickers/growmoney.png);   
+    background: url(../stickers/pikachu.png);   
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -13,7 +7,7 @@
     height: 65px;
 }
 #sticker2 {
-    background: url(../stickers/crown.png);
+    background: url(../stickers/pikachu-happy.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -21,7 +15,7 @@
     height: 65px;
 }
 #sticker3 {
-    background: url(../stickers/pause.png);
+    background: url(../stickers/pepe.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -29,7 +23,7 @@
     height: 65px;
 }
 #sticker4 {
-    background: url(../stickers/trash.png);
+    background: url(../stickers/shades.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -37,15 +31,81 @@
     height: 65px;
 }
 #sticker5 {
-    background: url(../stickers/ring.png);
+    background: url(../stickers/deal-with-it-shades.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
     width: 80px;
     height: 65px;
 }
+#capture {
+    float: left;
+    margin-left: 120px;
+}
+#alts {
+    text-align: left;
+    margin-top: 10px;
+    margin-left: 40px;
+}
+#snap {
+    margin-left: 35px;
+}
+#store {
+    margin-left: 150px;
+}
+#next {
+    float: right;
+    margin-right: 12px;
+    margin-bottom: 10px;
+}
+#prev {
+    float: left;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
 .likes {
-    margin-right: 5px;
+    background: url(../stickers/like-icon.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 30px;
+    height: 23px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-left: 10px;;
+    float: left;
+}
+.likecount {
+    margin-top: 10px;
+    float: left;
+}
+.deletes {
+    background: url(../stickers/delete.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 30px;
+    height: 23px;
+    margin-right: 10px;
+    margin-top: 10px;
+    float: center;
+}
+.commcount {
+    margin-top: 10px;
+    margin-right: 10px;
+    float: right;
+}
+.comments {
+    background: url(../stickers/comment.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 30px;
+    height: 23px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-left: 5px;;
+    float: right;
 }
 .hidden {
     display: none;
@@ -58,20 +118,41 @@
 .imgbox {
     display: inline;
 }
-.options {
-    float: left;
+.pic {
+    display: block;
+    margin: 0 auto;
+    width: 400px;
+    height: 300px;
 }
-#capture {
-    float: left;
-    margin-left: 120px;
+.cap {
+    float: center;
+    text-align: center;
 }
-#process {
-    float: right;
-    margin-right: 150px;
+.wrapper {
+	width: 500px;
+	margin: 20px auto 20px auto;
+    border: 2px solid #000000;
+    padding: 5px;
+    background-color: #ffffff;}
+.row {
+    padding-left: 1px;
+    padding-top: 1px;
+    padding-right: 1px;
+    padding-bottom: 1px;
+    margin-bottom: 20px;
+    width: 100%;
 }
-#alts {
-    margin-top: 50px;
-    margin-left: 20px;
+.post {
+    padding-left: 1px;
+    padding-right: 1px;
+    min-width: 450px;
+    height: auto;
+}
+.media-buttons {
+	background-color: #aeaca8;
+    margin-left: 40px;
+    margin-right: 46px;
+    padding-bottom: 3px;
 }
 header, section, footer, aside, nav {
     display: block;
@@ -83,41 +164,16 @@ body {
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	line-height: 1.4em;
     margin: 0px;}
-.pic {
-    display: block;
-    margin: 0 auto;
-    min-width: 400px;
-    height:auto;
-}
-.cap {
-    float: center;
-    text-align: center;
-}
-.wrapper {
-	width: 510px;
-	margin: 20px auto 20px auto;
-	border: 2px solid #000000;
-    background-color: #ffffff;}
-.row {
-    padding-left: 1px;
-    padding-top: 1px;
-    padding-right: 1px;
-    padding-bottom: 1px;
-    width: 100%;
-}
-.post {
-    padding-left: 1px;
-    padding-right: 1px;
-    min-width: 450px;
-    height: auto;
-}
 header {
 	width: 940px;
-	height: 80px;
+	height: 50px;
     margin: 10px;
 }
 ul {
     list-style-type: none;
+}
+li {
+    display: inline;
 }
 nav, footer {
 	clear: both;
@@ -126,28 +182,30 @@ nav, footer {
 	height: 50px;}
 nav ul {
 	margin: 0px;
-	padding: 5px 0px 5px 30px;}
+	padding: 11px 0px 5px 30px;}
 nav li {
 	display: inline;
-    margin-right: 40px;}
+    margin-right: 35px;}
 aside {
-	width: 210px;
-	float: right;
-    padding: 0px 0px 0px 20px;}
+    display: inline;
+    text-align: center;
+    margin-right: 0px;}
 footer {
 	font-size: 80%;
     padding: 7px 0px 0px 20px;}
 video {
     float: left;
-    width: 300px;
-    height: 230px;
+    width: 100px;
+    height: auto;
     padding: 5px;
-    margin: 20px;
+    margin-left: 40px;
+    margin-top: 80px;
+    margin-right: 0px;
     border: 1px solid #eeeeee;}
 canvas {
     float: center;
-    width: 300px;
-    height: 230px;
+    width: 270px;
+    height: 203px;
     padding: 5px;
     margin: 20px;
     border: 1px solid #eeeeee;}

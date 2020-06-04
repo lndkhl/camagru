@@ -23,21 +23,14 @@ class ChangeUsername extends Users
                             static::query('UPDATE ' .  static::get_db_name()  .  '.users SET username=:username WHERE id=:user_id',
                                 array(':username'=>$username, ':user_id'=>$user_id));
                             echo "Username changed successfully";
+                            Settings::main_();
+                            exit();
                         }
-                        else
-                        {
-                            echo "Invalid username<>Username must be at least 3 characters long";
-                        }
+                        else { echo "Invalid username<>Username must be at least 3 characters long"; }
                     }
-                    else
-                    {
-                        echo "That username is unavailable";
-                    }
+                    else { echo "That username is unavailable"; }
                 }
-                else
-                {
-                    echo "Invalid username<br>Username can only consist of lower case letters and (optionally) the underscore character";
-                }
+                else { echo "Invalid username<br>Username can only consist of lower case letters and (optionally) the underscore character"; }
             }
         }
         else
