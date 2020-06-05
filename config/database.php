@@ -193,6 +193,7 @@ class database
             $sql = "CREATE TABLE IF NOT EXISTS " . static::get_db_name() . ".posts(
                 id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                 imgname CHAR(64), likes INT(12) UNSIGNED,
+                comments INT(12) UNSIGNED,
                 user_id INT(12) UNSIGNED NOT NULL,
         
                 FOREIGN KEY (user_id) REFERENCES " . static::get_db_name() . ".users(id)
@@ -205,16 +206,38 @@ class database
         }
     }
 
+    public static function create_table_likes()
+    {
+        try
+        {
+            $sql = "CREATE TABLE IF NOT EXISTS " . static::get_db_name() . ".likes(
+                id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                post_id INT(12) UNSIGNED NOT NULL,
+                user_id INT(12) UNSIGNED NOT NULL,
+
+                FOREIGN KEY (post_id) REFERENCES " .static::get_db_name() . ".posts(id),
+                FOREIGN KEY (user_id) REFERENCES " .static::get_db_name() . ".users(id)
+                )";
+            self::connect()->exec($sql);
+        }
+        catch(PDOException $e)
+        {
+            echo "Likes table initialization error: " . "<br>" . $e->getMessage();
+        }
+    }
+
     public static function create_table_comments()
     {
         try
         {        
             $sql = "CREATE TABLE IF NOT EXISTS " . static::get_db_name() . ".comments(
                 id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                comment VARCHAR(240), likes INT(12) UNSIGNED,
+                comment VARCHAR(240),
                 post_id INT(12) UNSIGNED NOT NULL,
+                user_id INT(12) UNSIGNED NOT NULL,
         
-                FOREIGN KEY (post_id) REFERENCES " . static::get_db_name() . ".posts(id)
+                FOREIGN KEY (post_id) REFERENCES " . static::get_db_name() . ".posts(id),
+                FOREIGN KEY (user_id) REFERENCES " . static::get_db_name() . ".users(id)
                 )";
             self::connect()->exec($sql);
         }
