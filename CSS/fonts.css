@@ -124,9 +124,12 @@
     width: 400px;
     height: 300px;
 }
-.textBox {
-    width: 400px;
-    height: 150px;
+.comment {
+    display: inline-block;
+    margin-left: 10%;
+}
+.textbox {
+    width: 175%;
 }
 .cap {
     float: center;

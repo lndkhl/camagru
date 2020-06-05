@@ -241,10 +241,11 @@ class Users extends Controller
     {
         if (static::isLoggedIn())
         {
-            echo '<form method="post">
-                    <textarea class="commentBox" id="' . $imgname . '" name="commentstring">enter your comment here...</textarea>
+            echo '<div class="row"><form method="post" class="comment">
+                    <textarea id="' . $imgname . '" maxlength="140" name="commentstring" class="textbox">enter your comment here...</textarea>
                     <input type="submit" name="comment" value="post">
-                    </form>';
+                    </form>
+                    </div>';
         }
     }
 
@@ -345,7 +346,24 @@ class Users extends Controller
                 {
                     static::commentBox($post);
                 }
+                static::displayComments($post);
             }        
+        }
+    }
+
+    public static function displayComments($imgname)
+    {
+        if (static::picExists($imgname))
+        {
+            $post_id = static::query('SELECT id FROM ' . static::get_db_name() . '.posts WHERE imgname=:imgname',
+                                    array(':imgname'=>$imgname))[0]['id'];
+            $poster_id = static::query('SELECT user_id FROM ' . static::get_db_name() . '.comments WHERE post_id=:post_id',
+                                    array(':post_id'=>$post_id))[0]['user_id'];
+            $poster_name = static::query('SELECT username FROM ' . static::get_db_name() . '.users WHERE id=:id',
+                                    array(':id'=>$poster_id))[0]['username'];
+            $comment = static::query('SELECT comment FROM ' . static::get_db_name() . '.comments WHERE post_id=:post_id',
+                                    array(':post_id'=>$post_id))[0];
+            foreach ($comment as $comm) {echo '<div class="row">' . $poster_name . ': ' . $comm . '</div>';}
         }
     }
 
