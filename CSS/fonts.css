@@ -84,8 +84,8 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    width: 30px;
-    height: 23px;
+    width: 15px;
+    height: 12px;
     margin-right: 10px;
     margin-top: 10px;
     float: center;
@@ -123,6 +123,10 @@
     margin: 0 auto;
     width: 400px;
     height: 300px;
+}
+.textBox {
+    width: 400px;
+    height: 150px;
 }
 .cap {
     float: center;

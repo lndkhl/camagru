@@ -106,16 +106,9 @@ class Users extends Controller
             $posts = static::fetchPosts();
             if ($posts)
             {
-                if (file_exists("uploads"))
+                if (static::picExists($posts[$i]['imgname']))
                 {
-                    if (count(scandir("uploads")))
-                    {
-                        $uploads = scandir("uploads");
-                        if (in_array($posts[$i]['imgname'], $uploads))
-                        {
-                            array_push($actual, $posts[$i]['imgname']);
-                        }
-                    }
+                    array_push($actual, $posts[$i]['imgname']);
                 }
             }
         }
@@ -125,8 +118,9 @@ class Users extends Controller
     public static function uploadPic($imgname, $user_id)
     {
         $likes = 0;
-        static::query('INSERT INTO ' . static::get_db_name() . '.posts (imgname, likes, user_id) VALUES (:imgname, :likes, :user_id)',
-                    array(':imgname'=>$imgname, ':likes'=>$likes, ':user_id'=>$user_id));
+        $comments = 0;
+        static::query('INSERT INTO ' . static::get_db_name() . '.posts (imgname, likes, comments, user_id) VALUES (:imgname, :likes, :comments, :user_id)',
+                    array(':imgname'=>$imgname, ':likes'=>$likes, ':comments'=>$comments, ':user_id'=>$user_id));
         echo "Image uploaded successfully<br>";
     }
 
@@ -135,11 +129,15 @@ class Users extends Controller
         if(static::isLoggedIn())
         {
             $user_id = static::isLoggedIn();
-            $owner = static::query('SELECT user_id FROM ' . static::get_db_name() . '.posts WHERE imgname=:imgname',
-                                array(':imgname'=>$imgname))[0]['user_id'];
-            if ($user_id == $owner)
+            if (static::query('SELECT user_id FROM ' . static::get_db_name() . '.posts WHERE imgname=:imgname',
+                            array(':imgname'=>$imgname)))
             {
-                return TRUE;
+                $owner = static::query('SELECT user_id FROM ' . static::get_db_name() . '.posts WHERE imgname=:imgname',
+                                array(':imgname'=>$imgname))[0]['user_id'];
+                if ($user_id == $owner)
+                {
+                    return TRUE;
+                }
             }
             return FALSE;
         }
@@ -165,28 +163,29 @@ class Users extends Controller
 
     public static function displayPic($source)
     {
-        $class = "post";
-        
-        echo '<div class="row">';
-        /* echo '<span class="' . $class . '">' . $source . '</span>'; */
-        echo '<span class= "' . $class . '">
-                <figure class="cap">        
-                    <img src="uploads/' . $source . '" class="pic" />
-                    <figcaption>
-                        <div class="caption">
-                            <button class="likes" id="' .$source . '"></button>
-                            <span class="likecount">' . static::getLikes($source) . '</span>';
-                            if (static::ownPic($source))
-                            {
-                                echo '<button class="deletes" id="' . $source . '"></button>';
-                            }
-                            echo '<span class="commcount">' . static::getCommentCount($source) . '</span>
-                            <button class= "comments" id="' . $source . '">...</button>
-                        </div>
-                    </figcaption>
-                </figure>
-            </span>
-            </div>';
+        if (static::picExists($source))
+        {
+            echo '<div class="row">';
+            /* echo '<span class="' . $class . '">' . $source . '</span>'; */
+            echo '<span class= "post">
+                    <figure class="cap">        
+                        <img src="uploads/' . $source . '" class="pic" />
+                        <figcaption>
+                            <div class="caption">
+                                <button class="likes" id="' .$source . '"></button>
+                                <span class="likecount">' . static::getLikes($source) . '</span>';
+                                if (static::ownPic($source))
+                                {
+                                    echo '<button class="deletes" id="' . $source . '"></button>';
+                                }
+                                echo '<span class="commcount"><a href="pro-gallery?post=' . $source . '">' . static::getCommentCount($source) . '</a></span>
+                                <button class="comments" id="' .$source . '"></button>
+                            </div>
+                        </figcaption>
+                    </figure>
+                </span>
+                </div>';
+        }
     }
 
     public static function deletePic($imgname)
@@ -231,6 +230,14 @@ class Users extends Controller
                                 array(':post_id'=>$post_id, ':user_id'=>$user_id));
                 }
             }
+        }
+    }
+
+    public static function commentBox($imgname)
+    {
+        if (static::isLoggedIn())
+        {
+            echo '<textarea class="commentBox" id="' . $imgname . '">enter your comment here...</textarea>';
         }
     }
 
@@ -282,10 +289,54 @@ class Users extends Controller
             {
                 static::likePic($_POST['like']);
             }
+            /*
             if (isset($_POST['comment']))
             {
                 static::commentPic($_POST['comment']['imgname'], $_POST['comment']['input']);
             }
+            */
+        }
+    }
+
+    public static function picExists($imgname)
+    {
+        if (file_exists("uploads"))
+        {
+            if (count(scandir("uploads")))
+            {
+                $uploads = scandir("uploads");
+                if (in_array($imgname, $uploads))
+                {
+                    return TRUE;
+                }
+            }
+        }
+        return FALSE;
+    }
+
+    public static function pic_in_db($imgname)
+    {
+        if (static::query('SELECT id FROM ' . static::get_db_name() . '.posts WHERE imgname=:imgname',
+                        array(':imgname'=>$imgname)))
+        {
+            return TRUE;
+        }
+        return FALSE;
+    }
+
+    public static function displayPost()
+    {
+        if(isset($_GET['post']))
+        {
+            $post = $_GET['post'];
+            if (static::picExists($post))
+            {
+                static::displayPic($post);
+                if (static::isLoggedIn())
+                {
+                    static::commentBox($post);
+                }
+            }        
         }
     }
 

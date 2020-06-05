@@ -11,16 +11,27 @@ class ProGallery extends Users
         if (static::isLoggedIn())
         {
             static::displayLoggedInHeader();
-            if (static::countRows("posts"))
+            if (isset($_GET['post']))
+            {
+                if (static::pic_in_db($_GET['post']))
+                {
+                    static::displayPost();
+                }
+                else
+                {
+                    route::redirect("pro-gallery");
+                }
+            }
+            else if (static::countRows("posts"))
             {
                 $actual = static::populateGallery();
                 if (count($actual))
                 {
                     static::displayPage($actual, "pro-gallery");
-                    echo '<script src="./js/gallery.js"></script>';
-                    static::parseUserInput();
                 }
             }
+            echo '<script src="./js/gallery.js"></script>';
+            static::parseUserInput();
             static::displayFooter();
         }
         else
