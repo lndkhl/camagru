@@ -48,10 +48,6 @@
     min-height: 50px;
     margin-right: 2.5%;
 }
-#capture {
-    float: left;
-    margin-left: 120px;
-}
 #alts {
     text-align: left;
     margin-top: 5%;
@@ -59,20 +55,20 @@
     margin-bottom: 1%;
 }
 #snap {
-    margin-left: 35px;
+    margin-left: 7%;
 }
 #store {
-    margin-left: 150px;
+    margin-left: 50%;
 }
 #next {
     float: right;
-    margin-right: 12px;
-    margin-bottom: 10px;
+    margin-right: 5%;
+    margin-bottom: 2%;
 }
 #prev {
     float: left;
-    margin-left: 10px;
-    margin-bottom: 10px;
+    margin-left: 5%;
+    margin-bottom: 2%;
 }
 .caption {
     width: 100%;
@@ -84,7 +80,7 @@
     background-size: contain;
     background-position: center;
     width: 7%;
-    height: 23px;
+    min-height: 23px;
     margin-right: 2.5%;
     margin-top: 2.5%;
     margin-left: 0%;
@@ -100,7 +96,7 @@
     background-size: contain;
     background-position: center;
     width: 4%;
-    height: 12px;
+    min-height: 12px;
     margin-right: 0%;
     margin-top: 2.5%;
     float: center;
@@ -116,7 +112,7 @@
     background-size: contain;
     background-position: center;
     width: 7%;
-    height: 23px;
+    min-height: 23px;
     margin-right: 2.5%;
     margin-top: 2.5%;
     margin-left: 5%;;
@@ -126,8 +122,6 @@
     display: none;
 }
 .title {
-    text-align: center;
-    margin-right: 450px;
     color:gray;
 }
 .imgbox {
@@ -159,7 +153,7 @@
     text-align: center;
 }
 .wrapper {
-    width: 35%;
+    width: 60%;
     min-width: 400px;
 	margin: 20px auto 20px auto;
     border: 2px solid #000000;
@@ -185,6 +179,10 @@
     margin-right: 10%;
     padding-bottom: 3px;
 }
+.stickers {
+    float: center;
+    padding-left: 5%;
+}
 header, section, footer, aside, nav {
     display: block;
 }
@@ -197,13 +195,14 @@ body {
     margin: 0px;
 }
 header {
-	width: 35%;
+	width: 100%;
     height: auto;
-    padding-left: 7%;
-    margin: 10% auto 10% auto;
+    text-align: center;
+    margin: 5% auto 10% auto;
 }
 ul {
     list-style-type: none;
+    float: center;
 }
 li {
     display: inline;
@@ -240,7 +239,6 @@ canvas {
     float: center;
     width: 54%;
     height: auto;
-    min-height: 175px;
     padding: 1%;
     margin: 5%;
     border: 1px solid #eeeeee;}

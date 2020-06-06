@@ -11,9 +11,10 @@
     
     <div class="wrapper">
     <body>
+        <!--
         <header>
             <h1 class="title">camagru</h1>
-        </header><!-- end of header -->
+        </header> --><!-- end of header -->
 
         <nav>
             <p> 
@@ -28,13 +29,15 @@
         <div class="inner">
             <section class="main">
             
-                <ul>
-                    <li><button id="sticker1" class="buttons"></button></li>
-                    <li><button id="sticker2" class="buttons"></button></li>
-                    <li><button id="sticker3" class="buttons"></button></li>
-                    <li><button id="sticker4" class="buttons"></button></li>
-                    <li><button id="sticker5" class="buttons"></button></li>
-                </ul>
+                <div class="stickers">
+                    <ul>
+                        <li><button id="sticker1" class="buttons"></button></li>
+                        <li><button id="sticker2" class="buttons"></button></li>
+                        <li><button id="sticker3" class="buttons"></button></li>
+                        <li><button id="sticker4" class="buttons"></button></li>
+                        <li><button id="sticker5" class="buttons"></button></li>
+                    </ul>
+                </div>
 
                 <div class="imgbox">
                     <video id="video" autoplay="on"></video>

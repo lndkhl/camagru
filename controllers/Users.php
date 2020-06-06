@@ -213,10 +213,9 @@ class Users extends Controller
     {
         if (static::picExists($source))
         {
-            $location = (static::isLoggedIn()) ? "pro-gallery" : "gallery"; 
-            echo '<div class="row">';
-            /* echo '<span class="' . $class . '">' . $source . '</span>'; */
-            echo '<span class= "post">
+            $location = "gallery"; 
+            echo '<div class="row">
+                    <span class= "post">
                     <figure class="cap">        
                         <img src="uploads/' . $source . '" class="pic" />
                         <figcaption>
@@ -329,9 +328,10 @@ class Users extends Controller
 
                 <div class="wrapper">
                 <body>
+                <!--
                 <header>
                     <h1 class="title">camagru</h1>
-                </header><!-- end of header -->
+                </header>--><!-- end of header -->
 
                 <div class="inner">
                 <nav>

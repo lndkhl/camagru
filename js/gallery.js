@@ -9,7 +9,7 @@ for (var i = 0; i < deletes.length; i++) {
                 console.log(this.id);
 	            if(confirm("are you sure you want\nto delete this post?")) {
                     var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'pro-gallery', 'true');
+                    xhr.open('POST', 'gallery', 'true');
                     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
                     xhr.send("delete=" + this.id);
                     xhr.onreadystatechange = function (res) {
@@ -30,7 +30,7 @@ for (var i = 0; i < likes.length; i++) {
 			if (likes[j] == this) {
                 console.log(this.id);
                 var xhr = new XMLHttpRequest();
-                xhr.open('POST', 'pro-gallery', 'true');
+                xhr.open('POST', 'gallery', 'true');
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
                 xhr.send("like=" + this.id);
                 xhr.onreadystatechange = function (res) {

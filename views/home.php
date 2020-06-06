@@ -27,6 +27,7 @@
         </nav><!-- end of links -->
 
         <p>
+            <!-- <img src=""> -->
         </p>
 
         </div><!-- end of inner -->
