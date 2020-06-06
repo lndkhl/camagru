@@ -268,7 +268,7 @@ class Users extends Controller
                 static::displayPic($actual[$j]);
             }
             if ($page_index) { static::displayPrev($page_index, $caller); }
-            if ((($page_index + 1) * $ppp) <= count($actual)) { static::displayNext($page_index, $caller); }
+            if ((($page_index + 1) * $ppp) < count($actual)) { static::displayNext($page_index, $caller); }
         }
         else { die("page does not exist"); }        
     }
