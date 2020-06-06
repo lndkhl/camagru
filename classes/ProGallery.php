@@ -45,11 +45,15 @@ class ProGallery extends Users
                 $poster = static::query('SELECT user_id FROM ' . static::get_db_name() . '.posts WHERE imgname=:imgname', array(':imgname'=>$imgname))[0]['user_id'];
                 $comments = static::getCommentCount($imgname);
                 $commenter = static::isLoggedIn();
+                $notify = static::query('SELECT notifications FROM ' . static::get_db_name() . '.users WHERE id=:id', array(':id'=>$poster))[0]['notifications'];
                 static::query('UPDATE ' . static::get_db_name() . '.posts SET comments=:comments WHERE imgname=:imgname', 
                                 array(':comments'=>(++$comments), ':imgname'=>$imgname));
                 static::query('INSERT INTO ' . static::get_db_name() . '.comments (comment, post_id, user_id) VALUES (:comment, :post_id, :user_id)',
                                 array(':comment'=>$comment, ':post_id'=>$post_id, ':user_id'=>$commenter));
-                static::commentNotification($poster, $comment);
+                if ($notify)
+                {
+                    static::commentNotification($poster, $comment);
+                }
                 Route::redirect("pro-gallery?post=" . $imgname);
             }
         }
