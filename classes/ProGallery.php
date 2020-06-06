@@ -6,6 +6,35 @@ error_reporting(E_ALL);
 
 class ProGallery extends Users
 {
+    private static function likePic($imgname)
+    {
+        if (static::isLoggedIn())
+        {
+            if (static::query('SELECT id FROM ' . static::get_db_name() . '.posts WHERE imgname=:imgname', array(':imgname'=>$imgname)))
+            {
+                $post_id = static::query('SELECT id FROM ' . static::get_db_name() . '.posts WHERE imgname=:imgname', array(':imgname'=>$imgname))[0]['id'];
+                $likes = static::getLikes($imgname);
+                $user_id = static::isLoggedIn();
+                if (static::query('SELECT id FROM ' . static::get_db_name() . '.likes WHERE post_id=:post_id AND user_id=:user_id',
+                                array(':post_id'=>$post_id, ':user_id'=>$user_id)))
+                {
+                    $id = static::query('SELECT id FROM ' . static::get_db_name() . '.likes WHERE post_id=:post_id AND user_id=:user_id',
+                                    array(':post_id'=>$post_id, ':user_id'=>$user_id))[0]['id'];
+                    static::query('UPDATE ' . static::get_db_name() . '.posts SET likes=:likes WHERE imgname=:imgname', 
+                                array(':likes'=>(--$likes), ':imgname'=>$imgname));
+                    static::query('DELETE FROM ' . static::get_db_name() . '.likes WHERE id=:id', array(':id'=>$id));
+                }
+                else
+                {
+                    static::query('UPDATE ' . static::get_db_name() . '.posts SET likes=:likes WHERE imgname=:imgname', 
+                                array(':likes'=>(++$likes), ':imgname'=>$imgname));
+                    static::query('INSERT INTO ' . static::get_db_name() . '.likes (post_id, user_id) VALUES (:post_id, :user_id)',
+                                array(':post_id'=>$post_id, ':user_id'=>$user_id));
+                }
+            }
+        }
+    }
+
     private static function commentPic($imgname, $comment)
     {
         if (static::isLoggedIn())
@@ -53,6 +82,10 @@ class ProGallery extends Users
                 if (static::query('SELECT id FROM ' . static::get_db_name() . '.likes WHERE post_id=:post_id', array(':post_id'=>$post_id)))
                 {
                     static::query('DELETE FROM ' . static::get_db_name() . '.likes WHERE post_id=:post_id', array(':post_id'=>$post_id));
+                }
+                if (static::query('SELECT id FROM ' . static::get_db_name() . '.comments WHERE post_id=:post_id', array(':post_id'=>$post_id)))
+                {
+                    static::query('DELETE FROM ' . static::get_db_name() . '.comments WHERE post_id=:post_id', array(':post_id'=>$post_id));
                 }
                 static::query('DELETE FROM ' . static::get_db_name() . '.posts WHERE imgname=:imgname', array(':imgname'=>$imgname));
             }

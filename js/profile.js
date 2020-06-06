@@ -58,7 +58,9 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 }
 
 document.getElementById("snap").addEventListener("click", function () {
-	context.drawImage(video, 0, 0, canvas.width, canvas.height); camshot = 1;});
+	context.drawImage(video, 0, 0, canvas.width, canvas.height); 
+	camshot = 1;
+});
 
 document.getElementById("store").addEventListener("click", function() {
 	var image = canvas.toDataURL("image/png");

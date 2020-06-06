@@ -98,6 +98,32 @@ class Users extends Controller
         return FALSE;
     }
 
+    public static function picExists($imgname)
+    {
+        if (file_exists("uploads"))
+        {
+            if (count(scandir("uploads")))
+            {
+                $uploads = scandir("uploads");
+                if (in_array($imgname, $uploads))
+                {
+                    return TRUE;
+                }
+            }
+        }
+        return FALSE;
+    }
+
+    public static function pic_in_db($imgname)
+    {
+        if (static::query('SELECT id FROM ' . static::get_db_name() . '.posts WHERE imgname=:imgname',
+                        array(':imgname'=>$imgname)))
+        {
+            return TRUE;
+        }
+        return FALSE;
+    }
+
     public static function populateGallery()
     {
         $actual = array();
@@ -113,19 +139,6 @@ class Users extends Controller
             }
         }
         return $actual;
-    }
-
-    public static function uploadPic($imgname)
-    {
-        if (static::isLoggedIn())
-        {
-            $likes = 0;
-            $comments = 0;
-            $user_id = static::isLoggedIn();
-            static::query('INSERT INTO ' . static::get_db_name() . '.posts (imgname, likes, comments, user_id) VALUES (:imgname, :likes, :comments, :user_id)',
-                        array(':imgname'=>$imgname, ':likes'=>$likes, ':comments'=>$comments, ':user_id'=>$user_id));
-            echo "Image uploaded successfully<br>";
-        }
     }
 
     public static function ownPic($imgname)
@@ -164,6 +177,37 @@ class Users extends Controller
         }
         return (0);  
     }
+    
+    public static function displayComments($imgname)
+    {
+        if (static::picExists($imgname))
+        {
+            $post_id = static::query('SELECT id FROM ' . static::get_db_name() . '.posts WHERE imgname=:imgname',
+                                    array(':imgname'=>$imgname))[0]['id'];
+            if (static::query('SELECT id FROM ' . static::get_db_name() . '.comments WHERE post_id=:post_id', array(':post_id'=>$post_id)))
+            {
+                $poster_id = static::query('SELECT user_id FROM ' . static::get_db_name() . '.comments WHERE post_id=:post_id',
+                                        array(':post_id'=>$post_id))[0]['user_id'];
+                $poster_name = static::query('SELECT username FROM ' . static::get_db_name() . '.users WHERE id=:id',
+                                        array(':id'=>$poster_id))[0]['username'];
+                $comment = static::query('SELECT comment FROM ' . static::get_db_name() . '.comments WHERE post_id=:post_id',
+                                        array(':post_id'=>$post_id));
+                foreach ($comment as $comm) {echo '<div class="commentlist">' . $poster_name . ': ' . htmlspecialchars($comm['comment']) . '</div>';}
+            }
+        }
+    }
+
+    public static function displayCommentBox($imgname)
+    {
+        if (static::isLoggedIn())
+        {
+            echo '<div class="row"><form method="post" class="comment">
+                    <textarea id="' . $imgname . '" maxlength="140" name="commentstring" class="textbox"></textarea>
+                    <input type="submit" name="comment" value="post">
+                    </form>
+                    </div>';
+        }
+    }
 
     public static function displayPic($source)
     {
@@ -195,73 +239,6 @@ class Users extends Controller
         }
     }
 
-    public static function likePic($imgname)
-    {
-        if (static::isLoggedIn())
-        {
-            if (static::query('SELECT id FROM ' . static::get_db_name() . '.posts WHERE imgname=:imgname', array(':imgname'=>$imgname)))
-            {
-                $post_id = static::query('SELECT id FROM ' . static::get_db_name() . '.posts WHERE imgname=:imgname', array(':imgname'=>$imgname))[0]['id'];
-                $likes = static::getLikes($imgname);
-                $user_id = static::isLoggedIn();
-                if (static::query('SELECT id FROM ' . static::get_db_name() . '.likes WHERE post_id=:post_id AND user_id=:user_id',
-                                array(':post_id'=>$post_id, ':user_id'=>$user_id)))
-                {
-                    $id = static::query('SELECT id FROM ' . static::get_db_name() . '.likes WHERE post_id=:post_id AND user_id=:user_id',
-                                    array(':post_id'=>$post_id, ':user_id'=>$user_id))[0]['id'];
-                    static::query('UPDATE ' . static::get_db_name() . '.posts SET likes=:likes WHERE imgname=:imgname', 
-                                array(':likes'=>(--$likes), ':imgname'=>$imgname));
-                    static::query('DELETE FROM ' . static::get_db_name() . '.likes WHERE id=:id', array(':id'=>$id));
-                }
-                else
-                {
-                    static::query('UPDATE ' . static::get_db_name() . '.posts SET likes=:likes WHERE imgname=:imgname', 
-                                array(':likes'=>(++$likes), ':imgname'=>$imgname));
-                    static::query('INSERT INTO ' . static::get_db_name() . '.likes (post_id, user_id) VALUES (:post_id, :user_id)',
-                                array(':post_id'=>$post_id, ':user_id'=>$user_id));
-                }
-            }
-        }
-    }
-
-    public static function commentBox($imgname)
-    {
-        if (static::isLoggedIn())
-        {
-            echo '<div class="row"><form method="post" class="comment">
-                    <textarea id="' . $imgname . '" maxlength="140" name="commentstring" class="textbox">enter your comment here...</textarea>
-                    <input type="submit" name="comment" value="post">
-                    </form>
-                    </div>';
-        }
-    }
-
-    public static function picExists($imgname)
-    {
-        if (file_exists("uploads"))
-        {
-            if (count(scandir("uploads")))
-            {
-                $uploads = scandir("uploads");
-                if (in_array($imgname, $uploads))
-                {
-                    return TRUE;
-                }
-            }
-        }
-        return FALSE;
-    }
-
-    public static function pic_in_db($imgname)
-    {
-        if (static::query('SELECT id FROM ' . static::get_db_name() . '.posts WHERE imgname=:imgname',
-                        array(':imgname'=>$imgname)))
-        {
-            return TRUE;
-        }
-        return FALSE;
-    }
-
     public static function displayPost()
     {
         if(isset($_GET['post']))
@@ -272,29 +249,10 @@ class Users extends Controller
                 static::displayPic($post);
                 if (static::isLoggedIn())
                 {
-                    static::commentBox($post);
+                    static::displayCommentBox($post);
                 }
                 static::displayComments($post);
             }        
-        }
-    }
-
-    public static function displayComments($imgname)
-    {
-        if (static::picExists($imgname))
-        {
-            $post_id = static::query('SELECT id FROM ' . static::get_db_name() . '.posts WHERE imgname=:imgname',
-                                    array(':imgname'=>$imgname))[0]['id'];
-            if (static::query('SELECT id FROM ' . static::get_db_name() . '.comments WHERE post_id=:post_id', array(':post_id'=>$post_id)))
-            {
-                $poster_id = static::query('SELECT user_id FROM ' . static::get_db_name() . '.comments WHERE post_id=:post_id',
-                                        array(':post_id'=>$post_id))[0]['user_id'];
-                $poster_name = static::query('SELECT username FROM ' . static::get_db_name() . '.users WHERE id=:id',
-                                        array(':id'=>$poster_id))[0]['username'];
-                $comment = static::query('SELECT comment FROM ' . static::get_db_name() . '.comments WHERE post_id=:post_id',
-                                        array(':post_id'=>$post_id));
-                foreach ($comment as $comm) {echo '<div class="commentlist">' . $poster_name . ': ' . htmlspecialchars($comm['comment']) . '</div>';}
-            }
         }
     }
 
@@ -403,5 +361,4 @@ class Users extends Controller
                 </html>';
     }
 }
-
 ?>

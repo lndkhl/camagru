@@ -6,6 +6,19 @@ error_reporting(E_ALL);
 
 class Profile extends Users
 {
+    private static function uploadPic($imgname)
+    {
+        if (static::isLoggedIn())
+        {
+            $likes = 0;
+            $comments = 0;
+            $user_id = static::isLoggedIn();
+            static::query('INSERT INTO ' . static::get_db_name() . '.posts (imgname, likes, comments, user_id) VALUES (:imgname, :likes, :comments, :user_id)',
+                        array(':imgname'=>$imgname, ':likes'=>$likes, ':comments'=>$comments, ':user_id'=>$user_id));
+            echo "Image uploaded successfully<br>";
+        }
+    }
+
     private static function parsePic()
     {
         if (static::isLoggedIn())
