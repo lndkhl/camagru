@@ -14,10 +14,10 @@ var stickers = document.getElementsByClassName("buttons");
 
 var csend = document.getElementById("canvasUpload");
 
-const process = document.getElementById("store");
-process.disabled = true;
-const render = document.getElementById("upload");
+const render = document.getElementById("store");
 render.disabled = true;
+//const render = document.getElementById("upload");
+//render.disabled = true;
 
 for (var i = 0; i < stickers.length; i++){
 	stickers[i].addEventListener("click", function () {		
@@ -35,6 +35,7 @@ for (var i = 0; i < stickers.length; i++){
 		*/
 		if (preview[j])
 		{
+			/*
 			var xhr = new XMLHttpRequest();
 
 			xhr.open('POST', 'profile', 'true');
@@ -45,9 +46,8 @@ for (var i = 0; i < stickers.length; i++){
 					console.log('Response:', res);
 				}
 			}
-			/*context.drawImage(preview[j], 0, 0, preview[j].width, preview[j].height, 0, 0, preview[j].width*ratio, preview[j].height*ratio);*/
+			context.drawImage(preview[j], 0, 0, preview[j].width, preview[j].height, 0, 0, preview[j].width*ratio, preview[j].height*ratio);*/
 			render.disabled = false;
-			process.disabled = false;
 		}});}
 
 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
