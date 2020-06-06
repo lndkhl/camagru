@@ -10,7 +10,6 @@ class Profile extends Users
     {
         if (static::isLoggedIn())
         {
-            $user_id = static::isLoggedIn();
             if (isset($_POST['upload']) && !empty($_FILES['img']['name']))
             {
                 $imgName = $_FILES['img']['name'];
@@ -28,11 +27,11 @@ class Profile extends Users
                     
                     if(move_uploaded_file($_FILES["img"]["tmp_name"], $targetFilePath))
                     {
-                        static::uploadPic($img, $user_id);            
+                        static::uploadPic($img);            
                     }
                     else { echo "File upload failed, please try again."; }
                 }
-                else { echo "Sorry, only JPG, JPEG, PNG, files are allowed."; }
+                else { echo "Sorry, only JPG, JPEG and PNG files are allowed."; }
             }
             else if (isset($_POST['image']))
             {
@@ -49,7 +48,7 @@ class Profile extends Users
                 $path = 'uploads/' . $pic;
                 if (file_put_contents($path, $image_string) != FALSE)
                 {
-                    static::uploadPic($pic, $user_id);
+                    static::uploadPic($pic);
                     /*
                     echo '<meta http-equiv="refresh" content="100;url=' . static::get_project_root("profile") . '/profile">';
                     Route::redirect("profile");

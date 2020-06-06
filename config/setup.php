@@ -9,6 +9,7 @@ class setup extends database
         static::create_table_tokens();
         static::create_table_password_tokens();
         static::create_table_posts();
+        static::create_table_likes();
         static::create_table_comments();
     }
 }
