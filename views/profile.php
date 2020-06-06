@@ -53,7 +53,7 @@
                 <p>No webcam?</p>
                 <form  action="upload" method="post" id="uploadForm" enctype="multipart/form-data">
                 <input type="file" id="img" name= "img" />
-                <!-- <input type=submit name="upload" value="submit" id="upload"> -->
+                <input type=submit name="upload" value="submit" id="upload" class="hidden">
                 </form>
             </div>
 

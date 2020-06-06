@@ -1,6 +1,7 @@
 var	video = document.getElementById('video');
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
+var camshot = 0;
 
 var sticker1 = document.getElementById('img1');
 var sticker2 = document.getElementById('img2');
@@ -12,12 +13,8 @@ var preview = [sticker1, sticker2, sticker3, sticker4, sticker5];
 
 var stickers = document.getElementsByClassName("buttons");
 
-var csend = document.getElementById("canvasUpload");
-
 const render = document.getElementById("store");
 render.disabled = true;
-//const render = document.getElementById("upload");
-//render.disabled = true;
 
 for (var i = 0; i < stickers.length; i++){
 	stickers[i].addEventListener("click", function () {		
@@ -62,16 +59,23 @@ document.getElementById("snap").addEventListener("click", function () {
 	camshot = 1;
 });
 
-document.getElementById("store").addEventListener("click", function() {
-	var image = canvas.toDataURL("image/png");
-	var xhr = new XMLHttpRequest();
+document.getElementById("img").addEventListener("click", function () {
+	camshot = 0;
+})
 
+document.getElementById("store").addEventListener("click", function() {		
+	var image = canvas.toDataURL("image/png");
+	let imgForm = new FormData(document.getElementById('uploadForm'));
+	
+	if (camshot == 1){ imgForm.set("image", image); }
+	var xhr = new XMLHttpRequest();
 	xhr.open('POST', 'upload', 'true');
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	xhr.send("image=" + image);
+	xhr.send(imgForm);
 	xhr.onreadystatechange = function (res) {
 		if (xhr.status === 200 && xhr.readyState === xhr.DONE) {
 			//console.log('Response:', res);
 			window.alert("image uploaded successfully");
+			context.clearRect(0, 0, canvas.width, canvas.height);
 		}
-	}})
+	}
+})
