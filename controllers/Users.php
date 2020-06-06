@@ -169,6 +169,7 @@ class Users extends Controller
     {
         if (static::picExists($source))
         {
+            $location = (static::isLoggedIn()) ? "pro-gallery" : "gallery"; 
             echo '<div class="row">';
             /* echo '<span class="' . $class . '">' . $source . '</span>'; */
             echo '<span class= "post">
@@ -182,7 +183,9 @@ class Users extends Controller
                                 {
                                     echo '<button class="deletes" id="' . $source . '"></button>';
                                 }
-                                echo '<span class="commcount"><a href="pro-gallery?post=' . $source . '">' . static::getCommentCount($source) . '</a></span>
+                                echo '<span class="commcount">
+                                <a href="' . $location . '?post=' . $source . '">' . static::getCommentCount($source) . '</a>
+                                </span>
                                 <button class="comments" id="' .$source . '"></button>
                             </div>
                         </figcaption>
