@@ -51,7 +51,7 @@
             
             <div id="alts">
                 <p>No webcam?</p>
-                <form  action="upload" method="post" enctype="multipart/form-data">
+                <form  action="upload" method="post" id="uploadForm" enctype="multipart/form-data">
                 <input type="file" id="img" name= "img" />
                 <input type=submit name="upload" value="submit" id="upload">
                 </form>
