@@ -13,7 +13,18 @@ class Gallery extends Users
         if (!static::isLoggedIn())
         {
             static::displayLoggedOutHeader();
-            if (static::countRows("posts"))
+            if (isset($_GET['post']))
+            {
+                if (static::pic_in_db($_GET['post']))
+                {
+                    static::displayPost();
+                }
+                else
+                {
+                    route::redirect("gallery");
+                }
+            }
+            else if (static::countRows("posts"))
             {
                 $actual = static::populateGallery();
                 if (count($actual))
@@ -21,6 +32,7 @@ class Gallery extends Users
                     static::displayPage($actual, "gallery");
                 }
             }
+            echo '<script src="./js/gallery.js"></script>';
             static::displayFooter();
         }
         else
