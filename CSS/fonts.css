@@ -199,6 +199,7 @@ body {
 header {
 	width: 35%;
     height: auto;
+    padding-left: 7%;
     margin: 10% auto 10% auto;
 }
 ul {
