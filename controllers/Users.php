@@ -227,10 +227,8 @@ class Users extends Controller
                                 {
                                     echo '<button class="deletes" id="' . $source . '"></button>';
                                 }
-                                echo '<span class="commcount">
-                                <a href="' . $location . '?post=' . $source . '">' . static::getCommentCount($source) . '</a>
-                                </span>
-                                <button class="comments" id="' .$source . '"></button>
+                                echo '<span class="commcount">' . static::getCommentCount($source) . '</span>
+                                <a href="' . $location . '?post=' . $source . '"><button class="comments" id="' .$source . '"></button></a>
                             </div>
                         </figcaption>
                     </figure>
