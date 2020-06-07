@@ -3,50 +3,50 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    width: 15%;
+    width: 13%;
     height: auto;
     min-height: 50px;
-    margin-right: 2.5%;
+    margin-right: 3.2%;
 }
 #sticker2 {
     background: url(../stickers/pikachu-happy.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    width: 15%;
+    width: 13%;
     height: auto;
     min-height: 50px;
-    margin-right: 2.5%;
+    margin-right: 3.2%;
 }
 #sticker3 {
     background: url(../stickers/pepe.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    width: 15%;
+    width: 13%;
     height: auto;
     min-height: 50px;
-    margin-right: 2.5%;
+    margin-right: 3.2%;
 }
 #sticker4 {
     background: url(../stickers/shades.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    width: 15%;
+    width: 13%;
     height: auto;
     min-height: 50px;
-    margin-right: 2.5%;
+    margin-right: 3.2%;
 }
 #sticker5 {
     background: url(../stickers/deal-with-it-shades.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    width: 15%;
+    width: 13%;
     height: auto;
     min-height: 50px;
-    margin-right: 2.5%;
+    margin-right: 3.2%;
 }
 #alts {
     text-align: left;
@@ -69,6 +69,10 @@
     float: left;
     margin-left: 5%;
     margin-bottom: 2%;
+}
+#thefive {
+    margin-left: 0%;
+    padding-left: 0%;
 }
 .caption {
     width: 100%;
@@ -195,7 +199,9 @@
     padding-bottom: 27%;
 }
 .propage {
-    padding: 0px 0px 0px 0px;
+    padding: 0%;
+    padding-left: 2%;
+    margin-top: 0px;
 }
 header, section, footer, aside, nav {
     display: block;
@@ -226,12 +232,11 @@ nav, footer {
 	background-color: #aeaca8;
 	height: 50px;}
 nav ul {
-	margin: 0px;
 	padding: 11px 0px 5px 30px;}
 nav li {
 	display: inline;
     margin-right: 7%;
-    font-size: 75%;}
+    font-size: 80%;}
 footer {
 	font-size: 80%;
     padding: 7px 0px 0px 20px;}
@@ -248,7 +253,7 @@ canvas {
     width: 60%;
     height: auto;
     padding: 1%;
-    margin-top: 2%;
+    margin-top: 0%;
     margin-left: 2%;
     margin-bottom: 2%;
     border: 1px solid #eeeeee;}
