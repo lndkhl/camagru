@@ -83,12 +83,15 @@ document.getElementById("store").addEventListener("click", function() {
 	xhr.send(imgForm);
 	xhr.onreadystatechange = function (res) {
 		if (xhr.status === 200 && xhr.readyState === xhr.DONE) {
-			//console.log('Response:', res);
 			var data = xhr.response;
 			data = data.slice(data.indexOf('{'));
 			data = JSON.parse(data);
 			window.alert(data.message);
 			context.clearRect(0, 0, canvas.width, canvas.height);
+			render.disabled = true;
+			fromFile.disabled = true;
+			shoot.disabled = true;
+			location.reload();
 		}
 	}
 })

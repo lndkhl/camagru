@@ -42,9 +42,9 @@ class Profile extends Users
                         static::uploadPic($img);
                         $return = array('status'=>200, 'message'=>"image uploaded successfully!");      
                     }
-                    else { $return = array('status'=>403, 'message'=>"image upload failed, please try again."); }
+                    else { $return = array('status'=>403, 'message'=>"image upload failed, please try again."); http_response_code(403); }
                 }
-                else { $return = array('status'=>403, 'message'=>"only JPG, JPEG and PNG files allowed"); }
+                else { $return = array('status'=>403, 'message'=>"only JPG, JPEG and PNG files allowed"); http_response_code(403);  }
                 print_r(json_encode($return));
             }
             if (isset($_POST['image']))
@@ -71,15 +71,140 @@ class Profile extends Users
             }
         }
     }
+
+    private static function displayProfileHeader()
+    {
+        echo '<!DOCTYPE html>
+                <html>
+                <head>
+                    <title>
+                        camagru
+                    </title>
+                <link href="./CSS/fonts.css" type="text/css" rel="stylesheet" />
+                <link rel="shortcut icon" href="favicon.ico">
+                </head>
+
+                <div class="wrapper">
+                <body>
+                <!--
+                <header>
+                    <h1 class="title">camagru</h1>
+                </header>--><!-- end of header -->
+
+                <div class="inner">
+                <nav>
+                <p> 
+                    <ul>
+                        <li><a href="logout">logout</a></li>
+                        <li><a href="gallery">gallery</a></li>
+                        <li><a href="settings">settings</a></li>
+                    </ul>
+                </p>
+                </nav><!-- end of links -->
+                <section class="main">';
+    }
+
+    private static function displayProfile()
+    {
+        echo '<div class="inner">
+        <section class="main">
+        
+            <div class="stickers">
+                <ul>
+                    <li><button id="sticker1" class="buttons"></button></li>
+                    <li><button id="sticker2" class="buttons"></button></li>
+                    <li><button id="sticker3" class="buttons"></button></li>
+                    <li><button id="sticker4" class="buttons"></button></li>
+                    <li><button id="sticker5" class="buttons"></button></li>
+                </ul>
+            </div>
+
+            <div class="imgbox">
+                <video id="video" autoplay="on"></video>
+                <canvas id="canvas"></canvas>
+                <div class="media-buttons">
+                    <button id="snap">snap</button>
+                    <button id="store">upload</button>
+                </div>
+            </div>
+            
+            <p id="canvasUpload"></p>
+
+        </section><!-- end of main -->
+        
+        <div id="alts">
+            <p>No webcam?</p>
+            <form  action="upload" method="post" id="uploadForm" enctype="multipart/form-data">
+            <input type="file" id="img" name= "img" />
+            <input type=submit name="upload" value="submit" id="upload" class="hidden">
+            </form>
+        </div>
+
+    </div><!-- end of inner -->';
+    }
+
+    private static function displayProfileFooter()
+    {
+        echo '<footer>
+                <p>"<em>oop</em>"</p>
+            </footer><!-- end of footer -->
+            
+            <div class="hidden">
+            <img id="img1" src="stickers/pikachu.png" />
+            <img id="img2" src="stickers/pikachu-happy.png" />
+            <img id="img3" src="stickers/pepe.png" />
+            <img id="img4" src="stickers/shades.png" />
+            <img id="img5" src="stickers/deal-with-it-shades.png" />
+            </div>
+
+        </body>
+
+        </div><!-- end of wrapper -->
+
+        <script src="./js/profile.js"></script>
+
+        </html>';
+    }
+
+    private static function displayUploads()
+    {
+        $actual = static::populateGallery();
+        if ($actual)
+        {
+            echo '<div class="stickers">
+                    <ul>';
+            for ($i = 0; $i < 5 && $i < count($actual); $i++)
+            {
+                if (static::picExists($actual[$i]))
+                {
+                    echo '<li><a href="gallery?post=' . $actual[$i] . '">
+                    <button style="
+                                background: url(./uploads/' . $actual[$i] . ');   
+                                background-repeat: no-repeat;
+                                background-size: contain;
+                                background-position: center;
+                                width: 15%;
+                                height: auto;
+                                min-height: 50px;
+                                margin-right: 2.5%;">
+                    </button>
+                    </a></li>';
+                }
+            }
+            echo '</ul>
+                </div>';
+        }
+    }
     
     public static function main_()
     {
         if(static::isLoggedIn())
         {
-            static::create_view("profile");
-            //static::displayLoggedInHeader();
+            static::displayProfileHeader();
+            static::displayProfile();
+            static::displayUploads();
+            static::displayProfileFooter();
             static::parsePic();
-            //static::displayFooter();
         }
         else
         {
