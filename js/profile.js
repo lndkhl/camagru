@@ -30,15 +30,9 @@ for (var i = 0; i < stickers.length; i++){
 				j = k;
 			}
 		}
-		var hRatio = canvas.width / preview[j].width;
-		var vRatio = canvas.height / preview[j].height;
-		var ratio  = Math.min ( hRatio, vRatio );
-		//context.clearRect(0, 0, canvas.width, canvas.height);
 		if (preview[j])
 		{
-			
-			context.drawImage(preview[j], 0, 0, preview[j].width, preview[j].height, 0, 0, preview[j].width*ratio, preview[j].height*ratio);
-
+			onCanvas(preview[j]);
 			fromFile.disabled = false;
 			shoot.disabled = false;
 		}});}
@@ -51,7 +45,12 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 }
 
 document.getElementById("snap").addEventListener("click", function () {
-	context.drawImage(video, 0, 0, canvas.width, canvas.height); 
+	var vbox = document.getElementById("video");
+	var hRatio = canvas.width / vbox.videoWidth;
+	var vRatio = canvas.height / vbox.videoHeight;
+	var ratio  = Math.min ( hRatio, vRatio );
+	
+	context.drawImage(video, 0, 0, vbox.videoWidth, vbox.videoHeight, (canvas.width*ratio)/2, 0, vbox.videoWidth*ratio, vbox.videoHeight*ratio);
 	camshot = 1;
 	render.disabled = false;
 });
@@ -84,10 +83,14 @@ document.getElementById("store").addEventListener("click", function() {
 	}
 })
 
+function prepImage(image)
+{
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	onCanvas(image);
+}
+
 function onCanvas(image)
 {
-    //var image  = document.getElementById("img");
-
 	var hRatio = canvas.width / image.width;
 	var vRatio = canvas.height / image.height;
 	var ratio  = Math.min ( hRatio, vRatio );
@@ -106,14 +109,12 @@ function handleFileSelect(event)
     }
 
     var file = files[0];
-
     if(file.type !== '' && !file.type.match('image.*')) {
             return;
 	}
 	window.URL = window.URL || window.webkitURL;
 
 	var imageURL = window.URL.createObjectURL(file);
-
 	loadAndDrawImage(imageURL);
 }
 
@@ -122,7 +123,7 @@ function loadAndDrawImage(url)
     var image = new Image();
 
     image.onload = function() {
-		onCanvas(image);
+		prepImage(image);
     }
     image.src = url;
 }
