@@ -110,7 +110,7 @@ class Profile extends Users
         <section class="main">
         
             <div class="stickers">
-                <ul>
+                <ul class="propage">
                     <li><button id="sticker1" class="buttons"></button></li>
                     <li><button id="sticker2" class="buttons"></button></li>
                     <li><button id="sticker3" class="buttons"></button></li>
@@ -126,26 +126,24 @@ class Profile extends Users
                     <button id="snap">snap</button>
                     <button id="store">upload</button>
                 </div>
-            </div>
             
-            <p id="canvasUpload"></p>
-
-        </section><!-- end of main -->
-        
-        <div id="alts">
-            <p>No webcam?</p>
-            <form  action="upload" method="post" id="uploadForm" enctype="multipart/form-data">
-            <input type="file" id="img" name= "img" />
-            <input type=submit name="upload" value="submit" id="upload" class="hidden">
-            </form>
-        </div>
-
-    </div><!-- end of inner -->';
+                <div id="alts">
+                    <p>No webcam?</p>
+                    <form  action="upload" method="post" id="uploadForm" enctype="multipart/form-data">
+                    <input type="file" id="img" name= "img" />
+                    <input type=submit name="upload" value="submit" id="upload" class="hidden">
+                    </form>
+                </div>
+            </div>';
     }
 
     private static function displayProfileFooter()
     {
-        echo '<footer>
+        echo '</section><!-- end of main -->
+
+              </div><!-- end of inner -->
+        
+            <footer>
                 <p>"<em>oop</em>"</p>
             </footer><!-- end of footer -->
             
@@ -171,19 +169,20 @@ class Profile extends Users
         $actual = static::populateGallery();
         if ($actual)
         {
-            echo '<div class="stickers">
-                    <ul>';
+            echo '<span class="side">
+                    <ul class="propage">';
             for ($i = 0; $i < 5 && $i < count($actual); $i++)
             {
                 if (static::picExists($actual[$i]))
                 {
-                    echo '<li><a href="gallery?post=' . $actual[$i] . '">
+                    echo '<li class="previews"><a href="gallery?post=' . $actual[$i] . '">
                     <button style="
                                 background: url(./uploads/' . $actual[$i] . ');   
                                 background-repeat: no-repeat;
                                 background-size: contain;
                                 background-position: center;
                                 width: 15%;
+                                min-width: 100px;
                                 height: auto;
                                 min-height: 50px;
                                 margin-right: 2.5%;">
@@ -192,7 +191,7 @@ class Profile extends Users
                 }
             }
             echo '</ul>
-                </div>';
+                </span>';
         }
     }
     

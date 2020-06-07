@@ -51,8 +51,8 @@
 #alts {
     text-align: left;
     margin-top: 5%;
-    margin-left: 8%;
     margin-bottom: 1%;
+    width: 40%; 
 }
 #snap {
     margin-left: 7%;
@@ -128,7 +128,9 @@
     color:gray;
 }
 .imgbox {
-    width: 100%;
+    float: left;
+    width: 80%;
+    margin-right: 0px;
 }
 .pic {
     display: block;
@@ -157,7 +159,7 @@
 }
 .wrapper {
     width: 60%;
-    min-width: 400px;
+    min-width: 500px;
 	margin: 20px auto 20px auto;
     border: 2px solid #000000;
     padding: 1%;
@@ -178,13 +180,22 @@
 }
 .media-buttons {
 	background-color: #aeaca8;
-    margin-left: 8%;
-    margin-right: 10%;
     padding-bottom: 3px;
+    width: 100%;
 }
 .stickers {
-    float: center;
-    padding-left: 5%;
+    margin-bottom: 0px;
+}
+.side {
+    float: right;
+}
+.previews {
+    margin-left: 2%;
+    display: block;
+    padding-bottom: 27%;
+}
+.propage {
+    padding: 0px 0px 0px 0px;
 }
 header, section, footer, aside, nav {
     display: block;
@@ -205,7 +216,6 @@ header {
 }
 ul {
     list-style-type: none;
-    float: center;
 }
 li {
     display: inline;
@@ -222,26 +232,23 @@ nav li {
 	display: inline;
     margin-right: 7%;
     font-size: 75%;}
-aside {
-    display: inline;
-    text-align: center;
-    margin-right: 0px;}
 footer {
 	font-size: 80%;
     padding: 7px 0px 0px 20px;}
 video {
     float: left;
-    width: 15%;
+    width: 31%;
     height: auto;
     padding: 1%;
-    margin-left: 8.5%;
-    margin-top: 15%;
-    margin-right: 2.5%;
+    margin-top: 5%;
+    margin-right: 2%;
     border: 1px solid #eeeeee;}
 canvas {
     float: center;
-    width: 54%;
+    width: 60%;
     height: auto;
     padding: 1%;
-    margin: 5%;
+    margin-top: 2%;
+    margin-left: 2%;
+    margin-bottom: 2%;
     border: 1px solid #eeeeee;}

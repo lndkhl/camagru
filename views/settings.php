@@ -18,6 +18,7 @@
             <p> 
                 <ul>
                     <li><a href="logout">logout</a></li>
+                    <li><a href="gallery">gallery</a></li>
                     <li><a href="profile">profile</a></li>
                 </ul>
             </p>

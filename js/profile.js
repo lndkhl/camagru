@@ -30,27 +30,15 @@ for (var i = 0; i < stickers.length; i++){
 				j = k;
 			}
 		}
-		/*
 		var hRatio = canvas.width / preview[j].width;
 		var vRatio = canvas.height / preview[j].height;
 		var ratio  = Math.min ( hRatio, vRatio );
-		context.clearRect(0, 0, canvas.width, canvas.height);
-		*/
+		//context.clearRect(0, 0, canvas.width, canvas.height);
 		if (preview[j])
 		{
-			/*
-			var xhr = new XMLHttpRequest();
-
-			xhr.open('POST', 'profile', 'true');
-			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-			xhr.send("sticker=this right here");
-			xhr.onreadystatechange = function (res) {
-				if (xhr.status === 200 && xhr.readyState === xhr.DONE) {
-					console.log('Response:', res);
-				}
-			}
+			
 			context.drawImage(preview[j], 0, 0, preview[j].width, preview[j].height, 0, 0, preview[j].width*ratio, preview[j].height*ratio);
-			*/
+
 			fromFile.disabled = false;
 			shoot.disabled = false;
 		}});}
