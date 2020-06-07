@@ -83,3 +83,46 @@ document.getElementById("store").addEventListener("click", function() {
 		}
 	}
 })
+
+function onCanvas(image)
+{
+    //var image  = document.getElementById("img");
+
+	var hRatio = canvas.width / image.width;
+	var vRatio = canvas.height / image.height;
+	var ratio  = Math.min ( hRatio, vRatio );
+	
+	context.drawImage(image, 0, 0, image.width, image.height, 0, 0, image.width*ratio, image.height*ratio);
+}
+
+fromFile.addEventListener('change', handleFileSelect, false);
+
+function handleFileSelect(event)
+{
+    var files = event.target.files;
+
+    if(files.length === 0) {
+            return;
+    }
+
+    var file = files[0];
+
+    if(file.type !== '' && !file.type.match('image.*')) {
+            return;
+	}
+	window.URL = window.URL || window.webkitURL;
+
+	var imageURL = window.URL.createObjectURL(file);
+
+	loadAndDrawImage(imageURL);
+}
+
+function loadAndDrawImage(url)
+{
+    var image = new Image();
+
+    image.onload = function() {
+		onCanvas(image);
+    }
+    image.src = url;
+}
