@@ -213,10 +213,9 @@ class Users extends Controller
     {
         if (static::picExists($source))
         {
-            $location = (static::isLoggedIn()) ? "pro-gallery" : "gallery"; 
-            echo '<div class="row">';
-            /* echo '<span class="' . $class . '">' . $source . '</span>'; */
-            echo '<span class= "post">
+            $location = "gallery"; 
+            echo '<div class="row">
+                    <span class= "post">
                     <figure class="cap">        
                         <img src="uploads/' . $source . '" class="pic" />
                         <figcaption>
@@ -268,7 +267,7 @@ class Users extends Controller
                 static::displayPic($actual[$j]);
             }
             if ($page_index) { static::displayPrev($page_index, $caller); }
-            if ((($page_index + 1) * $ppp) <= count($actual)) { static::displayNext($page_index, $caller); }
+            if ((($page_index + 1) * $ppp) < count($actual)) { static::displayNext($page_index, $caller); }
         }
         else { die("page does not exist"); }        
     }
@@ -282,70 +281,6 @@ class Users extends Controller
     {
         echo '<span id="next"><a href="' . static::get_project_root($caller) . '' . $caller . '?page=' . (++$current) . '">next</a></span>';
     }
-
-
-    public static function displayLoggedOutHeader()
-    {
-        echo '<!DOCTYPE html>
-                <html>
-                <head>
-                    <title>
-                        camagru
-                    </title>
-                <link href="./CSS/fonts.css" type="text/css" rel="stylesheet" />
-                <link rel="shortcut icon" href="favicon.ico">
-                </head>
-
-                <div class="wrapper">
-                <body>
-                <header>
-                    <h1 class="title">camagru</h1>
-                </header><!-- end of header -->
-
-                <div class="inner">
-                <nav>
-                <p> 
-                    <ul>
-                        <li><a href="create-account">create account</a></li>
-                        <li><a href="home">home</a></li>
-                        <li><a href="login">login</a></li>
-                    </ul>
-                </p>
-                </nav><!-- end of links -->
-                <section class="main">';
-    }
-
-    public static function displayLoggedInHeader()
-    {
-        echo '<!DOCTYPE html>
-                <html>
-                <head>
-                    <title>
-                        camagru
-                    </title>
-                <link href="./CSS/fonts.css" type="text/css" rel="stylesheet" />
-                <link rel="shortcut icon" href="favicon.ico">
-                </head>
-
-                <div class="wrapper">
-                <body>
-                <header>
-                    <h1 class="title">camagru</h1>
-                </header><!-- end of header -->
-
-                <div class="inner">
-                <nav>
-                <p> 
-                    <ul>
-                        <li><a href="logout">logout</a></li>
-                        <li><a href="profile">profile</a></li>
-                        <li><a href="settings">settings</a></li>
-                    </ul>
-                </p>
-                </nav><!-- end of links -->
-                <section class="main">';
-    }
-
 
     public static function displayFooter()
     {

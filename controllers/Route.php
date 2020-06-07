@@ -27,7 +27,6 @@ class Route
             Route::set("create-account", function () {CreateAccount::main_();});
             Route::set("change-username", function () {ChangeUsername::main_();});
             Route::set("change-email", function () {ChangeEmail::main_();});
-            Route::set("pro-gallery", function () {ProGallery::main_();});
             Route::set("settings", function () {Settings::main_();});
             Route::set("upload", function () {Profile::main_();});
             Route::set("set-notifications", function () {Notifications::main_();});

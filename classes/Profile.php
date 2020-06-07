@@ -15,7 +15,6 @@ class Profile extends Users
             $user_id = static::isLoggedIn();
             static::query('INSERT INTO ' . static::get_db_name() . '.posts (imgname, likes, comments, user_id) VALUES (:imgname, :likes, :comments, :user_id)',
                         array(':imgname'=>$imgname, ':likes'=>$likes, ':comments'=>$comments, ':user_id'=>$user_id));
-            echo "Image uploaded successfully<br>";
         }
     }
 
@@ -23,7 +22,7 @@ class Profile extends Users
     {
         if (static::isLoggedIn())
         {
-            if (isset($_POST['upload']) && !empty($_FILES['img']['name']))
+            if (!empty($_FILES['img']['name']))
             {
                 $imgName = $_FILES['img']['name'];
                 $fileType = strtolower(pathinfo($imgName, PATHINFO_EXTENSION));
@@ -40,13 +39,15 @@ class Profile extends Users
                     
                     if(move_uploaded_file($_FILES["img"]["tmp_name"], $targetFilePath))
                     {
-                        static::uploadPic($img);            
+                        static::uploadPic($img);
+                        $return = array('status'=>200, 'message'=>"image uploaded successfully!");      
                     }
-                    else { echo "File upload failed, please try again."; }
+                    else { $return = array('status'=>403, 'message'=>"image upload failed, please try again."); http_response_code(403); }
                 }
-                else { echo "Sorry, only JPG, JPEG and PNG files are allowed."; }
+                else { $return = array('status'=>403, 'message'=>"only JPG, JPEG and PNG files allowed"); http_response_code(403);  }
+                print_r(json_encode($return));
             }
-            else if (isset($_POST['image']))
+            if (isset($_POST['image']))
             {
                 $image_string = $_POST['image'];
                 $image_string = str_replace('data:image/png;base64,', '', $image_string);
@@ -62,13 +63,136 @@ class Profile extends Users
                 if (file_put_contents($path, $image_string) != FALSE)
                 {
                     static::uploadPic($pic);
-                    /*
-                    echo '<meta http-equiv="refresh" content="100;url=' . static::get_project_root("profile") . '/profile">';
-                    Route::redirect("profile");
-                    */
+                    $return = array('status'=>200, 'message'=>"image uploaded successfully!");
+                    http_response_code(200);      
                 }
-                else { echo "File upload failed, please try again."; }
+                else { $return = array('status'=>403, 'message'=>"image upload failed, please try again."); http_response_code(403); }
+                print_r(json_encode($return));
             }
+        }
+    }
+
+    private static function displayProfileHeader()
+    {
+        echo '<!DOCTYPE html>
+                <html>
+                <head>
+                    <title>
+                        camagru
+                    </title>
+                <link href="./CSS/fonts.css" type="text/css" rel="stylesheet" />
+                <link rel="shortcut icon" href="favicon.ico">
+                </head>
+
+                <div class="wrapper">
+                <body>
+                <!--
+                <header>
+                    <h1 class="title">camagru</h1>
+                </header>--><!-- end of header -->
+
+                <div class="inner">
+                <nav>
+                <p> 
+                    <ul>
+                        <li><a href="logout">logout</a></li>
+                        <li><a href="gallery">gallery</a></li>
+                        <li><a href="settings">settings</a></li>
+                    </ul>
+                </p>
+                </nav><!-- end of links -->
+                <section class="main">';
+    }
+
+    private static function displayProfile()
+    {
+        echo '<div class="inner">
+        <section class="main">
+        
+            <div class="stickers">
+                <ul>
+                    <li><button id="sticker1" class="buttons"></button></li>
+                    <li><button id="sticker2" class="buttons"></button></li>
+                    <li><button id="sticker3" class="buttons"></button></li>
+                    <li><button id="sticker4" class="buttons"></button></li>
+                    <li><button id="sticker5" class="buttons"></button></li>
+                </ul>
+            </div>
+
+            <div class="imgbox">
+                <video id="video" autoplay="on"></video>
+                <canvas id="canvas"></canvas>
+                <div class="media-buttons">
+                    <button id="snap">snap</button>
+                    <button id="store">upload</button>
+                </div>
+            </div>
+            
+            <p id="canvasUpload"></p>
+
+        </section><!-- end of main -->
+        
+        <div id="alts">
+            <p>No webcam?</p>
+            <form  action="upload" method="post" id="uploadForm" enctype="multipart/form-data">
+            <input type="file" id="img" name= "img" />
+            <input type=submit name="upload" value="submit" id="upload" class="hidden">
+            </form>
+        </div>
+
+    </div><!-- end of inner -->';
+    }
+
+    private static function displayProfileFooter()
+    {
+        echo '<footer>
+                <p>"<em>oop</em>"</p>
+            </footer><!-- end of footer -->
+            
+            <div class="hidden">
+            <img id="img1" src="stickers/pikachu.png" />
+            <img id="img2" src="stickers/pikachu-happy.png" />
+            <img id="img3" src="stickers/pepe.png" />
+            <img id="img4" src="stickers/shades.png" />
+            <img id="img5" src="stickers/deal-with-it-shades.png" />
+            </div>
+
+        </body>
+
+        </div><!-- end of wrapper -->
+
+        <script src="./js/profile.js"></script>
+
+        </html>';
+    }
+
+    private static function displayUploads()
+    {
+        $actual = static::populateGallery();
+        if ($actual)
+        {
+            echo '<div class="stickers">
+                    <ul>';
+            for ($i = 0; $i < 5 && $i < count($actual); $i++)
+            {
+                if (static::picExists($actual[$i]))
+                {
+                    echo '<li><a href="gallery?post=' . $actual[$i] . '">
+                    <button style="
+                                background: url(./uploads/' . $actual[$i] . ');   
+                                background-repeat: no-repeat;
+                                background-size: contain;
+                                background-position: center;
+                                width: 15%;
+                                height: auto;
+                                min-height: 50px;
+                                margin-right: 2.5%;">
+                    </button>
+                    </a></li>';
+                }
+            }
+            echo '</ul>
+                </div>';
         }
     }
     
@@ -76,16 +200,17 @@ class Profile extends Users
     {
         if(static::isLoggedIn())
         {
-            //static::displayLoggedInHeader();
+            static::displayProfileHeader();
+            static::displayProfile();
+            static::displayUploads();
+            static::displayProfileFooter();
             static::parsePic();
-            //static::displayFooter();
         }
         else
         {
             Route::redirect("login");
             exit();
         }
-        static::create_view("profile");
     }
 }
 ?>
