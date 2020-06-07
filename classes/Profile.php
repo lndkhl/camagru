@@ -110,7 +110,7 @@ class Profile extends Users
         <section class="main">
         
             <div class="stickers">
-                <ul class="propage">
+                <ul id="thefive">
                     <li><button id="sticker1" class="buttons"></button></li>
                     <li><button id="sticker2" class="buttons"></button></li>
                     <li><button id="sticker3" class="buttons"></button></li>
