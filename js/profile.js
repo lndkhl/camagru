@@ -16,6 +16,12 @@ var stickers = document.getElementsByClassName("buttons");
 const render = document.getElementById("store");
 render.disabled = true;
 
+const fromFile = document.getElementById("img");
+fromFile.disabled = true;
+
+const shoot = document.getElementById("snap");
+shoot.disabled = true;
+
 for (var i = 0; i < stickers.length; i++){
 	stickers[i].addEventListener("click", function () {		
 		j = 0;
@@ -43,8 +49,10 @@ for (var i = 0; i < stickers.length; i++){
 					console.log('Response:', res);
 				}
 			}
-			context.drawImage(preview[j], 0, 0, preview[j].width, preview[j].height, 0, 0, preview[j].width*ratio, preview[j].height*ratio);*/
-			render.disabled = false;
+			context.drawImage(preview[j], 0, 0, preview[j].width, preview[j].height, 0, 0, preview[j].width*ratio, preview[j].height*ratio);
+			*/
+			fromFile.disabled = false;
+			shoot.disabled = false;
 		}});}
 
 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -57,24 +65,29 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 document.getElementById("snap").addEventListener("click", function () {
 	context.drawImage(video, 0, 0, canvas.width, canvas.height); 
 	camshot = 1;
+	render.disabled = false;
 });
 
 document.getElementById("img").addEventListener("click", function () {
-	camshot = 0;
+	camshot = 0
+	render.disabled = false;
 })
 
 document.getElementById("store").addEventListener("click", function() {		
 	var image = canvas.toDataURL("image/png");
 	let imgForm = new FormData(document.getElementById('uploadForm'));
 	
-	if (camshot == 1){ imgForm.set("image", image); }
+	if (camshot == 1) { imgForm.set("image", image); }
 	var xhr = new XMLHttpRequest();
 	xhr.open('POST', 'upload', 'true');
 	xhr.send(imgForm);
 	xhr.onreadystatechange = function (res) {
 		if (xhr.status === 200 && xhr.readyState === xhr.DONE) {
 			//console.log('Response:', res);
-			window.alert("image uploaded successfully");
+			var data = xhr.response;
+			data = data.slice(data.indexOf('{'));
+			data = JSON.parse(data);
+			window.alert(data.message);
 			context.clearRect(0, 0, canvas.width, canvas.height);
 		}
 	}

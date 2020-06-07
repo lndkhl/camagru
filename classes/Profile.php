@@ -15,7 +15,6 @@ class Profile extends Users
             $user_id = static::isLoggedIn();
             static::query('INSERT INTO ' . static::get_db_name() . '.posts (imgname, likes, comments, user_id) VALUES (:imgname, :likes, :comments, :user_id)',
                         array(':imgname'=>$imgname, ':likes'=>$likes, ':comments'=>$comments, ':user_id'=>$user_id));
-            echo "Image uploaded successfully<br>";
         }
     }
 
@@ -40,11 +39,13 @@ class Profile extends Users
                     
                     if(move_uploaded_file($_FILES["img"]["tmp_name"], $targetFilePath))
                     {
-                        static::uploadPic($img);            
+                        static::uploadPic($img);
+                        $return = array('status'=>200, 'message'=>"image uploaded successfully!");      
                     }
-                    else { echo "File upload failed, please try again."; }
+                    else { $return = array('status'=>403, 'message'=>"image upload failed, please try again."); }
                 }
-                else { echo "Sorry, only JPG, JPEG and PNG files are allowed."; }
+                else { $return = array('status'=>403, 'message'=>"only JPG, JPEG and PNG files allowed"); }
+                print_r(json_encode($return));
             }
             if (isset($_POST['image']))
             {
@@ -62,8 +63,11 @@ class Profile extends Users
                 if (file_put_contents($path, $image_string) != FALSE)
                 {
                     static::uploadPic($pic);
+                    $return = array('status'=>200, 'message'=>"image uploaded successfully!");
+                    http_response_code(200);      
                 }
-                else { echo "File upload failed, please try again."; }
+                else { $return = array('status'=>403, 'message'=>"image upload failed, please try again."); http_response_code(403); }
+                print_r(json_encode($return));
             }
         }
     }
@@ -72,6 +76,7 @@ class Profile extends Users
     {
         if(static::isLoggedIn())
         {
+            static::create_view("profile");
             //static::displayLoggedInHeader();
             static::parsePic();
             //static::displayFooter();
@@ -81,7 +86,6 @@ class Profile extends Users
             Route::redirect("login");
             exit();
         }
-        static::create_view("profile");
     }
 }
 ?>
