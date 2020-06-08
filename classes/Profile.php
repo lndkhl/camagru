@@ -22,31 +22,6 @@ class Profile extends Users
     {
         if (static::isLoggedIn())
         {
-            if (!empty($_FILES['img']['name']))
-            {
-                $imgName = $_FILES['img']['name'];
-                $fileType = strtolower(pathinfo($imgName, PATHINFO_EXTENSION));
-                $allowTypes = array('jpg','png','jpeg');
-                if(in_array($fileType, $allowTypes))
-                {
-                    $img = static::getUsername(static::isLoggedIn()) . date('-Y-m-d_h:i:s.') . $fileType;
-                    if(!file_exists("uploads"))
-                    {
-                        mkdir("uploads", 0700, TRUE);
-                    }
-                    $targetDir = "uploads/";
-                    $targetFilePath = $targetDir . $img;
-                    
-                    if(move_uploaded_file($_FILES["img"]["tmp_name"], $targetFilePath))
-                    {
-                        static::uploadPic($img);
-                        $return = array('status'=>200, 'message'=>"image uploaded successfully!");      
-                    }
-                    else { $return = array('status'=>403, 'message'=>"image upload failed, please try again."); http_response_code(403); }
-                }
-                else { $return = array('status'=>403, 'message'=>"only JPG, JPEG and PNG files allowed"); http_response_code(403);  }
-                print_r(json_encode($return));
-            }
             if (isset($_POST['image']))
             {
                 $image_string = $_POST['image'];
@@ -124,7 +99,7 @@ class Profile extends Users
                 <canvas id="canvas"></canvas>
                 <div class="media-buttons">
                     <button id="snap">snap</button>
-                    <button id="store">upload</button>
+                    <button id="store">go!</button>
                     <button id="clear">clear</button>
                 </div>
             
@@ -135,6 +110,9 @@ class Profile extends Users
                     <input type=submit name="upload" value="submit" id="upload" class="hidden">
                     </form>
                 </div>
+            </div>
+            <div class="hidden">
+                <canvas id="realcanvas"></canvas>
             </div>';
     }
 
