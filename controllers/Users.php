@@ -225,7 +225,7 @@ class Users extends Controller
                                 if (static::ownPic($source))
                                 {
                                     echo '<button class="deletes" id="' . $source . '"></button>';
-                                    echo '<button class="downloads" id="' . $source . '"></button>';
+                                    echo '<a href=uploads/' . $source . ' download><button class="downloads" id="' . $source . '"></button></a>';
                                 }
                                 echo '<span class="commcount">' . static::getCommentCount($source) . '</span>
                                 <a href="' . $location . '?post=' . $source . '"><button class="comments" id="' .$source . '"></button></a>

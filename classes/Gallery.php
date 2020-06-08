@@ -95,7 +95,7 @@ class Gallery extends Users
             }
         }
     }
-
+    
     private static function parseUserInput()
     {
         if (static::isLoggedIn())
@@ -184,6 +184,7 @@ class Gallery extends Users
 
     public static function main_()
     {
+        if (static::isLoggedIn()) { static::parseUserInput(); }
         if (static::isLoggedIn()){ static::displayLoggedInHeader(); }
         else { static::displayLoggedOutHeader(); }
         if (isset($_GET['post']))
@@ -206,7 +207,6 @@ class Gallery extends Users
             }
         }
         echo '<script src="./js/gallery.js"></script>';
-        if (static::isLoggedIn()) { static::parseUserInput(); }
         static::displayFooter();
     }
 }
