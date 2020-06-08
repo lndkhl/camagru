@@ -125,6 +125,7 @@ class Profile extends Users
                 <div class="media-buttons">
                     <button id="snap">snap</button>
                     <button id="store">upload</button>
+                    <button id="clear">clear</button>
                 </div>
             
                 <div id="alts">

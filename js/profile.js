@@ -22,6 +22,9 @@ fromFile.disabled = true;
 const shoot = document.getElementById("snap");
 shoot.disabled = true;
 
+const clear = document.getElementById("clear");
+clear.disabled = true;
+
 for (var i = 0; i < stickers.length; i++){
 	stickers[i].addEventListener("click", function () {		
 		j = 0;
@@ -32,7 +35,7 @@ for (var i = 0; i < stickers.length; i++){
 		}
 		if (preview[j])
 		{
-			onCanvas(preview[j]);
+			//onCanvas(preview[j]);
 			fromFile.disabled = false;
 			shoot.disabled = false;
 		}});}
@@ -53,6 +56,7 @@ document.getElementById("snap").addEventListener("click", function () {
 	context.drawImage(video, 0, 0, vbox.videoWidth, vbox.videoHeight, (canvas.width*ratio)/2, 0, vbox.videoWidth*ratio, vbox.videoHeight*ratio);
 	camshot = 1;
 	render.disabled = false;
+	clear.disabled = false;
 });
 
 document.getElementById("img").addEventListener("click", function () {
@@ -98,7 +102,7 @@ function onCanvas(image)
 	context.drawImage(image, 0, 0, image.width, image.height, 0, 0, image.width*ratio, image.height*ratio);
 }
 
-fromFile.addEventListener('change', handleFileSelect, false);
+fromFile.addEventListener("change", handleFileSelect, false);
 
 function handleFileSelect(event)
 {
@@ -117,6 +121,14 @@ function handleFileSelect(event)
 	var imageURL = window.URL.createObjectURL(file);
 	loadAndDrawImage(imageURL);
 }
+
+clear.addEventListener("click", function () {
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	render.disabled = true;
+	fromFile.disabled = true;
+	shoot.disabled = true;
+	location.reload();
+})
 
 function loadAndDrawImage(url)
 {
