@@ -1,7 +1,8 @@
 var	video = document.getElementById('video');
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
-var camshot = 0;
+var realcanvas = document.getElementById('realcanvas');
+var choice = 0;
 
 var sticker1 = document.getElementById('img1');
 var sticker2 = document.getElementById('img2');
@@ -25,6 +26,9 @@ shoot.disabled = true;
 const clear = document.getElementById("clear");
 clear.disabled = true;
 
+context.scale(8, 8);
+context.imageSmoothingEnabled = true;
+
 for (var i = 0; i < stickers.length; i++){
 	stickers[i].addEventListener("click", function () {		
 		j = 0;
@@ -35,7 +39,11 @@ for (var i = 0; i < stickers.length; i++){
 		}
 		if (preview[j])
 		{
-			//onCanvas(preview[j]);
+			if (j == 0) { choice = choice | 1; }
+			else if (j == 1) { choice = choice | 2; }
+			else if (j == 2) { choice = choice | 4; }
+			else if (j == 3) { choice = choice | 8; }
+			else if (j == 4) { choice = choice | 16; }
 			fromFile.disabled = false;
 			shoot.disabled = false;
 		}});}
@@ -47,28 +55,31 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 	}).catch(e => console.error(e));
 }
 
-document.getElementById("snap").addEventListener("click", function () {
+shoot.addEventListener("click", function () {
 	var vbox = document.getElementById("video");
 	var hRatio = canvas.width / vbox.videoWidth;
 	var vRatio = canvas.height / vbox.videoHeight;
 	var ratio  = Math.min ( hRatio, vRatio );
+	realcanvas.width = vbox.videoWidth;
+	realcanvas.height = vbox.videoHeight;
+	var ctx = realcanvas.getContext('2d');
 	
-	context.drawImage(video, 0, 0, vbox.videoWidth, vbox.videoHeight, (canvas.width*ratio)/2, 0, vbox.videoWidth*ratio, vbox.videoHeight*ratio);
-	camshot = 1;
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	context.drawImage(video, 0, 0, vbox.videoWidth*8, vbox.videoHeight*8, (canvas.width-vbox.videoWidth*ratio)/16, 0, vbox.videoWidth*ratio, vbox.videoHeight*ratio);
+	ctx.drawImage(video, 0, 0, vbox.videoWidth, vbox.videoHeight, 0, 0, vbox.videoWidth, vbox.videoHeight);
+	putStickers(canvas, context);
+	putStickers(realcanvas, ctx);
 	render.disabled = false;
 	clear.disabled = false;
+	shoot.disabled = true;
+	fromFile.disabled = true;
 });
 
-document.getElementById("img").addEventListener("click", function () {
-	camshot = 0
-	render.disabled = false;
-})
-
-document.getElementById("store").addEventListener("click", function() {		
-	var image = canvas.toDataURL("image/png");
-	let imgForm = new FormData(document.getElementById('uploadForm'));
+render.addEventListener("click", function() {		
+	var image = realcanvas.toDataURL("image/png");
+	let imgForm = new FormData();
 	
-	if (camshot == 1) { imgForm.set("image", image); }
+	imgForm.set("image", image);
 	var xhr = new XMLHttpRequest();
 	xhr.open('POST', 'upload', 'true');
 	xhr.send(imgForm);
@@ -87,10 +98,24 @@ document.getElementById("store").addEventListener("click", function() {
 	}
 })
 
-function prepImage(image)
+fromFile.addEventListener("change", handleFileSelect, false);
+
+function putStickers(canvas, context)
 {
-	context.clearRect(0, 0, canvas.width, canvas.height);
-	onCanvas(image);
+	if (choice & 1) { finalStep(preview[0], canvas, context); }
+	if (choice & 2) { finalStep(preview[1], canvas, context); }
+	if (choice & 4) { finalStep(preview[2], canvas, context); }
+	if (choice & 8) { finalStep(preview[3], canvas, context); }
+	if (choice & 16) { finalStep(preview[4], canvas, context); }
+}
+
+function finalStep(image, canvas, context)
+{
+	var hRatio = canvas.width / image.width;
+	var vRatio = canvas.height / image.height;
+	var ratio  = Math.min ( hRatio, vRatio );
+	
+	context.drawImage(image, 0, 0, image.width, image.height, Math.abs((canvas.width-image.width*ratio))/2, Math.abs((canvas.height-image.height*ratio))/2, image.width*ratio/2, image.height*ratio/2);
 }
 
 function onCanvas(image)
@@ -99,10 +124,18 @@ function onCanvas(image)
 	var vRatio = canvas.height / image.height;
 	var ratio  = Math.min ( hRatio, vRatio );
 	
-	context.drawImage(image, 0, 0, image.width, image.height, 0, 0, image.width*ratio, image.height*ratio);
+	context.drawImage(image, 0, 0, image.width, image.height, (canvas.width-image.width*ratio)/16, 0, image.width*ratio/8, image.height*ratio/8);
 }
 
-fromFile.addEventListener("change", handleFileSelect, false);
+function onReal(image)
+{
+	realcanvas.width = image.width;
+	realcanvas.height = image.height;
+	var ctx = realcanvas.getContext('2d');
+
+	ctx.drawImage(image, 0, 0, image.width, image.height, 0, 0, image.width, image.height);
+	putStickers(realcanvas, ctx);
+}
 
 function handleFileSelect(event)
 {
@@ -120,6 +153,10 @@ function handleFileSelect(event)
 
 	var imageURL = window.URL.createObjectURL(file);
 	loadAndDrawImage(imageURL);
+	render.disabled = false;
+	clear.disabled = false;
+	shoot.disabled = true;
+	fromFile.disabled = true;
 }
 
 clear.addEventListener("click", function () {
@@ -135,7 +172,10 @@ function loadAndDrawImage(url)
     var image = new Image();
 
     image.onload = function() {
-		prepImage(image);
+		context.clearRect(0, 0, canvas.width, canvas.height);
+		onCanvas(image);
+		onReal(image);
     }
     image.src = url;
 }
+
