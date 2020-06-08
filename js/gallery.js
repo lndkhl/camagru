@@ -1,5 +1,4 @@
 var likes = document.getElementsByClassName("likes");
-var downloads = document.getElementsByClassName("downloads");
 var deletes = document.getElementsByClassName("deletes");
 
 for (var i = 0; i < deletes.length; i++) {
@@ -39,26 +38,6 @@ for (var i = 0; i < likes.length; i++) {
                     location.reload();
                     }
                 }
-            }
-		}
-    });
-}
-
-for (var i = 0; i < downloads.length; i++) {
-	downloads[i].addEventListener("click", function () {		
-		for (var j = 0; j < downloads.length; j++) {
-			if (downloads[j] == this) {
-                console.log(this.id);
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'gallery', 'true');
-                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-                    xhr.send("delete=" + this.id);
-                    xhr.onreadystatechange = function (res) {
-                        if (xhr.status === 200 && xhr.readyState === xhr.DONE) {
-                        console.log('Response:', res);
-                        location.reload();
-                        }
-			    }
             }
 		}
     });
