@@ -223,6 +223,11 @@
     padding-left: 2%;
     margin-top: 0px;
 }
+.gallerygrid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
 header, section, footer, aside, nav {
     display: block;
 }

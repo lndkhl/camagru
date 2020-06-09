@@ -256,17 +256,19 @@ class Users extends Controller
 
     public static function displayPage($actual, $caller)
     {
-        $ppp = 7;
+        $ppp = 8;
         
         if (isset($_GET['page'])) { $page_index = $_GET['page']; }
         else { $page_index = 0; }
         if (is_numeric($page_index) && $page_index >= 0 &&( $page_index * $ppp <= count($actual) ))
         {
+            echo '<section class="gallerygrid">';
             for ($j = ($page_index * $ppp), $j >= 0; $j  < count($actual) && $j < (($page_index + 1)  * $ppp); $j++)
             {
                 //echo "page index = " . $page_index . "br";
                 static::displayPic($actual[$j]);
             }
+            echo '</section>';
             if ($page_index) { static::displayPrev($page_index, $caller); }
             if ((($page_index + 1) * $ppp) < count($actual)) { static::displayNext($page_index, $caller); }
         }

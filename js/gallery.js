@@ -13,7 +13,6 @@ for (var i = 0; i < deletes.length; i++) {
                     xhr.send("delete=" + this.id);
                     xhr.onreadystatechange = function (res) {
                         if (xhr.status === 200 && xhr.readyState === xhr.DONE) {
-                        console.log('Response:', res);
                         location.reload();
                         }
                     }
@@ -34,7 +33,6 @@ for (var i = 0; i < likes.length; i++) {
                 xhr.send("like=" + this.id);
                 xhr.onreadystatechange = function (res) {
                     if (xhr.status === 200 && xhr.readyState === xhr.DONE) {
-                    console.log('Response:', res);
                     location.reload();
                     }
                 }
